@@ -39,7 +39,7 @@
 		</tr>
 	</table>
 	<% pageContext.setAttribute("newLineChar", "\r\n"); %>
-	<div class="container-fluid" style="height:500px; overflow: scroll">
+	<div class="container-fluid pt-4" style="min-height:300px; max-height:500px; overflow: scroll">
 		${fn:replace(boardVO.content, newLineChar, "<br/>")}		
 	</div>
 	<div class="btn-group d-flex justify-content-end" role="group" aria-label="boardbtn">
