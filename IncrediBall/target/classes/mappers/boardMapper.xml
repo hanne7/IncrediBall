@@ -11,6 +11,20 @@
  	VALUES(#{title}, #{content}, #{useridx})
  </insert>
  
+ <select id="read" resultType="BoardVO">
+ 	SELECT 
+ 		a.bno,
+ 		a.title,
+ 		a.content,
+ 		a.regdate,
+ 		a.moddate,
+ 		b.nickname,
+ 		b.userid
+ 	FROM board a
+ 	JOIN user b ON a.useridx = b.idx
+ 	WHERE a.bno = #{bno} 	
+ </select>
+ 
  <select id="list" resultType="BoardVO">
  	SELECT 
  		a.bno,
@@ -23,5 +37,18 @@
  	JOIN user b ON a.useridx = b.idx
  	ORDER BY a.bno DESC
  </select>
+ 
+ <update id="modify">
+ 	UPDATE board
+ 	SET
+ 		title = #{title},
+ 		content = #{content}
+ 	WHERE
+ 		bno = #{bno}
+ </update>
+ 
+ <delete id="delete">
+ 	DELETE FROM board WHERE bno = #{bno}
+ </delete>
  
 </mapper>

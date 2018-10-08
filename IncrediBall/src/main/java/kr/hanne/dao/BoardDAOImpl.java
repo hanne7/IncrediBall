@@ -23,9 +23,22 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public List<BoardVO> list() throws Exception {
-		
+	public List<BoardVO> list() throws Exception {	
 		return session.selectList(namespace + ".list");
 	}
 
+	@Override
+	public BoardVO read(int bno) throws Exception {
+		return session.selectOne(namespace+".read", bno);
+	}
+
+	@Override
+	public void modify(BoardVO vo) throws Exception {
+		session.update(namespace+".modify", vo);
+	}
+
+	@Override
+	public void delete(int bno) throws Exception {
+		session.delete(namespace+".delete",	bno);
+	}
 }

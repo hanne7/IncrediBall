@@ -42,10 +42,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		if(userVO != null) {
 			logger.info("new login success");
 			session.setAttribute(LOGIN, userVO);
-		}
-		
+			
+			Object dest = session.getAttribute("dest");
+			res.sendRedirect(dest != null ? (String)dest:"/");
+		} else {
+			int count = 0;
+			session.setAttribute("count", count);
+			res.sendRedirect("/user/loginPage");
+		}		
 //		res.sendRedirect("/");
-		Object dest = session.getAttribute("dest");
-		res.sendRedirect(dest != null ? (String)dest:"/");
 	}
 }

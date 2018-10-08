@@ -38,6 +38,9 @@
         <button type="submit" class="btn btn-primary">Login</button>
       </div>
       </form>
+    <c:if test="${count == 0}">
+		<script type="text/javascript">alert('존재하지 않는 id거나 잘못된 password 입니다.') </script>
+	</c:if>
     </div>
 </div>
 <%@include file="../include/footer.jsp" %>

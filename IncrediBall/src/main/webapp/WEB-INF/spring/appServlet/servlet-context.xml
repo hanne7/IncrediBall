@@ -40,6 +40,9 @@
     	</interceptor>
     	<interceptor>
     		<mapping path="/user/myPage"/>
+    		<mapping path="/user/modifyPage"/>
+    		<mapping path="/board/create"/>
+    		<mapping path="/board/modify"/>
     		<beans:ref bean="authInterceptor"/>
     	</interceptor>
     </interceptors>

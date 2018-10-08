@@ -31,13 +31,16 @@
 	  	<c:forEach items="${list }" var="boardVO">
 	    	<tr>
 	      		<th scope="row" class="text-center">${boardVO.bno }</th>
-	      		<td class="w-50 text-center">${boardVO.title }</td>
+	      		<td class="w-50 text-center"><a href="/board/readPage?bno=${boardVO.bno}">${boardVO.title }</a></td>
 	      		<td class="text-center">${boardVO.nickname }</td>
 	      		<td class="text-center">${boardVO.regdate }</td>
 	    	</tr>
 	    </c:forEach>
 	  </tbody>
 	</table>
+	<div class="btn-group d-flex justify-content-end" role="group" aria-label="boardbtn">  
+	  <button type="button" class="btn btn-secondary" onclick="location.href='/board/create'">글쓰기</button>
+	</div>
 </div>
 <%@include file="../include/footer.jsp" %>
 

@@ -27,7 +27,8 @@ public class UserController {
 	private UserService service;
 	
 	@RequestMapping(value="/loginPage", method=RequestMethod.GET)
-	public void loginPage() throws Exception{
+	public void loginPage(Model model) throws Exception{
+		
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)

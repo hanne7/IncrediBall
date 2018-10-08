@@ -18,25 +18,24 @@
 <body class="bg-light">
 <%@include file="../include/header.jsp" %>
 <div class="container">
-	<p><h4>글쓰기</h4></p>
+	<p><h4>글수정</h4></p>
 	<form method="post">
 		<div class="form-group">
 			<label for="nickname">필명</label> 
 			<input type="text" class="form-control form-control-sm" name="nickname"
-				value="${userVO.nickname }" readonly="readonly">
+				value="${boardVO.nickname }" readonly="readonly">
 		</div>
 		<div class="form-group">
 			<label for="title">제목</label> 
 			<input type="text" class="form-control form-control-sm" name="title"
-				placeholder="글 제목을 입력하세요">
+				value="${boardVO.title }">
 		</div>
 		<div class="form-group">
 			<label for="content">내용</label> 
-			<textarea class="form-control" name="content" rows=14
-				placeholder="내용을 입력하세요."></textarea>
+			<textarea class="form-control" name="content" rows=14>${boardVO.content }</textarea>
 		</div>
-		<input type="hidden" name="useridx" value="${userVO.idx }">
-		<button type="submit" class="btn btn-primary">글쓰기</button>
+		<input type="hidden" name="bno" value="${boardVO.bno }">
+		<button type="submit" class="btn btn-primary">수정하기</button>
 	</form>
 </div>
 <%@include file="../include/footer.jsp" %>
