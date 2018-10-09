@@ -107,6 +107,11 @@
 </div>
 </div>
 <%@include file="include/footer.jsp" %>
-
+<script type="text/javascript">
+	var result = '${msg}';
+	if(result == 'SUCCESS'){
+		alert("처리가 완료되었습니다.");
+	}
+</script>
 </body>
 </html>

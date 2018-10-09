@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -33,7 +34,7 @@
 	      		<th scope="row" class="text-center">${boardVO.bno }</th>
 	      		<td class="w-50 text-center"><a href="/board/readPage?bno=${boardVO.bno}">${boardVO.title }</a></td>
 	      		<td class="text-center">${boardVO.nickname }</td>
-	      		<td class="text-center">${boardVO.regdate }</td>
+	      		<td class="text-center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${boardVO.regdate }"/></td>
 	    	</tr>
 	    </c:forEach>
 	  </tbody>
@@ -43,6 +44,11 @@
 	</div>
 </div>
 <%@include file="../include/footer.jsp" %>
-
+<script type="text/javascript">
+	var result = '${msg}';
+	if(result == 'SUCCESS'){
+		alert("처리가 완료되었습니다.");
+	}
+</script>
 </body>
 </html>

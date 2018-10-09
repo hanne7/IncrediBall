@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.hanne.domain.UserVO;
 import kr.hanne.dto.LoginDTO;
@@ -28,7 +29,7 @@ public class UserController {
 	
 	@RequestMapping(value="/loginPage", method=RequestMethod.GET)
 	public void loginPage(Model model) throws Exception{
-		
+		logger.info("loginPage called.....");		
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
@@ -72,15 +73,17 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(@ModelAttribute UserVO vo) throws Exception {
-	
+	public String join(@ModelAttribute UserVO vo, RedirectAttributes rtts) throws Exception {
+		logger.info("join success!.....");
 		service.insertUser(vo);
+		rtts.addFlashAttribute("msg", "SUCCESS");
 		
 		return "redirect:/";
 	}
 	
 	@RequestMapping("/myPage")
 	public void myPage(Model model, HttpSession session) throws Exception{
+		logger.info("myPage called.....");
 		UserVO vo = (UserVO) session.getAttribute("login");
 		
 		model.addAttribute("userVO", vo);
@@ -88,14 +91,15 @@ public class UserController {
 	
 	@RequestMapping("/modifyPage")
 	public void modify(Model model, HttpSession session) throws Exception{
+		logger.info("user modifyPage called.....");
 		UserVO vo = (UserVO) session.getAttribute("login");
 		
 		model.addAttribute("userVO", vo);
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modify(@ModelAttribute UserVO vo, Model model, HttpSession session) throws Exception{	
-		
+	public String modify(@ModelAttribute UserVO vo, Model model, HttpSession session, RedirectAttributes rtts) throws Exception{	
+		logger.info("user modify success!.....");
 		service.updateUser(vo);
 				
 		LoginDTO dto = new LoginDTO();
@@ -108,6 +112,7 @@ public class UserController {
 		logger.info("vo : " + vo.toString());
 		
 		session.setAttribute("login", vo);
+		rtts.addFlashAttribute("msg", "SUCCESS");		
 		
 		return "redirect:/user/myPage";
 	}

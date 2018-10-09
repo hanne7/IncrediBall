@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -19,7 +20,10 @@
 <body class="bg-light">
 <%@include file="../include/header.jsp" %>
 <div class="container">
-	<table class="table table-sm mt-5 mb-0 text-center">
+	<form role="form" method="post">
+		<input type="hidden" name="bno" value="${boardVO.bno }">
+	</form>
+	<table class="table table-sm mt-5 mb-0 text-center border">
 		<tr>
 			<td class="bg-dark text-white w-25">제목</td>
 			<td colspan="3"><b>${boardVO.title }</b></td>
@@ -30,16 +34,16 @@
 		</tr>
 		<tr>
 			<td class="bg-dark text-white w-25">작성시간</td>
-			<td>${boardVO.regdate }</td>
+			<td><fmt:formatDate value="${boardVO.regdate }" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
 			<td class="bg-dark text-white w-25">마지막수정시간</td>
-			<td>${boardVO.moddate }</td>
+			<td><fmt:formatDate value="${boardVO.moddate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 		</tr>
 		<tr>
 			<td class="bg-dark text-white w-25" colspan="4">글 내용</td>
 		</tr>
 	</table>
 	<% pageContext.setAttribute("newLineChar", "\r\n"); %>
-	<div class="container-fluid pt-4" style="min-height:300px; max-height:500px; overflow: scroll">
+	<div class="container-fluid pt-4 border" style="min-height:300px; max-height:500px; overflow: scroll">
 		${fn:replace(boardVO.content, newLineChar, "<br/>")}		
 	</div>
 	<div class="btn-group d-flex justify-content-end" role="group" aria-label="boardbtn">
@@ -47,11 +51,30 @@
 	  <button type="button" class="btn btn-secondary" onclick="location.href='/board/create'">글쓰기</button>
 	  <c:if test="${boardVO.userid == login.userid }">
 		<button type="button" class="btn btn-secondary" onclick="location.href='/board/modify?bno=${boardVO.bno}'">글수정</button>
-	  	<button type="button" class="btn btn-secondary" onclick="location.href='/board/delete?bno=${boardVO.bno}'">글삭제</button>
+	  	<button id="delete-post" type="button" class="btn btn-secondary">글삭제</button>
 	  </c:if>
 	</div>
 </div>
 <%@include file="../include/footer.jsp" %>
-
+<script type="text/javascript">
+	var result = '${msg}';
+	if(result == 'SUCCESS'){
+		alert("처리가 완료되었습니다.");
+	}
+	
+	$(document).ready(function(){
+		
+		var formObj = $("form[role='form']");
+		console.log(formObj);
+		
+		$("#delete-post").on("click", function(){
+			var del = confirm('삭제하시겠습니까?');
+			if(del == true){
+				formObj.attr("action", "/board/delete");
+				formObj.submit();
+			}
+		});
+	});
+</script>
 </body>
 </html>

@@ -18,7 +18,7 @@
 <%@include file="../include/header.jsp" %>
 <div class="container">
 	<p><h4>회원가입</h4></p>
-	<form method="post">
+	<form method="post" onsubmit="return confirm('가입하시겠습니까?')">
 		<div class="form-group">
 			<label for="userid">ID</label> 
 			<input type="text" class="form-control form-control-sm" name="userid"

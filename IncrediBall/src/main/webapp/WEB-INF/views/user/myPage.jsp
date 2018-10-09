@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -60,7 +62,7 @@
 			</tr>
 			<tr>
 				<td class="bg-dark text-white w-25">회원가입일</td>
-				<td>${userVO.regdate }</td>
+				<td><fmt:formatDate value="${userVO.regdate }" pattern="yyyy년  MM월  dd일"/> </td>
 			</tr>
 			<tr>
 				<td class="bg-dark text-white w-25">포인트</td>
@@ -74,6 +76,12 @@
 	</div>
 </div>
 <%@include file="../include/footer.jsp" %>
+<script type="text/javascript">
+	var result = '${msg}';
+	if(result == 'SUCCESS'){
+		alert("처리가 완료되었습니다.");
+	}
+</script>
 
 </body>
 </html>

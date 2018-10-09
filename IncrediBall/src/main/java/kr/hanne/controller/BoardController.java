@@ -30,7 +30,7 @@ public class BoardController {
 	
 	@RequestMapping("/")
 	public String list(Model model) throws Exception{
-		logger.info("boardList called............");
+		logger.info("board list called............");
 		
 		model.addAttribute("list", service.list());
 		
@@ -39,27 +39,29 @@ public class BoardController {
 	
 	@RequestMapping("/create")
 	public void create(Model model, HttpSession session) throws Exception{
-		logger.info("boardCreate called............");
+		logger.info("board create called............");
 		
 		model.addAttribute("userVO", session.getAttribute("login"));
 	}
 	
 	@RequestMapping(value="/create", method = RequestMethod.POST)
-	public String create(@ModelAttribute BoardVO vo) throws Exception{
-		
+	public String create(@ModelAttribute BoardVO vo, RedirectAttributes rtts) throws Exception{
+		logger.info("board create success!.....");
 		service.create(vo);
+		rtts.addFlashAttribute("msg", "SUCCESS");
 		
 		return "redirect:/board/";
 	}
 	
 	@RequestMapping("/readPage")
-	public void readPage(@RequestParam int bno, Model model) throws Exception{
-		
+	public void readPage(@RequestParam("bno") int bno, Model model) throws Exception{
+		logger.info("board readPage called.....");
 		model.addAttribute("boardVO", service.read(bno));
 	}
 	
 	@RequestMapping("/modify")
 	public void modify(@RequestParam int bno, Model model) throws Exception{
+		logger.info("board modify called.....");
 		System.out.println(service.read(bno).toString());
 		
 		model.addAttribute("boardVO", service.read(bno));
@@ -67,15 +69,19 @@ public class BoardController {
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public String modify(@ModelAttribute BoardVO vo, RedirectAttributes rtts) throws Exception{
+		logger.info("board modify success!.....");
 		service.modify(vo);
 		
+		rtts.addFlashAttribute("msg", "SUCCESS");
 		rtts.addAttribute("bno", vo.getBno());
 		return "redirect:/board/readPage";
 	}
 	
-	@RequestMapping(value="/delete", method=RequestMethod.GET)
-	public String delete(@RequestParam int bno) throws Exception{
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	public String delete(@RequestParam int bno, RedirectAttributes rtts) throws Exception{
+		logger.info("board delete success!.....");
 		service.delete(bno);
+		rtts.addFlashAttribute("msg", "SUCCESS");
 		
 		return "redirect:/board/";
 	}

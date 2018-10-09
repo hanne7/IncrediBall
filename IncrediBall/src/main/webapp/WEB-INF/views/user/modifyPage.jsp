@@ -35,7 +35,7 @@
 	  </li>
 	</ul>
 	<div>
-		<form method="post" action="/user/modify">
+		<form method="post" action="/user/modify" onsubmit="return confirm('수정하시겠습니까?')">
 			<div class="form-group">
 				<label for="userid">ID</label> 
 				<input type="text" class="form-control form-control-sm" name="userid"

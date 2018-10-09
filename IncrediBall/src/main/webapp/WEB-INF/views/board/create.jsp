@@ -19,7 +19,7 @@
 <%@include file="../include/header.jsp" %>
 <div class="container">
 	<p><h4>글쓰기</h4></p>
-	<form method="post">
+	<form method="post" onsubmit="return confirm('작성하시겠습니까?')">
 		<div class="form-group">
 			<label for="nickname">필명</label> 
 			<input type="text" class="form-control form-control-sm" name="nickname"
