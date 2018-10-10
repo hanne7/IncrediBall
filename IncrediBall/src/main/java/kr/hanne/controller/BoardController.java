@@ -18,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import kr.hanne.domain.BoardVO;
 import kr.hanne.domain.Criteria;
 import kr.hanne.domain.PageMaker;
-import kr.hanne.domain.UserVO;
 import kr.hanne.service.BoardService;
 
 @Controller

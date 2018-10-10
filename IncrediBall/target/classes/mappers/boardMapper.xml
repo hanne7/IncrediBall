@@ -26,6 +26,24 @@
  	WHERE a.bno = #{bno} 	
  </select>
  
+ <select id="listCategory" resultType="BoardVO">
+ 	<![CDATA[
+ 	SELECT 
+ 		a.bno,
+ 		a.title,
+ 		a.category,
+ 		a.regdate,
+ 		a.moddate,
+ 		b.nickname,
+ 		b.userid
+ 	FROM board a
+ 	JOIN user b ON a.useridx = b.idx
+ 	WHERE a.bno > 0 AND a.category = #{category}
+ 	ORDER BY a.bno DESC
+ 	LIMIT #{pageStart}, #{perPageNum}
+ 	]]>
+ </select>
+ 
  <select id="list" resultType="BoardVO">
  	<![CDATA[
  	SELECT 

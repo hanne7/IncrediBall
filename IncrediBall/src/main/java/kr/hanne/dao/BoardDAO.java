@@ -19,4 +19,6 @@ public interface BoardDAO {
 	public void delete(int bno) throws Exception;
 	
 	public int countPaging(Criteria cri) throws Exception;
+	
+	public List<BoardVO> listCategory(Criteria cri) throws Exception;
 }
