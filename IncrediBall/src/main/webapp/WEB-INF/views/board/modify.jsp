@@ -35,6 +35,8 @@
 			<textarea class="form-control" name="content" rows=14>${boardVO.content }</textarea>
 		</div>
 		<input type="hidden" name="bno" value="${boardVO.bno }">
+		<input type="hidden" name="page" value="${cri.page }">
+		<input type="hidden" name="perPageNum" value="${cri.perPageNum }">
 		<button type="submit" class="btn btn-primary">수정하기</button>
 	</form>
 </div>

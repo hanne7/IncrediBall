@@ -21,10 +21,10 @@
 		<li class="nav-item ml-5"><a href="#">장바구니</a></li>		
 	</ul>
 </div>
-<nav class="nav nav-pills nav-fill bg-dark mt-2">
+<nav class="nav nav-pills nav-fill dropdown bg-dark mt-2">
 	<a class="nav-item nav-link border text-white" href="/">HOME</a>
 	<a class="nav-item nav-link border text-white" href="#">NEWS</a>
-	<a class="nav-item nav-link border text-white" href="/board/">BOARD</a>
+	<a class="nav-item nav-link border text-white" href="/board/list">BOARD</a>
 	<a class="nav-item nav-link border text-white" href="#">SHOP</a>
 </nav>
 

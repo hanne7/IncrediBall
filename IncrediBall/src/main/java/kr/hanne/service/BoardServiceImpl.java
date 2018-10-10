@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.hanne.dao.BoardDAO;
 import kr.hanne.domain.BoardVO;
+import kr.hanne.domain.Criteria;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -21,8 +22,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> list() throws Exception {
-		return boardDAO.list();
+	public List<BoardVO> list(Criteria cri) throws Exception {
+		return boardDAO.list(cri);
 	}
 
 	@Override
@@ -38,5 +39,10 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void delete(int bno) throws Exception {
 		boardDAO.delete(bno);
+	}
+
+	@Override
+	public int countPaging(Criteria cri) throws Exception {
+		return boardDAO.countPaging(cri);
 	}
 }

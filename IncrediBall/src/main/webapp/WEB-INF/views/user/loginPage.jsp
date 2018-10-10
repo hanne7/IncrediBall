@@ -35,6 +35,7 @@
 					placeholder="Password를 입력하세요">
       </div>
       <div class="modal-footer">
+      	<button type="button" class="btn btn-success" onclick="location.href='/user/join'">Join Us</button>
         <button type="submit" class="btn btn-primary">Login</button>
       </div>
       </form>

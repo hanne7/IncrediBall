@@ -73,10 +73,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(@ModelAttribute UserVO vo, RedirectAttributes rtts) throws Exception {
+	public String join(@ModelAttribute UserVO vo, RedirectAttributes rttr) throws Exception {
 		logger.info("join success!.....");
 		service.insertUser(vo);
-		rtts.addFlashAttribute("msg", "SUCCESS");
+		rttr.addFlashAttribute("msg", "SUCCESS");
 		
 		return "redirect:/";
 	}
@@ -98,7 +98,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modify(@ModelAttribute UserVO vo, Model model, HttpSession session, RedirectAttributes rtts) throws Exception{	
+	public String modify(@ModelAttribute UserVO vo, Model model, HttpSession session, RedirectAttributes rttr) throws Exception{	
 		logger.info("user modify success!.....");
 		service.updateUser(vo);
 				
@@ -112,7 +112,7 @@ public class UserController {
 		logger.info("vo : " + vo.toString());
 		
 		session.setAttribute("login", vo);
-		rtts.addFlashAttribute("msg", "SUCCESS");		
+		rttr.addFlashAttribute("msg", "SUCCESS");		
 		
 		return "redirect:/user/myPage";
 	}

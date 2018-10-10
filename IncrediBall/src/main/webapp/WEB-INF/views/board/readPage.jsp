@@ -22,6 +22,8 @@
 <div class="container">
 	<form role="form" method="post">
 		<input type="hidden" name="bno" value="${boardVO.bno }">
+		<input type="hidden" name="page" value="${cri.page }">
+		<input type="hidden" name="perPageNum" value="${cri.perPageNum }">
 	</form>
 	<table class="table table-sm mt-5 mb-0 text-center border">
 		<tr>
@@ -47,10 +49,10 @@
 		${fn:replace(boardVO.content, newLineChar, "<br/>")}		
 	</div>
 	<div class="btn-group d-flex justify-content-end" role="group" aria-label="boardbtn">
-	  <button type="button" class="btn btn-secondary" onclick="location.href='/board/'">목록</button>
+	  <button id="go-list" type="button" class="btn btn-secondary">목록</button>
 	  <button type="button" class="btn btn-secondary" onclick="location.href='/board/create'">글쓰기</button>
 	  <c:if test="${boardVO.userid == login.userid }">
-		<button type="button" class="btn btn-secondary" onclick="location.href='/board/modify?bno=${boardVO.bno}'">글수정</button>
+		<button id="modify-post" type="button" class="btn btn-secondary">글수정</button>
 	  	<button id="delete-post" type="button" class="btn btn-secondary">글삭제</button>
 	  </c:if>
 	</div>
@@ -73,6 +75,18 @@
 				formObj.attr("action", "/board/delete");
 				formObj.submit();
 			}
+		});
+		
+		$("#go-list").on("click", function(){
+			formObj.attr("method", "get");
+			formObj.attr("action", "/board/list");
+			formObj.submit();
+		});
+		
+		$("#modify-post").on("click", function() {
+			formObj.attr("method", "get");
+			formObj.attr("action", "/board/modify")
+			formObj.submit();
 		});
 	});
 </script>

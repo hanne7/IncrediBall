@@ -1,5 +1,7 @@
 package kr.hanne.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -12,6 +14,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import kr.hanne.dao.BoardDAO;
 import kr.hanne.domain.BoardVO;
+import kr.hanne.domain.Criteria;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -31,6 +34,19 @@ public class BoardDAOTest {
 //		vo.setContent("새글 입니다");
 //		vo.setUseridx(1);
 //		dao.create(vo);
+	}
+	
+	@Test
+	public void testListCri() throws Exception{
+		Criteria cri = new Criteria();
+		cri.setPage(2);
+		cri.setPerPageNum(20);
+		
+		List<BoardVO> list = dao.list(cri);
+		
+		for (BoardVO vo : list) {
+			logger.info(vo.getBno() + ":" + vo.getTitle());
+		}
 	}
 
 }

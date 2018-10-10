@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import kr.hanne.domain.BoardVO;
+import kr.hanne.domain.Criteria;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -23,8 +24,8 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public List<BoardVO> list() throws Exception {	
-		return session.selectList(namespace + ".list");
+	public List<BoardVO> list(Criteria cri) throws Exception {	
+		return session.selectList(namespace + ".list", cri);
 	}
 
 	@Override
@@ -40,5 +41,10 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void delete(int bno) throws Exception {
 		session.delete(namespace+".delete",	bno);
+	}
+
+	@Override
+	public int countPaging(Criteria cri) throws Exception {
+		return session.selectOne(namespace+".countPaging", cri);
 	}
 }
