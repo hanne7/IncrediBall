@@ -10,7 +10,7 @@ public class BoardVO {
 	private int useridx;
 	private int viewcnt;
 	private int replycnt;
-	private int categoryidx;
+	private int category;
 	private Date regdate;
 	private Date moddate;
 	private String userid;
@@ -64,11 +64,11 @@ public class BoardVO {
 	public void setReplycnt(int replycnt) {
 		this.replycnt = replycnt;
 	}
-	public int getCategoryidx() {
-		return categoryidx;
+	public int getCategory() {
+		return category;
 	}
-	public void setCategoryidx(int categoryidx) {
-		this.categoryidx = categoryidx;
+	public void setCategory(int category) {
+		this.category = category;
 	}
 	public Date getRegdate() {
 		return regdate;
@@ -85,7 +85,7 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", useridx=" + useridx
-				+ ", viewcnt=" + viewcnt + ", replycnt=" + replycnt + ", categoryidx=" + categoryidx + ", regdate="
+				+ ", viewcnt=" + viewcnt + ", replycnt=" + replycnt + ", category=" + category + ", regdate="
 				+ regdate + ", moddate=" + moddate + ", userid=" + userid + ", nickname=" + nickname + "]";
 	}	
 }

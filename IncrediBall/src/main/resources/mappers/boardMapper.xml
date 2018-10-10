@@ -7,8 +7,8 @@
 <mapper namespace="kr.hanne.mapper.boardMapper">
  
  <insert id="create">
- 	INSERT INTO board(title, content, useridx)
- 	VALUES(#{title}, #{content}, #{useridx})
+ 	INSERT INTO board(title, content, useridx, category)
+ 	VALUES(#{title}, #{content}, #{useridx}, #{category})
  </insert>
  
  <select id="read" resultType="BoardVO">
@@ -16,6 +16,7 @@
  		a.bno,
  		a.title,
  		a.content,
+ 		a.category,
  		a.regdate,
  		a.moddate,
  		b.nickname,
@@ -30,6 +31,7 @@
  	SELECT 
  		a.bno,
  		a.title,
+ 		a.category,
  		a.regdate,
  		a.moddate,
  		b.nickname,
@@ -52,7 +54,8 @@
  	UPDATE board
  	SET
  		title = #{title},
- 		content = #{content}
+ 		content = #{content},
+ 		category = #{category}
  	WHERE
  		bno = #{bno}
  </update>

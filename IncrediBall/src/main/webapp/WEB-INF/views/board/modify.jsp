@@ -25,6 +25,47 @@
 			<input type="text" class="form-control form-control-sm" name="nickname"
 				value="${boardVO.nickname }" readonly="readonly">
 		</div>
+		
+		<div class="form-group w-25">	 
+			<select class="form-control form-control-sm" name="category">
+				<c:if test="${boardVO.category == 0}">
+					<option value="0" selected>공지사항</option>
+					<option value="1">축구게시판</option>
+					<option value="2">자유게시판</option>
+					<option value="3">프로토분석</option>
+					<option value="4">QnA</option>
+				</c:if>
+				<c:if test="${boardVO.category == 1}">
+					<option value="0">공지사항</option>
+					<option value="1" selected>축구게시판</option>
+					<option value="2">자유게시판</option>
+					<option value="3">프로토분석</option>
+					<option value="4">QnA</option>
+				</c:if>
+				<c:if test="${boardVO.category == 2}">
+					<option value="0">공지사항</option>
+					<option value="1">축구게시판</option>
+					<option value="2" selected>자유게시판</option>
+					<option value="3">프로토분석</option>
+					<option value="4">QnA</option>
+				</c:if>
+				<c:if test="${boardVO.category == 3}">
+					<option value="0">공지사항</option>
+					<option value="1">축구게시판</option>
+					<option value="2">자유게시판</option>
+					<option value="3" selected>프로토분석</option>
+					<option value="4">QnA</option>
+				</c:if>
+				<c:if test="${boardVO.category == 4}">
+					<option value="0">공지사항</option>
+					<option value="1">축구게시판</option>
+					<option value="2">자유게시판</option>
+					<option value="3">프로토분석</option>
+					<option value="4" selected>QnA</option>
+				</c:if>
+			</select>
+		</div>
+		
 		<div class="form-group">
 			<label for="title">제목</label> 
 			<input type="text" class="form-control form-control-sm" name="title"

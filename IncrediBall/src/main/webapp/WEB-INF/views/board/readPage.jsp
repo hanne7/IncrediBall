@@ -25,7 +25,14 @@
 		<input type="hidden" name="page" value="${cri.page }">
 		<input type="hidden" name="perPageNum" value="${cri.perPageNum }">
 	</form>
-	<table class="table table-sm mt-5 mb-0 text-center border">
+	<table class="table table-sm mt-2 mb-0 text-center border">
+		<div> 
+			<c:if test="${boardVO.category==0 }">공지사항</c:if>
+			<c:if test="${boardVO.category==1 }">축구게시판</c:if>
+			<c:if test="${boardVO.category==2 }">자유게시판</c:if>
+			<c:if test="${boardVO.category==3 }">프로토분석</c:if>
+			<c:if test="${boardVO.category==4 }">QnA</c:if>
+		</div>
 		<tr>
 			<td class="bg-dark text-white w-25">제목</td>
 			<td colspan="3"><b>${boardVO.title }</b></td>
