@@ -1,8 +1,6 @@
 package kr.hanne.controller;
 
 import javax.inject.Inject;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -34,25 +32,61 @@ public class BoardController {
 		logger.info("board list called............");
 		logger.info(cri.toString());
 		
-		model.addAttribute("list", service.list(cri));
-		PageMaker pm = new PageMaker();
-		pm.setCri(cri);
-		pm.setTotalCount(service.countPaging(cri));
-		
-		model.addAttribute("pm", pm);
+		if(cri.getSearchType()==null && cri.getKeyword()==null) {
+			if(cri.getCate() == 0) {
+				model.addAttribute("list", service.list(cri));
+				
+				PageMaker pm = new PageMaker();
+				pm.setCri(cri);
+				pm.setTotalCount(service.countPaging(cri));
+				
+				model.addAttribute("pm", pm);
+			} else {
+				model.addAttribute("list", service.listCategory(cri));
+				
+				PageMaker pm = new PageMaker();
+				pm.setCri(cri);
+				pm.setTotalCount(service.countCategoryPaging(cri));
+				
+				model.addAttribute("pm", pm);
+			}
+		} else {
+			if(cri.getCate() == 0) {
+				model.addAttribute("list", service.listSearch(cri));
+				
+				PageMaker pm = new PageMaker();
+				pm.setCri(cri);
+				pm.setTotalCount(service.searchCountPaging(cri));
+				
+				model.addAttribute("pm", pm);
+			} else {
+				model.addAttribute("list", service.categorySearch(cri));
+				
+				PageMaker pm = new PageMaker();
+				pm.setCri(cri);
+				pm.setTotalCount(service.categorySearchCount(cri));
+				
+				model.addAttribute("pm", pm);
+			}
+		}
+				
 	}
 	
 	@RequestMapping("/create")
-	public void create(Model model, HttpSession session) throws Exception{
+	public void create(Model model, @RequestParam int cate, HttpSession session) throws Exception{
 		logger.info("board create called............");
 		
 		model.addAttribute("userVO", session.getAttribute("login"));
+		model.addAttribute("cate", cate);
+		
 	}
 	
 	@RequestMapping(value="/create", method = RequestMethod.POST)
 	public String create(@ModelAttribute BoardVO vo, RedirectAttributes rttr) throws Exception{
 		logger.info("board create success!.....");
 		service.create(vo);
+		
+		rttr.addAttribute("cate", vo.getCategory());
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
 		return "redirect:/board/list";
@@ -61,26 +95,32 @@ public class BoardController {
 	@RequestMapping("/readPage")
 	public void readPage(@RequestParam("bno") int bno, @ModelAttribute("cri") Criteria cri, Model model) throws Exception{
 		logger.info("board readPage called.....");
+		logger.info(cri.toString());
 		model.addAttribute("boardVO", service.read(bno));
 	}
 	
 	@RequestMapping("/modify")
-	public void modify(@RequestParam int bno, @ModelAttribute Criteria cri, Model model) throws Exception{
+	public void modify(@RequestParam("bno") int bno, @ModelAttribute("cri") Criteria cri, Model model) throws Exception{
 		logger.info("board modify called.....");
-		System.out.println(service.read(bno).toString());
-		
+		logger.info(cri.toString());
 		model.addAttribute("boardVO", service.read(bno));
 	}
 	
-	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modify(@ModelAttribute BoardVO vo, Criteria cri, RedirectAttributes rttr) throws Exception{
+	@RequestMapping(value="/modifyPost", method=RequestMethod.POST)
+	public String modify(@ModelAttribute BoardVO vo, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) throws Exception{
+		logger.info(vo.toString());
+		logger.info(cri.toString());
 		logger.info("board modify success!.....");
 		service.modify(vo);
 		
 		rttr.addAttribute("bno", vo.getBno());
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+		
 		rttr.addFlashAttribute("msg", "SUCCESS");
+		logger.info(rttr.toString());
 		
 		return "redirect:/board/readPage";
 	}
@@ -92,6 +132,9 @@ public class BoardController {
 		
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("cate", cri.getCate());
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
 		return "redirect:/board/list";

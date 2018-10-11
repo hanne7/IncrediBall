@@ -1,5 +1,7 @@
 package kr.hanne.domain;
 
+import java.net.URLEncoder;
+
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -100,8 +102,34 @@ public class PageMaker {
 		UriComponents uriComponents = 
 				UriComponentsBuilder.newInstance().queryParam("page", page)
 				.queryParam("perPageNum", cri.getPerPageNum())
+				.queryParam("cate", cri.getCate())
 				.build();
 		
 		return uriComponents.toUriString();
+	}
+	
+	public String makeSearch(int page) {
+		UriComponents uriComponents = 
+				UriComponentsBuilder.newInstance().queryParam("page", page)
+				.queryParam("perPageNum", cri.getPerPageNum())
+				.queryParam("cate", cri.getCate())
+				.queryParam("searchType", encoding(cri.getSearchType()))
+				.queryParam("keyword", encoding(cri.getKeyword()))
+				.build();
+		
+		return uriComponents.toUriString();
+	}
+	
+	private String encoding(String keyword) {
+		
+		if(keyword==null || keyword.trim().length()==0) {
+			return null;
+		}
+		
+		try {
+			return URLEncoder.encode(keyword, "UTF-8");
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }

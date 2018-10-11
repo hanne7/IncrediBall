@@ -20,18 +20,13 @@
 <body class="bg-light">
 <%@include file="../include/header.jsp" %>
 <div class="container">
-	<form role="form" method="post">
-		<input type="hidden" name="bno" value="${boardVO.bno }">
-		<input type="hidden" name="page" value="${cri.page }">
-		<input type="hidden" name="perPageNum" value="${cri.perPageNum }">
-	</form>
 	<table class="table table-sm mt-2 mb-0 text-center border">
 		<div class="mt-3 ml-3"> 
-			<c:if test="${boardVO.category==0 }"><h3>> 공지사항</h3></c:if>
-			<c:if test="${boardVO.category==1 }"><h3>> 축구게시판</h3></c:if>
-			<c:if test="${boardVO.category==2 }"><h3>> 자유게시판</h3></c:if>
-			<c:if test="${boardVO.category==3 }"><h3>> 프로토분석</h3></c:if>
-			<c:if test="${boardVO.category==4 }"><h3>> QnA</h3></c:if>
+			<c:if test="${boardVO.category==1 }"><h3>> 공지사항</h3></c:if>
+			<c:if test="${boardVO.category==2 }"><h3>> 축구게시판</h3></c:if>
+			<c:if test="${boardVO.category==3 }"><h3>> 자유게시판</h3></c:if>
+			<c:if test="${boardVO.category==4 }"><h3>> 프로토분석</h3></c:if>
+			<c:if test="${boardVO.category==5 }"><h3>> QnA</h3></c:if>
 		</div>
 		<tr>
 			<td class="bg-dark text-white w-25">제목</td>
@@ -57,7 +52,7 @@
 	</div>
 	<div class="btn-group d-flex justify-content-end" role="group" aria-label="boardbtn">
 	  <button id="go-list" type="button" class="btn btn-secondary">목록</button>
-	  <button type="button" class="btn btn-secondary" onclick="location.href='/board/create'">글쓰기</button>
+	  <button id="create-post" type="button" class="btn btn-secondary">글쓰기</button>
 	  <c:if test="${boardVO.userid == login.userid }">
 		<button id="modify-post" type="button" class="btn btn-secondary">글수정</button>
 	  	<button id="delete-post" type="button" class="btn btn-secondary">글삭제</button>
@@ -65,6 +60,14 @@
 	</div>
 </div>
 <%@include file="../include/footer.jsp" %>
+<form role="form" method="post">
+	<input type="hidden" name="bno" value="${boardVO.bno }">
+	<input type="hidden" name="cate" value="${cri.cate }">
+	<input type="hidden" name="page" value="${cri.page }">
+	<input type="hidden" name="perPageNum" value="${cri.perPageNum }">
+	<input type="hidden" name="searchType" value="${cri.searchType}">
+	<input type="hidden" name="keyword" value="${cri.keyword}">
+</form>
 <script type="text/javascript">
 	var result = '${msg}';
 	if(result == 'SUCCESS'){
@@ -93,6 +96,12 @@
 		$("#modify-post").on("click", function() {
 			formObj.attr("method", "get");
 			formObj.attr("action", "/board/modify")
+			formObj.submit();
+		});
+		
+		$("#create-post").on("click", function() {
+			formObj.attr("method", "get");
+			formObj.attr("action", "/board/create")
 			formObj.submit();
 		});
 	});

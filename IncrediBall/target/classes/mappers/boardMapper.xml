@@ -7,8 +7,8 @@
 <mapper namespace="kr.hanne.mapper.boardMapper">
  
  <insert id="create">
- 	INSERT INTO board(title, content, useridx, category)
- 	VALUES(#{title}, #{content}, #{useridx}, #{category})
+ 	INSERT INTO board(title, content, category, useridx)
+ 	VALUES(#{title}, #{content}, #{category}, #{useridx})
  </insert>
  
  <select id="read" resultType="BoardVO">
@@ -38,7 +38,7 @@
  		b.userid
  	FROM board a
  	JOIN user b ON a.useridx = b.idx
- 	WHERE a.bno > 0 AND a.category = #{category}
+ 	WHERE a.bno > 0 AND a.category = #{cate}
  	ORDER BY a.bno DESC
  	LIMIT #{pageStart}, #{perPageNum}
  	]]>
@@ -62,9 +62,111 @@
  	]]>
  </select>
  
+ <sql id="search">
+ 	<if test="searchType != null">
+ 		<if test="searchType == 'stitle'.toString()">
+ 			AND a.title LIKE CONCAT('%', #{keyword}, '%')
+ 		</if>
+ 		<if test="searchType == 'scontent'.toString()">
+ 			AND a.content LIKE CONCAT('%', #{keyword}, '%')
+ 		</if>
+ 		<if test="searchType == 'snickname'.toString()">
+ 			AND b.nickname LIKE CONCAT('%', #{keyword}, '%')
+ 		</if>
+ 		<if test="searchType == 'suserid'.toString()">
+ 			AND b.userid LIKE CONCAT('%', #{keyword}, '%')
+ 		</if>
+ 		<if test="searchType == 'tc'.toString()">
+ 			AND (a.title LIKE CONCAT('%', #{keyword}, '%') OR a.content LIKE CONCAT('%', #{keyword}, '%'))
+ 		</if>
+ 	</if>
+ </sql>
+ 
+ <select id="listSearch" resultType="BoardVO">
+ 	<![CDATA[
+ 	SELECT 
+ 		a.bno,
+ 		a.title,
+ 		a.category,
+ 		a.regdate,
+ 		a.moddate,
+ 		a.content,
+ 		b.nickname,
+ 		b.userid
+ 	FROM board a
+ 	JOIN user b ON a.useridx = b.idx
+ 	WHERE a.bno > 0
+ 	]]>
+ 	<include refid="search"></include>
+ 	ORDER BY a.bno DESC
+ 	LIMIT #{pageStart}, #{perPageNum}	
+ </select>
+ 
+ <select id="categorySearch" resultType="BoardVO">
+ 	<![CDATA[
+ 	SELECT 
+ 		a.bno,
+ 		a.title,
+ 		a.category,
+ 		a.regdate,
+ 		a.moddate,
+ 		a.content,
+ 		b.nickname,
+ 		b.userid
+ 	FROM board a
+ 	JOIN user b ON a.useridx = b.idx
+ 	WHERE a.bno > 0 AND a.category = #{cate}
+ 	]]>
+ 	<include refid="search"></include>
+ 	ORDER BY a.bno DESC
+ 	LIMIT #{pageStart}, #{perPageNum}
+ </select>
+ 
+ <select id="categorySearchCount" resultType="int">
+ 	<![CDATA[
+ 	SELECT count(bno),
+ 		a.bno,
+ 		a.title,
+ 		a.category,
+ 		a.regdate,
+ 		a.moddate,
+ 		a.content,
+ 		b.nickname,
+ 		b.userid
+ 	FROM board a
+ 	JOIN user b ON a.useridx = b.idx
+ 	WHERE a.bno > 0 AND category = #{cate}
+ 	]]>
+ 	<include refid="search"></include>
+ </select>
+ 
+ <select id="searchCountPaging" resultType="int">
+ 	<![CDATA[
+ 	SELECT count(bno),
+ 		a.bno,
+ 		a.title,
+ 		a.category,
+ 		a.regdate,
+ 		a.moddate,
+ 		a.content,
+ 		b.nickname,
+ 		b.userid
+ 	FROM board a
+ 	JOIN user b ON a.useridx = b.idx
+ 	WHERE a.bno > 0
+ 	]]>
+ 	<include refid="search"></include>
+ </select>
+ 
  <select id="countPaging" resultType="int">
  	<![CDATA[
  	SELECT count(bno) FROM board WHERE bno>0
+ 	]]>
+ </select>
+ 
+ <select id="countCategoryPaging" resultType="int">
+ 	<![CDATA[
+ 	SELECT count(bno) FROM board WHERE bno>0 AND category=#{cate}
  	]]>
  </select>
  

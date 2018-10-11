@@ -19,7 +19,7 @@
 <%@include file="../include/header.jsp" %>
 <div class="container">
 	<p><h4>글수정</h4></p>
-	<form method="post">
+	<form method="post" action="/board/modifyPost">
 		<div class="form-group">
 			<label for="nickname">필명</label> 
 			<input type="text" class="form-control form-control-sm" name="nickname"
@@ -28,41 +28,11 @@
 		
 		<div class="form-group w-25">	 
 			<select class="form-control form-control-sm" name="category">
-				<c:if test="${boardVO.category == 0}">
-					<option value="0" selected>공지사항</option>
-					<option value="1">축구게시판</option>
-					<option value="2">자유게시판</option>
-					<option value="3">프로토분석</option>
-					<option value="4">QnA</option>
-				</c:if>
-				<c:if test="${boardVO.category == 1}">
-					<option value="0">공지사항</option>
-					<option value="1" selected>축구게시판</option>
-					<option value="2">자유게시판</option>
-					<option value="3">프로토분석</option>
-					<option value="4">QnA</option>
-				</c:if>
-				<c:if test="${boardVO.category == 2}">
-					<option value="0">공지사항</option>
-					<option value="1">축구게시판</option>
-					<option value="2" selected>자유게시판</option>
-					<option value="3">프로토분석</option>
-					<option value="4">QnA</option>
-				</c:if>
-				<c:if test="${boardVO.category == 3}">
-					<option value="0">공지사항</option>
-					<option value="1">축구게시판</option>
-					<option value="2">자유게시판</option>
-					<option value="3" selected>프로토분석</option>
-					<option value="4">QnA</option>
-				</c:if>
-				<c:if test="${boardVO.category == 4}">
-					<option value="0">공지사항</option>
-					<option value="1">축구게시판</option>
-					<option value="2">자유게시판</option>
-					<option value="3">프로토분석</option>
-					<option value="4" selected>QnA</option>
-				</c:if>
+				<option value="1" <c:if test="${boardVO.category==1 }">selected</c:if>>공지사항</option>
+				<option value="2" <c:if test="${boardVO.category==2 }">selected</c:if>>축구게시판</option>
+				<option value="3" <c:if test="${boardVO.category==3 }">selected</c:if>>자유게시판</option>
+				<option value="4" <c:if test="${boardVO.category==4 }">selected</c:if>>프로토분석</option>
+				<option value="5" <c:if test="${boardVO.category==5 }">selected</c:if>>QnA</option>
 			</select>
 		</div>
 		
@@ -78,6 +48,8 @@
 		<input type="hidden" name="bno" value="${boardVO.bno }">
 		<input type="hidden" name="page" value="${cri.page }">
 		<input type="hidden" name="perPageNum" value="${cri.perPageNum }">
+		<input type="hidden" name="searchType" value="${cri.searchType }"/>
+		<input type="hidden" name="keyword" value="${cri.keyword }"/>
 		<button type="submit" class="btn btn-primary">수정하기</button>
 	</form>
 </div>

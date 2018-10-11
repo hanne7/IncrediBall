@@ -26,14 +26,14 @@
 				value="${userVO.nickname }" readonly="readonly">
 		</div>
 		
-		<div class="form-group w-25">	 
+		<div class="form-group w-25">
 			<select class="form-control form-control-sm" name="category">
-				<option value="0">공지사항</option>
-				<option value="1">축구게시판</option>
-				<option value="2" selected>자유게시판</option>
-				<option value="3">프로토분석</option>
-				<option value="4">QnA</option>
-			</select>
+				<option value="1" <c:if test="${cate==1}">selected</c:if>>공지사항</option>
+				<option value="2" <c:if test="${cate==2}">selected</c:if>>축구게시판</option>
+				<option value="3" <c:if test="${cate==3 || cate==0}">selected</c:if>>자유게시판</option>
+				<option value="4" <c:if test="${cate==4}">selected</c:if>>프로토분석</option>
+				<option value="5" <c:if test="${cate==5}">selected</c:if>>QnA</option>
+			</select>	
 		</div>
 		
 		<div class="form-group">

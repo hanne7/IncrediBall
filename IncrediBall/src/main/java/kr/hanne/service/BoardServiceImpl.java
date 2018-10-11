@@ -45,4 +45,34 @@ public class BoardServiceImpl implements BoardService {
 	public int countPaging(Criteria cri) throws Exception {
 		return boardDAO.countPaging(cri);
 	}
+
+	@Override
+	public List<BoardVO> listCategory(Criteria cri) throws Exception {
+		return boardDAO.listCategory(cri);
+	}
+
+	@Override
+	public int countCategoryPaging(Criteria cri) throws Exception {
+		return boardDAO.countCategoryPaging(cri);
+	}
+
+	@Override
+	public List<BoardVO> listSearch(Criteria cri) throws Exception {
+		return boardDAO.listSearch(cri);
+	}
+
+	@Override
+	public int searchCountPaging(Criteria cri) throws Exception {
+		return boardDAO.searchCountPaging(cri);
+	}
+
+	@Override
+	public List<BoardVO> categorySearch(Criteria cri) throws Exception {
+		return boardDAO.categorySearch(cri);
+	}
+
+	@Override
+	public int categorySearchCount(Criteria cri) throws Exception {
+		return boardDAO.categorySearchCount(cri);
+	}
 }

@@ -20,5 +20,15 @@ public interface BoardDAO {
 	
 	public int countPaging(Criteria cri) throws Exception;
 	
+	public int countCategoryPaging(Criteria cri) throws Exception;
+	
 	public List<BoardVO> listCategory(Criteria cri) throws Exception;
+	
+	public List<BoardVO> listSearch(Criteria cri) throws Exception;
+	
+	public int searchCountPaging(Criteria cri) throws Exception;
+	
+	public List<BoardVO> categorySearch(Criteria cri) throws Exception;
+	
+	public int categorySearchCount(Criteria cri) throws Exception;
 }

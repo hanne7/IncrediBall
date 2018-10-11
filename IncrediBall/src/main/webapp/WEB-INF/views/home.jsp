@@ -68,7 +68,7 @@
 			</div>
 			<div class="border flex-fill">
 			<div class="list-group">
-				<a href="#" class="list-group-item list-group-item-action active">공지사항</a>
+				<a href="#" class="list-group-item list-group-item-action bg-secondary text-white">공지사항</a>
 				<a href="#"	class="list-group-item list-group-item-action">Dapibus acfacilisis in</a> 
 				<a href="#"	class="list-group-item list-group-item-action">Morbi leo risus</a>
 				<a href="#" class="list-group-item list-group-item-action">Portaac consectetur ac</a> 
@@ -88,7 +88,7 @@
 	</div>
 	<div class="border flex-fill">
 		<div class="list-group">
-			<a href="#" class="list-group-item list-group-item-action active">뉴스리스트</a>
+			<a href="#" class="list-group-item list-group-item-action bg-secondary text-white">뉴스리스트</a>
 			<a href="#"	class="list-group-item list-group-item-action">Dapibus acfacilisis in</a> 
 			<a href="#"	class="list-group-item list-group-item-action">Morbi leo risus</a>
 			<a href="#" class="list-group-item list-group-item-action">Portaac consectetur ac</a> 
@@ -97,7 +97,7 @@
 	</div>
 	<div class="border flex-fill">
 		<div class="list-group">
-			<a href="#" class="list-group-item list-group-item-action active">인기글</a>
+			<a href="#" class="list-group-item list-group-item-action bg-secondary text-white">인기글</a>
 			<a href="#"	class="list-group-item list-group-item-action">Dapibus acfacilisis in</a> 
 			<a href="#"	class="list-group-item list-group-item-action">Morbi leo risus</a>
 			<a href="#" class="list-group-item list-group-item-action">Portaac consectetur ac</a> 
