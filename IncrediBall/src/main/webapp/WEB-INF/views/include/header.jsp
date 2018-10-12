@@ -15,6 +15,7 @@
 		<li class="nav-item ml-5"><a href="#" data-toggle="modal" data-target="#loginModal">로그인</a></li>
 		</c:if>
 		<c:if test="${!empty login }">
+		<p>${login.nickname }(${login.userid })님 환영합니다!</p>
 		<li class="nav-item ml-5"><a href="/user/logout">로그아웃</a></li>
 		</c:if>
 		<li class="nav-item ml-5"><a href="/user/myPage">마이페이지</a></li>

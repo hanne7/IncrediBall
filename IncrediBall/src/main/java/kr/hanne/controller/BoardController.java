@@ -106,7 +106,7 @@ public class BoardController {
 		model.addAttribute("boardVO", service.read(bno));
 	}
 	
-	@RequestMapping(value="/modifyPost", method=RequestMethod.POST)
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public String modify(@ModelAttribute BoardVO vo, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) throws Exception{
 		logger.info(vo.toString());
 		logger.info(cri.toString());

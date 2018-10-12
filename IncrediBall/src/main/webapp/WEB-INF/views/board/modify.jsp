@@ -19,7 +19,7 @@
 <%@include file="../include/header.jsp" %>
 <div class="container">
 	<p><h4>글수정</h4></p>
-	<form method="post" action="/board/modifyPost">
+	<form method="post" action="/board/modify">
 		<div class="form-group">
 			<label for="nickname">필명</label> 
 			<input type="text" class="form-control form-control-sm" name="nickname"
