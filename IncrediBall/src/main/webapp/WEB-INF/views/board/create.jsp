@@ -16,7 +16,7 @@
 
 </head>
 <body class="bg-light">
-<%@include file="../include/header.jsp" %>
+<c:import url="/header"/>
 <div class="container">
 	<p><h4>글쓰기</h4></p>
 	<form method="post" onsubmit="return confirm('작성하시겠습니까?')">
@@ -50,7 +50,7 @@
 		<button type="submit" class="btn btn-primary">글쓰기</button>
 	</form>
 </div>
-<%@include file="../include/footer.jsp" %>
+<c:import url="/footer"/>
 
 </body>
 </html>

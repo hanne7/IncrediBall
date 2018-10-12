@@ -37,4 +37,14 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping("/header")
+	public void header() throws Exception{
+		
+	}
+	
+	@RequestMapping("/footer")
+	public void footer() throws Exception{
+		
+	}
+	
 }

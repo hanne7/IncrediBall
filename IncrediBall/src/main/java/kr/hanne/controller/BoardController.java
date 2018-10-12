@@ -35,7 +35,7 @@ public class BoardController {
 		if(cri.getSearchType()==null && cri.getKeyword()==null) {
 			if(cri.getCate() == 0) {
 				model.addAttribute("list", service.list(cri));
-				
+				// 게시판 전체 글 표시
 				PageMaker pm = new PageMaker();
 				pm.setCri(cri);
 				pm.setTotalCount(service.countPaging(cri));
@@ -43,7 +43,7 @@ public class BoardController {
 				model.addAttribute("pm", pm);
 			} else {
 				model.addAttribute("list", service.listCategory(cri));
-				
+				// 게시판 카테고리별 분류 표시
 				PageMaker pm = new PageMaker();
 				pm.setCri(cri);
 				pm.setTotalCount(service.countCategoryPaging(cri));
@@ -53,7 +53,7 @@ public class BoardController {
 		} else {
 			if(cri.getCate() == 0) {
 				model.addAttribute("list", service.listSearch(cri));
-				
+				// 전체 보기에서 검색
 				PageMaker pm = new PageMaker();
 				pm.setCri(cri);
 				pm.setTotalCount(service.searchCountPaging(cri));
@@ -61,7 +61,7 @@ public class BoardController {
 				model.addAttribute("pm", pm);
 			} else {
 				model.addAttribute("list", service.categorySearch(cri));
-				
+				// 카테고리별 검색
 				PageMaker pm = new PageMaker();
 				pm.setCri(cri);
 				pm.setTotalCount(service.categorySearchCount(cri));
@@ -116,13 +116,14 @@ public class BoardController {
 		rttr.addAttribute("bno", vo.getBno());
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("cate", cri.getCate());
 		rttr.addAttribute("searchType", cri.getSearchType());
 		rttr.addAttribute("keyword", cri.getKeyword());
 		
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		logger.info(rttr.toString());
 		
-		return "redirect:/board/readPage";
+		return "redirect:/board/list";
 	}
 	
 	@RequestMapping(value="/delete", method=RequestMethod.POST)

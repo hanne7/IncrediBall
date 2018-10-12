@@ -17,11 +17,11 @@
 
 </head>
 <body class="bg-light">
-<%@include file="../include/header.jsp" %>
+<c:import url="/header"/>
 <div class="container mt-5">
 	<ul class="nav nav-tabs nav-pills">
 	  <li class="nav-item">
-	    <a class="nav-link active" href="/user/myPage">내 정보</a>
+	    <a class="nav-link text-light bg-secondary" href="/user/myPage">내 정보</a>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link" href="/user/modifyPage">회원정보수정</a>
@@ -41,9 +41,9 @@
 		  <img class="card-img-top" src="http://placehold.it/500x420" alt="Card image cap">
 		  <div class="card-body">
 		    <p class="card-text">
-		    	<button type="button" class="btn btn-primary">이미지 등록</button>
+		    	<button type="button" class="btn btn-success">이미지 등록</button>
 		    	<br>
-		    	<button type="button" class="btn btn-link">회원탈퇴</button>
+		    	<button type="button" class="btn btn-danger mt-2">회원탈퇴</button>
 		    </p>
 		  </div>
 		</div>
@@ -75,7 +75,7 @@
 		</table>	
 	</div>
 </div>
-<%@include file="../include/footer.jsp" %>
+<c:import url="/footer"/>
 <script type="text/javascript">
 	var result = '${msg}';
 	if(result == 'SUCCESS'){

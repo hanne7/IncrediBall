@@ -16,7 +16,7 @@
 
 </head>
 <body class="bg-light">
-<%@include file="../include/header.jsp" %>
+<c:import url="/header"/>
 <div class="container">
 	<p><h4>글수정</h4></p>
 	<form method="post" action="/board/modify">
@@ -48,12 +48,13 @@
 		<input type="hidden" name="bno" value="${boardVO.bno }">
 		<input type="hidden" name="page" value="${cri.page }">
 		<input type="hidden" name="perPageNum" value="${cri.perPageNum }">
+		<input type="hidden" name="cate" value="${cri.cate }">
 		<input type="hidden" name="searchType" value="${cri.searchType }"/>
 		<input type="hidden" name="keyword" value="${cri.keyword }"/>
 		<button type="submit" class="btn btn-primary">수정하기</button>
 	</form>
 </div>
-<%@include file="../include/footer.jsp" %>
+<c:import url="/footer"/>
 
 </body>
 </html>

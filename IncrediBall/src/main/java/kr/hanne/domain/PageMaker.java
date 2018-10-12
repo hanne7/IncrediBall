@@ -123,13 +123,13 @@ public class PageMaker {
 	private String encoding(String keyword) {
 		
 		if(keyword==null || keyword.trim().length()==0) {
-			return null;
+			return "";
 		}
 		
 		try {
 			return URLEncoder.encode(keyword, "UTF-8");
 		} catch (Exception e) {
-			return null;
+			return "";
 		}
 	}
 }

@@ -15,7 +15,7 @@
 
 </head>
 <body class="bg-light">
-<%@include file="../include/header.jsp" %>
+<c:import url="/header"/>
 <div class="container mt-5">
 	  <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -44,7 +44,7 @@
 	</c:if>
     </div>
 </div>
-<%@include file="../include/footer.jsp" %>
+<c:import url="/footer"/>
 
 </body>
 </html>

@@ -17,57 +17,16 @@
 
 </head>
 <body class="bg-light">
-<%@include file="../include/header.jsp" %>
-<div class="container">
+<c:import url="/header"/>
+<div class="container mt-2"><h4 class="ml-3">>BOARD</h4></div>
+<div class="container mt-2">
 	<nav class="nav nav-pills nav-justified bg-light border">
-	<c:if test="${pm.cri.getCate()==0 }">
-		<a class="nav-item nav-link" href="/board/list?cate=1">공지사항</a>
-		<a class="nav-item nav-link text-light bg-secondary" href="/board/list?cate=0">전체보기</a>
-		<a class="nav-item nav-link" href="/board/list?cate=2">축구게시판</a>
-		<a class="nav-item nav-link" href="/board/list?cate=3">자유게시판</a>
-		<a class="nav-item nav-link" href="/board/list?cate=4">프로토분석</a>
-		<a class="nav-item nav-link" href="/board/list?cate=5">QnA</a>
-	</c:if>
-	<c:if test="${pm.cri.getCate()==1 }">
-		<a class="nav-item nav-link text-light bg-secondary" href="/board/list?cate=1">공지사항</a>
-		<a class="nav-item nav-link" href="/board/list?cate=0">전체보기</a>
-		<a class="nav-item nav-link" href="/board/list?cate=2">축구게시판</a>
-		<a class="nav-item nav-link" href="/board/list?cate=3">자유게시판</a>
-		<a class="nav-item nav-link" href="/board/list?cate=4">프로토분석</a>
-		<a class="nav-item nav-link" href="/board/list?cate=5">QnA</a>
-	</c:if>
-	<c:if test="${pm.cri.getCate()==2 }">
-		<a class="nav-item nav-link" href="/board/list?cate=1">공지사항</a>
-		<a class="nav-item nav-link" href="/board/list?cate=0">전체보기</a>
-		<a class="nav-item nav-link text-light bg-secondary" href="/board/list?cate=2">축구게시판</a>
-		<a class="nav-item nav-link" href="/board/list?cate=3">자유게시판</a>
-		<a class="nav-item nav-link" href="/board/list?cate=4">프로토분석</a>
-		<a class="nav-item nav-link" href="/board/list?cate=5">QnA</a>
-	</c:if>
-	<c:if test="${pm.cri.getCate()==3 }">
-		<a class="nav-item nav-link" href="/board/list?cate=1">공지사항</a>
-		<a class="nav-item nav-link" href="/board/list?cate=0">전체보기</a>
-		<a class="nav-item nav-link" href="/board/list?cate=2">축구게시판</a>
-		<a class="nav-item nav-link text-light bg-secondary" href="/board/list?cate=3">자유게시판</a>
-		<a class="nav-item nav-link" href="/board/list?cate=4">프로토분석</a>
-		<a class="nav-item nav-link" href="/board/list?cate=5">QnA</a>
-	</c:if>
-	<c:if test="${pm.cri.getCate()==4 }">
-		<a class="nav-item nav-link" href="/board/list?cate=1">공지사항</a>
-		<a class="nav-item nav-link" href="/board/list?cate=0">전체보기</a>
-		<a class="nav-item nav-link" href="/board/list?cate=2">축구게시판</a>
-		<a class="nav-item nav-link" href="/board/list?cate=3">자유게시판</a>
-		<a class="nav-item nav-link text-light bg-secondary" href="/board/list?cate=4">프로토분석</a>
-		<a class="nav-item nav-link" href="/board/list?cate=5">QnA</a>
-	</c:if>
-	<c:if test="${pm.cri.getCate()==5 }">
-		<a class="nav-item nav-link" href="/board/list?cate=1">공지사항</a>
-		<a class="nav-item nav-link" href="/board/list?cate=0">전체보기</a>
-		<a class="nav-item nav-link" href="/board/list?cate=2">축구게시판</a>
-		<a class="nav-item nav-link" href="/board/list?cate=3">자유게시판</a>
-		<a class="nav-item nav-link" href="/board/list?cate=4">프로토분석</a>
-		<a class="nav-item nav-link text-light bg-secondary" href="/board/list?cate=5">QnA</a>
-	</c:if>
+		<a class="nav-item nav-link <c:if test="${pm.cri.getCate()==1 }">text-light bg-secondary</c:if>" href="/board/list?cate=1">공지사항</a>
+		<a class="nav-item nav-link <c:if test="${pm.cri.getCate()==0 }">text-light bg-secondary</c:if>" href="/board/list?cate=0">전체보기</a>
+		<a class="nav-item nav-link <c:if test="${pm.cri.getCate()==2 }">text-light bg-secondary</c:if>" href="/board/list?cate=2">축구게시판</a>
+		<a class="nav-item nav-link <c:if test="${pm.cri.getCate()==3 }">text-light bg-secondary</c:if>" href="/board/list?cate=3">자유게시판</a>
+		<a class="nav-item nav-link <c:if test="${pm.cri.getCate()==4 }">text-light bg-secondary</c:if>" href="/board/list?cate=4">프로토분석</a>
+		<a class="nav-item nav-link <c:if test="${pm.cri.getCate()==5 }">text-light bg-secondary</c:if>" href="/board/list?cate=5">QnA</a>
 	</nav>
 	<table class="table table-hover">
 	  <thead class="thead-light">
@@ -123,7 +82,7 @@
 	  <button id="create-post" type="button" class="btn btn-secondary h-75 mr-4">글쓰기</button>
 	</ul>
 </div>
-<%@include file="../include/footer.jsp" %>
+<c:import url="/footer"/>
 <form role="form" method="post">
 	<input type="hidden" name="cate" value="${pm.cri.getCate()}">
 </form>

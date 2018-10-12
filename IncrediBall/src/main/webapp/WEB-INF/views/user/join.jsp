@@ -15,7 +15,7 @@
 
 </head>
 <body class="bg-light">
-<%@include file="../include/header.jsp" %>
+<c:import url="/header"/>
 <div class="container">
 	<p><h4>회원가입</h4></p>
 	<form method="post" onsubmit="return confirm('가입하시겠습니까?')">
@@ -59,7 +59,7 @@
 		<button type="submit" class="btn btn-primary">가입하기</button>
 	</form>
 </div>
-<%@include file="../include/footer.jsp" %>
+<c:import url="/footer"/>
 
 </body>
 </html>

@@ -15,14 +15,14 @@
 
 </head>
 <body class="bg-light">
-<%@include file="../include/header.jsp" %>
+<c:import url="/header"/>
 <div class="container mt-5">
 	<ul class="nav nav-tabs nav-pills">
 	  <li class="nav-item">
 	    <a class="nav-link" href="/user/myPage">내 정보</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link active" href="/user/modifyPage">회원정보수정</a>
+	    <a class="nav-link text-light bg-secondary" href="/user/modifyPage">회원정보수정</a>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link" href="#">작성글 보기</a>
@@ -74,11 +74,11 @@
 					value="${userVO.address }">
 			</div>
 			<input type="hidden" name="idx" value="${userVO.idx }">
-			<button type="submit" class="btn btn-primary">수정하기</button>
+			<button type="submit" class="btn btn-secondary">수정하기</button>
 		</form>	
 	</div>
 </div>
-<%@include file="../include/footer.jsp" %>
+<c:import url="/footer"/>
 
 </body>
 </html>

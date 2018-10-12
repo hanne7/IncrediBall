@@ -18,7 +18,7 @@
 
 </head>
 <body class="bg-light">
-<%@include file="../include/header.jsp" %>
+<c:import url="/header"/>
 <div class="container">
 	<table class="table table-sm mt-2 mb-0 text-center border">
 		<div class="mt-3 ml-3"> 
@@ -59,7 +59,7 @@
 	  </c:if>
 	</div>
 </div>
-<%@include file="../include/footer.jsp" %>
+<c:import url="/footer"/>
 <form role="form" method="post">
 	<input type="hidden" name="bno" value="${boardVO.bno }">
 	<input type="hidden" name="cate" value="${cri.cate }">

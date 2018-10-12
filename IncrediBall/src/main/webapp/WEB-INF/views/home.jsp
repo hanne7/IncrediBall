@@ -16,7 +16,7 @@
 
 </head>
 <body class="bg-light">
-<%@include file="include/header.jsp" %>
+<c:import url="/header"/>
 <div class="container">
 <div class="d-flex justify-content-around">
 			<div id="carouselExampleIndicators" class="carousel slide"
@@ -106,7 +106,7 @@
 	</div>
 </div>
 </div>
-<%@include file="include/footer.jsp" %>
+<c:import url="/footer"/>
 <script type="text/javascript">
 	var result = '${msg}';
 	if(result == 'SUCCESS'){
