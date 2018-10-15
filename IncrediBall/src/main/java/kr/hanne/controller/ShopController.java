@@ -16,4 +16,9 @@ public class ShopController {
 	public void cart() throws Exception{
 		
 	}
+	
+	@RequestMapping("/order")
+	public void order() throws Exception{
+		
+	}
 }

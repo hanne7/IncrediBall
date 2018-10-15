@@ -35,7 +35,7 @@
 			<h5>1개</h5>
 		</div>
 		<div class="m-auto">
-			<h5>주문하기</h5>
+			<a href="/shop/order"><h5>주문하기</h5></a>
 		</div>
 	</div>
 </div>

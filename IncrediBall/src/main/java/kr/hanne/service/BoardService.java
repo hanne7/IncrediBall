@@ -30,4 +30,6 @@ public interface BoardService {
 	public List<BoardVO> categorySearch(Criteria cri) throws Exception;
 	
 	public int categorySearchCount(Criteria cri) throws Exception;
+	
+	public List<String> getAttach(int idx) throws Exception;
 }

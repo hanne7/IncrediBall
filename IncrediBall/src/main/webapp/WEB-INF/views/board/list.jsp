@@ -110,6 +110,12 @@
 				+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
 				
 		});
+		
+		$("#keywordInput").on("keypress", function(event){
+			if(event.keyCode == 13){
+				$("#search-btn").click();
+			}
+		});
 	});
 </script>
 </body>

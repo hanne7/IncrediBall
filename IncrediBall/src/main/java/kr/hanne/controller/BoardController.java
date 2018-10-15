@@ -1,5 +1,7 @@
 package kr.hanne.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -8,9 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.hanne.domain.BoardVO;
@@ -97,6 +101,12 @@ public class BoardController {
 		logger.info("board readPage called.....");
 		logger.info(cri.toString());
 		model.addAttribute("boardVO", service.read(bno));
+	}
+	
+	@RequestMapping("/getAttach/{bno}")
+	@ResponseBody
+	public List<String> getAttach(@PathVariable int bno) throws Exception{
+		return service.getAttach(bno);
 	}
 	
 	@RequestMapping("/modify")

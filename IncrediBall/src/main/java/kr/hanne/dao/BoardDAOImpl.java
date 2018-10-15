@@ -77,4 +77,14 @@ public class BoardDAOImpl implements BoardDAO {
 	public int categorySearchCount(Criteria cri) throws Exception {
 		return session.selectOne(namespace+".categorySearchCount", cri);
 	}
+
+	@Override
+	public void addAttach(String fullname) throws Exception {
+		session.insert(namespace+".addAttach", fullname);
+	}
+
+	@Override
+	public List<String> getAttach(int idx) throws Exception {
+		return session.selectList(namespace+".getAttach", idx);
+	}
 }

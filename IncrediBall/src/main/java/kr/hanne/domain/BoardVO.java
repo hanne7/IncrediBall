@@ -1,5 +1,6 @@
 package kr.hanne.domain;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class BoardVO {
@@ -15,7 +16,14 @@ public class BoardVO {
 	private Date moddate;
 	private String userid;
 	private String nickname;
+	private String[] files;
 	
+	public String[] getFiles() {
+		return files;
+	}
+	public void setFiles(String[] files) {
+		this.files = files;
+	}
 	public String getUserid() {
 		return userid;
 	}
@@ -85,7 +93,8 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", useridx=" + useridx
-				+ ", viewcnt=" + viewcnt + ", replycnt=" + replycnt + ", category=" + category + ", regdate="
-				+ regdate + ", moddate=" + moddate + ", userid=" + userid + ", nickname=" + nickname + "]";
+				+ ", viewcnt=" + viewcnt + ", replycnt=" + replycnt + ", category=" + category + ", regdate=" + regdate
+				+ ", moddate=" + moddate + ", userid=" + userid + ", nickname=" + nickname + ", files="
+				+ Arrays.toString(files) + "]";
 	}	
 }

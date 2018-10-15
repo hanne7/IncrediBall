@@ -15,7 +15,8 @@
 <link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="/resources/plugins/jQuery/jquery-3.3.1.min.js"></script>
 <script src="/resources/bootstrap/js/bootstrap.min.js"></script>
-
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+<script type="text/javascript" src="/resources/js/upload.js"></script>
 </head>
 <body class="bg-light">
 <c:import url="/header"/>
@@ -48,7 +49,9 @@
 	</table>
 	<% pageContext.setAttribute("newLineChar", "\r\n"); %>
 	<div class="container-fluid pt-4 border" style="min-height:300px; max-height:500px; overflow: scroll">
-		${fn:replace(boardVO.content, newLineChar, "<br/>")}		
+		${fn:replace(boardVO.content, newLineChar, "<br/>")}
+		<div class="uploadedList clearfix">
+		</div>		
 	</div>
 	<div class="btn-group d-flex justify-content-end" role="group" aria-label="boardbtn">
 	  <button id="go-list" type="button" class="btn btn-secondary">목록</button>
@@ -105,6 +108,19 @@
 			formObj.submit();
 		});
 	});
+</script>
+
+<script type="text/javascript">
+var bno = ${boardVO.bno};
+var template = Handlebars.compile($("#templateAttach").html());
+
+$.getJSON("/board/getAttach/" + bno, function(list){
+	$(list).each(function(){
+		var fileInfo = getFileInfo(this);
+		var html = template(fileInfo);
+		$(".uploadedList").append(html);
+	});
+});
 </script>
 </body>
 </html>

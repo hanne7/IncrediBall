@@ -31,4 +31,11 @@ public interface BoardDAO {
 	public List<BoardVO> categorySearch(Criteria cri) throws Exception;
 	
 	public int categorySearchCount(Criteria cri) throws Exception;
+	
+	public void addAttach(String fullname) throws Exception;
+	
+	public List<String> getAttach(int idx) throws Exception;
+	
 }
+
+

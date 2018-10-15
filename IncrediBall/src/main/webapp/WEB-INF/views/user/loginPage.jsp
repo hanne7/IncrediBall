@@ -17,7 +17,7 @@
 <body class="bg-light">
 <c:import url="/header"/>
 <div class="container mt-5">
-	  <div class="modal-dialog" role="document">
+	<div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">로그인</h5>
@@ -33,6 +33,7 @@
 				<label for="password">Password</label> 
 				<input type="password" class="form-control form-control-sm" name="password"
 					placeholder="Password를 입력하세요">
+    		</div>
       </div>
       <div class="modal-footer">
       	<button type="button" class="btn btn-success" onclick="location.href='/user/join'">Join Us</button>
@@ -42,6 +43,7 @@
     <c:if test="${count == 0}">
 		<script type="text/javascript">alert('존재하지 않는 id거나 잘못된 password 입니다.') </script>
 	</c:if>
+    </div>
     </div>
 </div>
 <c:import url="/footer"/>
