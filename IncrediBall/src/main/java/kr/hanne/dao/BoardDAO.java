@@ -34,7 +34,7 @@ public interface BoardDAO {
 	
 	public void addAttach(String fullname) throws Exception;
 	
-	public List<String> getAttach(int idx) throws Exception;
+	public List<String> getAttach(int bno) throws Exception;
 	
 }
 

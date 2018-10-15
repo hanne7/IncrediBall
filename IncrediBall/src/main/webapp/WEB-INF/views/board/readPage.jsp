@@ -110,6 +110,15 @@
 	});
 </script>
 
+<script id="templateAttach" type="text/x-handlebars-template">
+<div data-src='{{fullName}}' class="mt-5 w-50">
+	<div class="w-50">
+		<span><img src="{{getLink}}" alt="Attachment" width=100%;></span>
+		<p class="text-center"><a href="{{getLink}}" class="">{{fileName}}</a></p>
+	</div>
+</div>
+</script>
+
 <script type="text/javascript">
 var bno = ${boardVO.bno};
 var template = Handlebars.compile($("#templateAttach").html());
@@ -122,5 +131,7 @@ $.getJSON("/board/getAttach/" + bno, function(list){
 	});
 });
 </script>
+
+
 </body>
 </html>

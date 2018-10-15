@@ -1,5 +1,6 @@
 package kr.hanne.service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,6 +24,8 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.create(vo);
 		
 		String[] files = vo.getFiles();
+		
+		System.out.println(Arrays.toString(files));
 		
 		if(files == null) {
 			return;
@@ -89,7 +92,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<String> getAttach(int idx) throws Exception {
-		return boardDAO.getAttach(idx);
+	public List<String> getAttach(int bno) throws Exception {
+		return boardDAO.getAttach(bno);
 	}
 }

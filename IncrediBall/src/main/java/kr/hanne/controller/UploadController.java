@@ -84,7 +84,7 @@ public class UploadController {
 				//다운로드 할 때 사용자에게 보이는 파일의 이름이므로 한글처리를 해서 전송함.
 				//한글 파일의 경우, 다운로드하면 파일의 이름이 깨져서 나오기 때문에 반드시
 				//인코딩 처리를 할 필요가 있음.
-				headers.add("Content-Disposition", "attachment; filename=\""+new String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\""); 
+				headers.add("Content-Disposition", "attachment; fileName=\""+new String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\""); 
 			}
 			
 			//실제로 데이터를 읽는 부분은 commons라이브러리의 기능을 활용해서
@@ -99,5 +99,26 @@ public class UploadController {
 		}
 		
 		return entity;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/deleteFile", method=RequestMethod.POST)
+	public ResponseEntity<String> deleteFile(String fileName){
+		
+		logger.info("delete file: " + fileName);
+		
+		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+		
+		MediaType mType = MediaUtils.getMediaType(formatName);
+		
+		if(mType != null) {
+			String front = fileName.substring(0, 12);
+			String end = fileName.substring(14);
+			new File(uploadPath + (front+end).replace('/', File.separatorChar)).delete();
+		}
+		
+		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+		
+		return new ResponseEntity<>("deleted", HttpStatus.OK);
 	}
 }

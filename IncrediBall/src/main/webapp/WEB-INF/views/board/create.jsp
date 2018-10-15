@@ -57,8 +57,8 @@
 				<div class="fileDrop"></div>
 			</div>
 		</div>
-		<div class="d-flex justify-content-start clearfix uploadedList border">
-		</div>
+		<ul class="d-flex justify-content-start clearfix border uploadedList">
+		</ul>
 		<div class="form-group">
 			<label for="content">내용</label> 
 			<textarea class="form-control" name="content" rows=13
@@ -69,17 +69,17 @@
 	</form>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <script type="text/javascript" src="/resources/js/upload.js"></script>
 
 <script id="template" type="text/x-handlebars-template">
-<div class="border ml-3">
+<li class="border ml-3" style="list-style-type: none;">
 	<span><img src="{{imgsrc}}" alt="Attachment"></span>
-	<div>
-	<a href="{{getLink}}" class="">{{fileName}}</a>
-	<button type="button" href="{{fullName}} class="close"><span aria-hidden="true">&times;</span></button>
-	</div>
-</div>
+	<br>
+	<a href="{{getLink}}">{{fileName}}</a>
+	<button type="button" class="btn close" href="{{fullName}}"><span aria-hidden="true">&times;</span></button>
+	<input type="hidden" class="full" value="{{fullName}}">
+</li>
 </script>
 
 <script type="text/javascript">
@@ -121,13 +121,29 @@ $("#createForm").submit(function(event){
 	var that = $(this);
 	var str = "";
 	
-	$(".uploadedList .delbtn").each(function(index){
-		str += 
-			"<input type='hidden' name='files[" + index + "]' value='" + $(this).attr("href") + "'> ";
+	$(".uploadedList").each(function(index){
+		str += "<input type='hidden' name='files[" + index + "]' value='" + $(".full").attr("value") + "'>";
 	});
 	
 	that.append(str);
 	that.get(0).submit();
+});
+
+$(".uploadedList").on("click","button", function(event){
+	var that = $(this);
+	
+	$.ajax({
+		url:"/deleteFile",
+		type:"post",
+		data:{fileName:$(this).attr("href")},
+		dataType:"text",
+		success:function(result){
+			if(result == 'deleted'){
+				alert("deleted");
+				that.parent("li").remove();
+			}
+		}
+	});
 });
 </script>
 

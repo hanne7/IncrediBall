@@ -184,11 +184,11 @@
  </delete>
  
  <insert id="addAttach">
- 	INSERT INTO attach(fullname, attachidx) VALUES (#{fullname}, LAST_INSERT_ID())
+ 	INSERT INTO attach(fullname, bno) VALUES (#{fullname}, LAST_INSERT_ID())
  </insert>
  
  <select id="getAttach" resultType="String">
- 	SELECT fullname from attach WHERE attachidx = #{idx} ORDER BY regdate
+ 	SELECT fullname from attach WHERE bno = #{bno} ORDER BY regdate
  </select>
  
 </mapper>

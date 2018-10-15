@@ -16,6 +16,10 @@
 </head>
 <body class="bg-light">
 <c:import url="/header"/>
+<c:if test="${count == 0}">
+	<script type="text/javascript">alert('존재하지 않는 id거나 잘못된 password 입니다.') </script>
+	<% session.removeAttribute("count"); %>
+</c:if>
 <div class="container mt-5">
 	<div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -40,13 +44,9 @@
         <button type="submit" class="btn btn-primary">Login</button>
       </div>
       </form>
-    <c:if test="${count == 0}">
-		<script type="text/javascript">alert('존재하지 않는 id거나 잘못된 password 입니다.') </script>
-	</c:if>
     </div>
     </div>
 </div>
 <c:import url="/footer"/>
-
 </body>
 </html>
