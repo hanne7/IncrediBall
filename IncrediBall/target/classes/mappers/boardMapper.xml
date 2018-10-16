@@ -191,4 +191,12 @@
  	SELECT fullname from attach WHERE bno = #{bno} ORDER BY regdate
  </select>
  
+ <delete id="deleteAttach">
+ 	DELETE FROM attach WHERE bno = #{bno}
+ </delete>
+ 
+ <insert id="replaceAttach">
+ 	INSERT INTO attach(fullname, bno) VALUES (#{fullname}, #{bno})
+ </insert>
+ 
 </mapper>

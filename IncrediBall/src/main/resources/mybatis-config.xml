@@ -5,8 +5,12 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-  <typeAliases>
-    <package name="kr.hanne.domain"/>    
-  </typeAliases>
-  
+	<settings>		
+		<setting name="mapUnderscoreToCamelCase" value="true"></setting>
+	</settings>
+	
+	<typeAliases>
+    	<package name="kr.hanne.domain"/>    
+  	</typeAliases>
+
 </configuration>

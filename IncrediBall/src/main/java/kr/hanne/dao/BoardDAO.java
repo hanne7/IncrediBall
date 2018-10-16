@@ -4,7 +4,6 @@ import java.util.List;
 
 import kr.hanne.domain.BoardVO;
 import kr.hanne.domain.Criteria;
-import kr.hanne.domain.UserVO;
 
 public interface BoardDAO {
 
@@ -36,6 +35,9 @@ public interface BoardDAO {
 	
 	public List<String> getAttach(int bno) throws Exception;
 	
+	public void deleteAttach(int bno) throws Exception;
+	
+	public void replaceAttach(String fullName, int bno) throws Exception;
 }
 
 

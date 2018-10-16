@@ -29,6 +29,9 @@
 	<beans:bean id="uploadPath" class="java.lang.String">
         <beans:constructor-arg value="D:\\development\\upload"></beans:constructor-arg>
     </beans:bean>
+    <beans:bean id="productPath" class="java.lang.String">
+        <beans:constructor-arg value="D:\\development\\product"></beans:constructor-arg>
+    </beans:bean>
     
     <beans:bean id="loginInterceptor" class="kr.hanne.interceptor.LoginInterceptor"></beans:bean>
     <beans:bean id="authInterceptor" class="kr.hanne.interceptor.AuthInterceptor"></beans:bean>

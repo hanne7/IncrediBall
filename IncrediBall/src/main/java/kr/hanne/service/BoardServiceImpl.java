@@ -46,13 +46,29 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.read(bno);
 	}
 
+	@Transactional
 	@Override
 	public void modify(BoardVO vo) throws Exception {
 		boardDAO.modify(vo);
+		
+		int bno = vo.getBno();
+		boardDAO.deleteAttach(bno);
+		
+		String[] files = vo.getFiles();
+		
+		System.out.println(Arrays.toString(files));
+		
+		if(files == null) {return;}
+		for(String fileName : files) {
+			boardDAO.replaceAttach(fileName, bno);
+		}
 	}
 
+	@Transactional
 	@Override
 	public void delete(int bno) throws Exception {
+		// attach가 board 를 참조하기 때문에 attach관련 정보부터 먼저 삭제할것
+		boardDAO.deleteAttach(bno);
 		boardDAO.delete(bno);
 	}
 

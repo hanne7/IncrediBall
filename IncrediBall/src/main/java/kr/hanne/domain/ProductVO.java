@@ -1,47 +1,63 @@
 package kr.hanne.domain;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class ProductVO {
 
-	private int productidx;
-	private String productname;
-	private int productcategory;
-	private String categoryname;
+	private int idx;
+	private String productName;
+	private int productCategory;
+	private String categoryName;
 	private int quantity;
 	private int cost;
+	private String status;
 	private Date regdate;
 	private UserVO userVO;
+	private String[] files;
 	
-	public String getCategoryname() {
-		return categoryname;
+	@Override
+	public String toString() {
+		return "ProductVO [idx=" + idx + ", productName=" + productName + ", productCategory="
+				+ productCategory + ", categoryName=" + categoryName + ", quantity=" + quantity + ", cost=" + cost
+				+ ", status=" + status + ", regdate=" + regdate + ", userVO=" + userVO + ", files="
+				+ Arrays.toString(files) + "]";
 	}
-	public void setCategoryname(String categoryname) {
-		this.categoryname = categoryname;
+	public String[] getFiles() {
+		return files;
 	}
-	public UserVO getUserVO() {
-		return userVO;
+	public void setFiles(String[] files) {
+		this.files = files;
 	}
-	public void setUserVO(UserVO userVO) {
-		this.userVO = userVO;
-	}		
-	public int getProductidx() {
-		return productidx;
+	public String getStatus() {
+		return status;
 	}
-	public void setProductidx(int productidx) {
-		this.productidx = productidx;
+	public void setStatus(String status) {
+		this.status = status;
 	}
-	public String getProductname() {
-		return productname;
+	public int getIdx() {
+		return idx;
 	}
-	public void setProductname(String productname) {
-		this.productname = productname;
+	public void setIdx(int idx) {
+		this.idx = idx;
 	}
-	public int getProductcategory() {
-		return productcategory;
+	public String getProductName() {
+		return productName;
 	}
-	public void setProductcategory(int productcategory) {
-		this.productcategory = productcategory;
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public int getProductCategory() {
+		return productCategory;
+	}
+	public void setProductCategory(int productCategory) {
+		this.productCategory = productCategory;
+	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	public int getQuantity() {
 		return quantity;
@@ -61,11 +77,10 @@ public class ProductVO {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	
-	@Override
-	public String toString() {
-		return "ProductVO [productidx=" + productidx + ", productname=" + productname + ", productcategory="
-				+ productcategory + ", categoryname=" + categoryname + ", quantity=" + quantity + ", cost=" + cost
-				+ ", regdate=" + regdate + ", userVO=" + userVO + "]";
+	public UserVO getUserVO() {
+		return userVO;
+	}
+	public void setUserVO(UserVO userVO) {
+		this.userVO = userVO;
 	}
 }

@@ -1,6 +1,8 @@
 package kr.hanne.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -86,5 +88,20 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public List<String> getAttach(int bno) throws Exception {
 		return session.selectList(namespace+".getAttach", bno);
+	}
+
+	@Override
+	public void deleteAttach(int bno) throws Exception {
+		session.delete(namespace+".deleteAttach", bno);
+	}
+
+	@Override
+	public void replaceAttach(String fullName, int bno) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("bno", bno);
+		paramMap.put("fullname", fullName);
+		
+		session.insert(namespace+".replaceAttach", paramMap);
 	}
 }

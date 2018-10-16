@@ -23,15 +23,15 @@ import kr.hanne.util.MediaUtils;
 import kr.hanne.util.UploadFileUtils;
 
 @Controller
-public class UploadController {
+public class ProductUploadController {
 
-	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProductUploadController.class);
 	
-	@Resource(name = "uploadPath")
+	@Resource(name = "productPath")
 	private String uploadPath;
 
 	@ResponseBody
-	@RequestMapping(value="/uploadAjax", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
+	@RequestMapping(value="/uploadProduct", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception{
 		logger.info("originalName: " + file.getOriginalFilename());
 		
@@ -48,7 +48,7 @@ public class UploadController {
 	 * ex) http://localhost:8080/displayFile?fileName=/2018/08/06/d995e94e-9605-4ade-a324-d5f786917d8e_%EB%B8%94%EB%A3%A8%ED%88%AC%EC%8A%A4_%EB%AF%B8%EB%8B%88%ED%82%A4%EB%B3%B4%EB%93%9C.jpg
 	 */
 	@ResponseBody
-	@RequestMapping("/displayFile")
+	@RequestMapping("/displayProduct")
 	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception{
 		
 		InputStream in = null;
@@ -105,7 +105,7 @@ public class UploadController {
 	 * 이미지파일은 원본파일을 먼저 삭제하고, 이후 썸네일 파일을 삭제함.
 	 */
 	@ResponseBody
-	@RequestMapping(value="/deleteFile", method=RequestMethod.POST)
+	@RequestMapping(value="/deleteProduct", method=RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName){
 		
 		logger.info("delete file: " + fileName);
@@ -131,7 +131,7 @@ public class UploadController {
 	 *  기존의 첨부파일을 함께 삭제함.
 	 */
 	@ResponseBody
-	@RequestMapping(value="/deleteAllFiles", method=RequestMethod.POST)
+	@RequestMapping(value="/deleteAllProducts", method=RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(@RequestParam("files[]") String[] files) {
 		logger.info("delete all files: " + files);
 		

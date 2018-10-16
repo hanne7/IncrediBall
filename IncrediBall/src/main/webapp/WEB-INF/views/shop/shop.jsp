@@ -9,10 +9,11 @@
 <meta charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IncrediBall</title>
+<title>Shop</title>
 <link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="/resources/plugins/jQuery/jquery-3.3.1.min.js"></script>
 <script src="/resources/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/resources/js/uploadProduct.js"></script>
 
 </head>
 <body class="bg-light">
@@ -66,97 +67,38 @@
 		  </li>
 		</ul>
 		<div class="d-flex flex-wrap m-2">
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
-			<div class="mr-auto">
-				<a href="#" class="text-center"><img src="http://placehold.it/200x150">
-							<p>축구화1<br><b>10,0000원</b></p>
-				</a>
-			</div>
+			<c:forEach items="${productList}" var="productVO">
+				<div class="mr-auto">
+					<a href="/shop/readProduct${pm.makeSearch(pm.cri.page)}&idx=${productVO.idx}" class="text-center"><img src="http://placehold.it/200x150">
+								<p>${productVO.productName }<br><b>${productVO.cost }원</b></p>
+					</a>
+				</div>
+			</c:forEach>
 		</div>
+		<ul class="pagination ml-5 mr-auto">
+		  	<c:if test="${pm.prev }">
+		  		<li class="page-item"><a class="page-link" href="list${pm.makeSearch(pm.startPage-1) }">&laquo;</a></li>
+		  	</c:if>
+		    <c:forEach begin="${pm.startPage }" end="${pm.endPage }" var="idx">
+	  		   	<%-- <li <c:out value="${pm.cri.page == idx?'class= page-item active':'class= page-item'}"/>>
+	  		   		<a class="page-link" href="list${pm.makeQuery(idx) }">${idx }</a>
+	  		   	</li> --%>
+	  		   	<c:if test="${pm.cri.page == idx }">
+	  		   		<li class="page-item active"><a class="page-link" href="list${pm.makeSearch(idx) }">${idx }</a>
+	  		   	</c:if>
+	  		   	<c:if test="${pm.cri.page != idx }">
+	  		   		<li class="page-item"><a class="page-link" href="list${pm.makeSearch(idx) }">${idx }</a>
+	  		   	</c:if>
+		    </c:forEach>
+		    <c:if test="${pm.next && pm.endPage>0 }">
+		    	<li class="page-item"><a class="page-link" href="list${pm.makeSearch(pm.endPage+1) }">&raquo;</a></li>
+		    </c:if>	    
+		</ul>
+		<%-- <c:if test="${login.userid == 'admin' }"> --%>
+			<div class="d-flex justify-content-end">
+				<button id="product-create" type="button" class="btn btn-secondary h-75 mr-5">상품등록</button>
+			</div>
+		<%-- </c:if> --%>
 	</div>
 	<div class="mr-3" style="width: 25%; min-width: 20%">
 		<div class="position-fixed">
@@ -175,5 +117,28 @@
 </div>
 
 <c:import url="/footer"/>
+
+<form role="form" method="post">
+	<input type="hidden" name="cate" value="${pm.cri.getCate()}">
+</form>
+
+<script type="text/javascript">
+	var result = '${msg}';
+	if(result == 'SUCCESS'){
+		alert("처리가 완료되었습니다.");
+	}
+	
+	$(document).ready(function(){
+		var formObj = $("form[role='form']");
+		console.log(formObj);	
+		$("#product-create").on("click", function() {
+			formObj.attr("method", "get");
+			formObj.attr("action", "/shop/create")
+			formObj.submit();
+		});
+	});
+</script>
+
+
 </body>
 </html>

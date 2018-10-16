@@ -6,7 +6,58 @@
 <mapper namespace="kr.hanne.mapper.shopMapper">
  
  <insert id="create">
- 	INSERT INTO product(productname, productcategory, status)
- 	VALUES(#{productname, productcategory, status)
+ 	INSERT INTO product(product_name, product_category, cost, status)
+ 	VALUES(#{productName}, #{productCategory}, #{cost}, #{status})
  </insert>
+ 
+ <select id="readProduct" resultType="ProductVO">
+ 	SELECT * FROM product WHERE idx = #{idx} 	
+ </select>
+ 
+ <select id="list" resultType="ProductVO">
+ 	<![CDATA[
+ 	SELECT * FROM product WHERE idx > 0
+ 	ORDER BY idx DESC
+ 	LIMIT #{pageStart}, #{perPageNum}
+ 	]]>
+ </select>
+ 
+ <select id="countPaging" resultType="int">
+ 	<![CDATA[
+ 	SELECT count(idx) FROM product WHERE idx>0
+ 	]]>
+ </select>
+ 
+ <update id="modifyProduct">
+ 	UPDATE product
+ 	SET
+ 		product_name = #{productName},
+ 		status = #{status},
+ 		product_category = #{productCategory},
+ 		cost = #{cost}
+ 	WHERE
+ 		idx = #{idx}
+ </update>
+ 
+ <delete id="deleteProduct">
+ 	DELETE FROM product WHERE idx = #{idx}
+ </delete>
+ 
+ <insert id="addAttach">
+ 	INSERT INTO product_attach(fullname, idx) VALUES (#{fullname}, LAST_INSERT_ID())
+ </insert>
+ 
+ <select id="getAttach" resultType="String">
+ 	SELECT fullname from product_attach WHERE idx = #{idx} ORDER BY regdate
+ </select>
+ 
+ <delete id="deleteAttach">
+ 	DELETE FROM product_attach WHERE idx = #{idx}
+ </delete>
+ 
+ <insert id="replaceAttach">
+ 	INSERT INTO product_attach(fullname, idx) VALUES (#{fullname}, #{idx})
+ </insert>
+ 
+ 
 </mapper>
