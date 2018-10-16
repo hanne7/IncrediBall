@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.hanne.domain.Criteria;
@@ -30,18 +31,49 @@ public class ShopController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ShopController.class);
 	
-	@RequestMapping("/")
-	public String shopMain(Model model, @ModelAttribute Criteria cri) throws Exception{
+	@RequestMapping("/shopMain")
+	public void shopMain(Model model, @ModelAttribute Criteria cri) throws Exception{
+		logger.info("shop main called............");
+		logger.info(cri.toString());
 				
-		model.addAttribute("productList", service.list(cri));
-		// 게시판 전체 글 표시
-		PageMaker pm = new PageMaker();
-		pm.setCri(cri);
-		pm.setTotalCount(service.countPaging(cri));
+		if(cri.getSearchType()==null && cri.getKeyword()==null) {
+			if(cri.getCate() == 0) {
+				model.addAttribute("list", service.list(cri));
+				// 상품 전체리스트 표시
+				PageMaker pm = new PageMaker();
+				pm.setCri(cri);
+				pm.setTotalCount(service.countPaging(cri));
+				
+				model.addAttribute("pm", pm);
+			} else {
+				model.addAttribute("list", service.listCategory(cri));
+				// 상품 카테고리별 분류 표시
+				PageMaker pm = new PageMaker();
+				pm.setCri(cri);
+				pm.setTotalCount(service.countCategoryPaging(cri));
+				
+				model.addAttribute("pm", pm);
+			}
+		} else {
+			if(cri.getCate() == 0) {
+				model.addAttribute("list", service.listSearch(cri));
+				// 전체 보기에서 검색
+				PageMaker pm = new PageMaker();
+				pm.setCri(cri);
+				pm.setTotalCount(service.searchCountPaging(cri));
+				
+				model.addAttribute("pm", pm);
+			} else {
+				model.addAttribute("list", service.categorySearch(cri));
+				// 카테고리별 검색
+				PageMaker pm = new PageMaker();
+				pm.setCri(cri);
+				pm.setTotalCount(service.categorySearchCount(cri));
+				
+				model.addAttribute("pm", pm);
+			}
+		}
 		
-		model.addAttribute("pm", pm);
-		
-		return "/shop/shop";
 	}
 	
 	@RequestMapping("/cart")
@@ -71,7 +103,7 @@ public class ShopController {
 		rttr.addAttribute("cate", vo.getProductCategory());
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
-		return "redirect:/shop/";
+		return "redirect:/shop/shopMain";
 	}
 	
 	@RequestMapping("/readProduct")
@@ -106,7 +138,7 @@ public class ShopController {
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		logger.info(rttr.toString());
 		
-		return "redirect:/shop/";
+		return "redirect:/shop/shopMain";
 	}
 	
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
@@ -121,7 +153,7 @@ public class ShopController {
 		rttr.addAttribute("keyword", cri.getKeyword());
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
-		return "redirect:/shop/";
+		return "redirect:/shop/shopMain";
 	}
 	
 	@RequestMapping("/getAttach/{idx}")

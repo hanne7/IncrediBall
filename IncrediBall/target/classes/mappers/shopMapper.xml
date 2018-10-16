@@ -16,15 +16,122 @@
  
  <select id="list" resultType="ProductVO">
  	<![CDATA[
- 	SELECT * FROM product WHERE idx > 0
- 	ORDER BY idx DESC
+ 	SELECT a.idx,
+ 		a.product_name,
+ 		a.product_category,
+ 		a.cost,
+ 		a.regdate,
+ 		a.status,
+ 		b.fullname
+ 	FROM product a
+ 	JOIN product_attach b ON a.idx = b.idx
+ 	WHERE a.idx > 0
+ 	ORDER BY a.idx DESC
  	LIMIT #{pageStart}, #{perPageNum}
  	]]>
+ </select>
+ 
+ <select id="listCategory" resultType="ProductVO">
+ 	<![CDATA[
+ 	SELECT 
+ 		a.idx,
+ 		a.product_name,
+ 		a.product_category,
+ 		a.cost,
+ 		a.regdate,
+ 		a.status,
+ 		b.fullname
+ 	FROM product a
+ 	JOIN product_attach b ON a.idx = b.idx
+ 	WHERE a.idx > 0 AND a.product_category = #{cate}
+ 	ORDER BY a.idx DESC
+ 	LIMIT #{pageStart}, #{perPageNum}
+ 	]]>
+ </select>
+ 
+ <sql id="search">
+ 	AND product_name LIKE CONCAT('%', #{keyword}, '%')
+ 		
+ 	<!--<if test="searchType == 'tc'.toString()">
+ 			AND (a.title LIKE CONCAT('%', #{keyword}, '%') OR a.content LIKE CONCAT('%', #{keyword}, '%'))
+ 		</if> -->
+ </sql>
+ 
+ <select id="listSearch" resultType="ProductVO">
+ 	<![CDATA[
+ 	SELECT 
+ 		a.idx,
+ 		a.product_name,
+ 		a.product_category,
+ 		a.cost,
+ 		a.regdate,
+ 		a.status,
+ 		b.fullname
+ 	FROM product a
+ 	JOIN product_attach b ON a.idx = b.idx
+ 	WHERE a.idx > 0
+ 	]]>
+ 	<include refid="search"></include>
+ 	ORDER BY a.idx DESC
+ 	LIMIT #{pageStart}, #{perPageNum}	
+ </select>
+ 
+ <select id="categorySearch" resultType="ProductVO">
+ 	<![CDATA[
+ 	SELECT 
+ 		a.idx,
+ 		a.product_name,
+ 		a.product_category,
+ 		a.cost,
+ 		a.regdate,
+ 		a.status,
+ 		b.fullname
+ 	FROM product a
+ 	JOIN product_attach b ON a.idx = b.idx
+ 	WHERE a.idx > 0 AND a.product_category = #{cate}
+ 	]]>
+ 	<include refid="search"></include>
+ 	ORDER BY a.idx DESC
+ 	LIMIT #{pageStart}, #{perPageNum}
+ </select>
+ 
+ <select id="categorySearchCount" resultType="int">
+ 	<![CDATA[
+ 	SELECT count(idx),
+ 		idx,
+ 		product_name,
+ 		product_category,
+ 		cost,
+ 		status,
+ 		regdate
+ 	FROM product WHERE idx > 0 AND product_category = #{cate}
+ 	]]>
+ 	<include refid="search"></include>
+ </select>
+ 
+ <select id="searchCountPaging" resultType="int">
+ 	<![CDATA[
+ 	SELECT count(idx),
+ 		idx,
+ 		product_name,
+ 		product_category,
+ 		cost,
+ 		status,
+ 		regdate
+ 	FROM product WHERE idx > 0
+ 	]]>
+ 	<include refid="search"></include>
  </select>
  
  <select id="countPaging" resultType="int">
  	<![CDATA[
  	SELECT count(idx) FROM product WHERE idx>0
+ 	]]>
+ </select>
+ 
+ <select id="countCategoryPaging" resultType="int">
+ 	<![CDATA[
+ 	SELECT count(idx) FROM product WHERE idx>0 AND product_category=#{cate}
  	]]>
  </select>
  
@@ -58,6 +165,5 @@
  <insert id="replaceAttach">
  	INSERT INTO product_attach(fullname, idx) VALUES (#{fullname}, #{idx})
  </insert>
- 
  
 </mapper>

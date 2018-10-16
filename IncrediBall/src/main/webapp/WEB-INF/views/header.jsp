@@ -26,7 +26,7 @@
 	<a class="nav-item nav-link border text-white" href="/">HOME</a>
 	<a class="nav-item nav-link border text-white" href="#">NEWS</a>
 	<a class="nav-item nav-link border text-white" href="/board/list?cate=0">BOARD</a>
-	<a class="nav-item nav-link border text-white" href="/shop/">SHOP</a>
+	<a class="nav-item nav-link border text-white" href="/shop/shopMain">SHOP</a>
 </nav>
 
 <!-- Modal -->

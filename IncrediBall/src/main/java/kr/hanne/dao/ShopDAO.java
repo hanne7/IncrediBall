@@ -19,6 +19,18 @@ public interface ShopDAO {
 	
 	public int countPaging(Criteria cri) throws Exception;
 	
+	public int countCategoryPaging(Criteria cri) throws Exception;
+	
+	public List<ProductVO> listCategory(Criteria cri) throws Exception;
+	
+	public List<ProductVO> listSearch(Criteria cri) throws Exception;
+	
+	public int searchCountPaging(Criteria cri) throws Exception;
+	
+	public List<ProductVO> categorySearch(Criteria cri) throws Exception;
+	
+	public int categorySearchCount(Criteria cri) throws Exception;
+	
 	public void addAttach(String fullname) throws Exception;
 	
 	public List<String> getAttach(int idx) throws Exception;

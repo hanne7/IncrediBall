@@ -28,7 +28,7 @@
 		<a class="nav-item nav-link <c:if test="${pm.cri.getCate()==4 }">text-light bg-secondary</c:if>" href="/board/list?cate=4">프로토분석</a>
 		<a class="nav-item nav-link <c:if test="${pm.cri.getCate()==5 }">text-light bg-secondary</c:if>" href="/board/list?cate=5">QnA</a>
 	</nav>
-	<table class="table table-hover">
+	<table class="table table-hover table-sm">
 	  <thead class="thead-light">
 	    <tr>
 	      <th class="text-center" scope="col">no.</th>

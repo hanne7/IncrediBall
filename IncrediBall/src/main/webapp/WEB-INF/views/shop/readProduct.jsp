@@ -44,11 +44,11 @@
 		</div>
 		<tr>
 			<td class="bg-dark text-white w-25">상품명</td>
-			<td colspan="3"><b>${productVO.productName }</b></td>
+			<td colspan="3"><h5><b>${productVO.productName }</b></h5></td>
 		</tr>
 		<tr>
 			<td class="bg-dark text-white w-25">가격</td>
-			<td colspan="3">${productVO.cost } 원</td>
+			<td colspan="3"><b><fmt:formatNumber value="${productVO.cost }" pattern="#,###"/>원</b></td>
 		</tr>
 		<tr>
 			<td class="bg-dark text-white w-25">등록시간</td>
@@ -120,7 +120,7 @@
 		
 		$("#go-list").on("click", function(){
 			formObj.attr("method", "get");
-			formObj.attr("action", "/shop/");
+			formObj.attr("action", "/shop/shopMain");
 			formObj.submit();
 		});
 		

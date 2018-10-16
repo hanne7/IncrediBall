@@ -80,4 +80,34 @@ public class ShopServiceImpl implements ShopService {
 	public List<String> getAttach(int idx) throws Exception {
 		return shopDAO.getAttach(idx);
 	}
+
+	@Override
+	public int countCategoryPaging(Criteria cri) throws Exception {
+		return shopDAO.countCategoryPaging(cri);
+	}
+
+	@Override
+	public List<ProductVO> listCategory(Criteria cri) throws Exception {
+		return shopDAO.listCategory(cri);
+	}
+
+	@Override
+	public List<ProductVO> listSearch(Criteria cri) throws Exception {
+		return shopDAO.listSearch(cri);
+	}
+
+	@Override
+	public int searchCountPaging(Criteria cri) throws Exception {
+		return shopDAO.searchCountPaging(cri);
+	}
+
+	@Override
+	public List<ProductVO> categorySearch(Criteria cri) throws Exception {
+		return shopDAO.categorySearch(cri);
+	}
+
+	@Override
+	public int categorySearchCount(Criteria cri) throws Exception {
+		return shopDAO.categorySearchCount(cri);
+	}
 }

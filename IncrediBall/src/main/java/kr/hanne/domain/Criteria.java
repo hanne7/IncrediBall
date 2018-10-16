@@ -27,7 +27,7 @@ public class Criteria {
 
 	public Criteria() {
 		this.page = 1;
-		this.perPageNum = 10;
+		this.perPageNum = 18;
 	}
 
 	public int getCate() {

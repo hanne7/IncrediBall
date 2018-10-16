@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 
 <!DOCTYPE html>
 <html>
@@ -26,26 +27,29 @@
 	  </button>
 	
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    <ul class="navbar-nav mx-auto">
-	      <li class="nav-item active">
-	        <a class="nav-link mx-3" href="#">축구화 <span class="sr-only">(current)</span></a>
+	    <ul class="navbar-nav mx-auto">	
+	      <li class="nav-item <c:if test="${pm.cri.getCate()==0 }">text-light bg-danger active</c:if>">
+	        <a class="nav-link mx-3" href="/shop/shopMain?cate=0">전체보기</a>
 	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link mx-3" href="#">유니폼</a>
+	      <li class="nav-item <c:if test="${pm.cri.getCate()==1 }">text-light bg-danger active</c:if>">
+	        <a class="nav-link mx-3" href="/shop/shopMain?cate=1">축구화 <span class="sr-only">(current)</span></a>
 	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link mx-3" href="#">축구공</a>
+	      <li class="nav-item <c:if test="${pm.cri.getCate()==2 }">text-light bg-danger active</c:if>">
+	        <a class="nav-link mx-3" href="/shop/shopMain?cate=2">유니폼</a>
 	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link mx-3" href="#">GK장비</a>
+	      <li class="nav-item <c:if test="${pm.cri.getCate()==3 }">text-light bg-danger active</c:if>">
+	        <a class="nav-link mx-3" href="/shop/shopMain?cate=3">축구공</a>
 	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link mx-3" href="#">기타용품</a>
+	      <li class="nav-item <c:if test="${pm.cri.getCate()==4 }">text-light bg-danger active</c:if>">
+	        <a class="nav-link mx-3" href="/shop/shopMain?cate=4">GK장비</a>
+	      </li>
+	      <li class="nav-item <c:if test="${pm.cri.getCate()==5 }">text-light bg-danger active</c:if>">
+	        <a class="nav-link mx-3" href="/shop/shopMain?cate=5">기타용품</a>
 	      </li>	     
 	    </ul>
 	    <form class="form-inline my-2 my-lg-0">
-	      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-	      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+	      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="keywordInput">
+	      <button class="btn btn-outline-light my-2 my-sm-0" type="button" id="search-btn">Search</button>
 	    </form>
 	  </div>
 	</nav>
@@ -67,31 +71,28 @@
 		  </li>
 		</ul>
 		<div class="d-flex flex-wrap m-2">
-			<c:forEach items="${productList}" var="productVO">
+			<c:forEach items="${list}" var="productVO">
 				<div class="mr-auto">
-					<a href="/shop/readProduct${pm.makeSearch(pm.cri.page)}&idx=${productVO.idx}" class="text-center"><img src="http://placehold.it/200x150">
-								<p>${productVO.productName }<br><b>${productVO.cost }원</b></p>
+					<img src="D:\\development\\product\\ball.jpg"><a href="/shop/readProduct${pm.makeSearch(pm.cri.page)}&idx=${productVO.idx}" class="text-center">
+								<p><h5>${productVO.productName }</h5><b><fmt:formatNumber value="${productVO.cost }" pattern="#,###"/>원</b></p>
 					</a>
 				</div>
 			</c:forEach>
 		</div>
 		<ul class="pagination ml-5 mr-auto">
 		  	<c:if test="${pm.prev }">
-		  		<li class="page-item"><a class="page-link" href="list${pm.makeSearch(pm.startPage-1) }">&laquo;</a></li>
+		  		<li class="page-item"><a class="page-link" href="shopMain${pm.makeSearch(pm.startPage-1) }">&laquo;</a></li>
 		  	</c:if>
 		    <c:forEach begin="${pm.startPage }" end="${pm.endPage }" var="idx">
-	  		   	<%-- <li <c:out value="${pm.cri.page == idx?'class= page-item active':'class= page-item'}"/>>
-	  		   		<a class="page-link" href="list${pm.makeQuery(idx) }">${idx }</a>
-	  		   	</li> --%>
 	  		   	<c:if test="${pm.cri.page == idx }">
-	  		   		<li class="page-item active"><a class="page-link" href="list${pm.makeSearch(idx) }">${idx }</a>
+	  		   		<li class="page-item active"><a class="page-link" href="shopMain${pm.makeSearch(idx) }">${idx }</a>
 	  		   	</c:if>
 	  		   	<c:if test="${pm.cri.page != idx }">
-	  		   		<li class="page-item"><a class="page-link" href="list${pm.makeSearch(idx) }">${idx }</a>
+	  		   		<li class="page-item"><a class="page-link" href="shopMain${pm.makeSearch(idx) }">${idx }</a>
 	  		   	</c:if>
 		    </c:forEach>
 		    <c:if test="${pm.next && pm.endPage>0 }">
-		    	<li class="page-item"><a class="page-link" href="list${pm.makeSearch(pm.endPage+1) }">&raquo;</a></li>
+		    	<li class="page-item"><a class="page-link" href="shopMain${pm.makeSearch(pm.endPage+1) }">&raquo;</a></li>
 		    </c:if>	    
 		</ul>
 		<%-- <c:if test="${login.userid == 'admin' }"> --%>
@@ -135,6 +136,20 @@
 			formObj.attr("method", "get");
 			formObj.attr("action", "/shop/create")
 			formObj.submit();
+		});
+		
+		
+		$("#search-btn").on("click",function(event){
+			self.location = "shopMain"
+				+ "${pm.makeQuery(1)}"
+				+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
+				
+		});
+		
+		$("#keywordInput").on("keypress", function(event){
+			if(event.keyCode == 13){
+				$("#search-btn").click();
+			}
 		});
 	});
 </script>

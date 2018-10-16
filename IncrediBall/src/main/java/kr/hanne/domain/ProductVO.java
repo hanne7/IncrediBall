@@ -15,13 +15,20 @@ public class ProductVO {
 	private Date regdate;
 	private UserVO userVO;
 	private String[] files;
-	
+	private String fullname;
+
 	@Override
 	public String toString() {
-		return "ProductVO [idx=" + idx + ", productName=" + productName + ", productCategory="
-				+ productCategory + ", categoryName=" + categoryName + ", quantity=" + quantity + ", cost=" + cost
-				+ ", status=" + status + ", regdate=" + regdate + ", userVO=" + userVO + ", files="
-				+ Arrays.toString(files) + "]";
+		return "ProductVO [idx=" + idx + ", productName=" + productName + ", productCategory=" + productCategory
+				+ ", categoryName=" + categoryName + ", quantity=" + quantity + ", cost=" + cost + ", status=" + status
+				+ ", regdate=" + regdate + ", userVO=" + userVO + ", files=" + Arrays.toString(files) + ", fullname="
+				+ fullname + "]";
+	}
+	public String getFullname() {
+		return fullname;
+	}
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 	public String[] getFiles() {
 		return files;
