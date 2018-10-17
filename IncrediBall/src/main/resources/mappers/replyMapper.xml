@@ -9,10 +9,25 @@
  	SELECT 
  		a.*,
  		b.userid,
- 		b.username,	
+ 		b.username	
  	FROM reply a JOIN user b ON a.replyer_idx = b.idx 
  	WHERE a.bno = #{bno}
  	ORDER BY a.rno DESC
+ </select>
+ 
+ <select id="listPage" resultType="ReplyVO">
+ 	SELECT 
+ 		a.*,
+ 		b.userid,
+ 		b.username	
+ 	FROM reply a JOIN user b ON a.replyer_idx = b.idx 
+ 	WHERE a.bno = #{bno}
+ 	ORDER BY a.rno DESC
+ 	LIMIT #{cri.pageStart}, #{cri.perPageNum}
+ </select> 
+ 
+ <select id="countPage" resultType="int">
+ 	SELECT count(bno) FROM reply WHERE bno = #{bno}
  </select>
  
  <insert id="create">
@@ -30,14 +45,5 @@
  <delete id="delete">
  	DELETE FROM reply WHERE rno = #{rno}
  </delete>
- 
- <select id="listPage" resultType="ReplyVO">
- 	SELECT * FROM reply WHERE bno = #{bno} ORDER BY rno DESC
- 	LIMIT #{cri.pageStart}, #{cri.perPageNum}
- </select>
- 
- <select id="countPage" resultType="int">
- 	SELECT count(bno) FROM reply WHERE bno = #{bno}
- </select>
- 
+   
 </mapper>

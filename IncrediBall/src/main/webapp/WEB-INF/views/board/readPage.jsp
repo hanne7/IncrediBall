@@ -76,10 +76,41 @@
 	  	<button id="delete-post" type="button" class="btn btn-secondary">글삭제</button>
 	  </c:if>
 	</div>
+	
+	<!-- reply  -->
+	<c:if test="${!empty login }">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-success">
+				<div class="box-header">
+					<h5 class="box-title">ADD NEW REPLY</h5>
+				</div>
+				<div class="box-body">
+					<label for="writer">Writer</label>
+					<input class="form-control" type="text" id="writer" value="${login.username }(${login.userid})" readonly />
+					<label for="replyText">ReplyText</label>
+					<input class="form-control" type="text" placeholder="댓글을 남겨주세요" id="replyText" />
+					<input type="hidden" id="writerIdx" value="${login.idx }" />
+				</div>
+				<div class="box-footer">
+					<button type="submit" class="btn btn-primary" id="replyAddBtn">ADD REPLY</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	</c:if>
+	
+	<!-- replyList-->
+	<div class="mt-3 timeline">
+		<div id="repliesDiv"><span class="badge badge-success">Replies List</span></div>
+	</div>
+	
+	<div class="text-center">
+		<ul id="pagination" class="pagination pagination-sm m-0">
+		
+		</ul>
+	</div>
 </div>
-
-<div class="popup back" style="display:none;"></div>
-<div id="popup_front" class="popup front" style="display:none;"><img id="popup-img"></div>
 
 <c:import url="/footer"/>
 <form role="form" method="post">
@@ -138,6 +169,113 @@
 			formObj.submit();
 		});
 	});
+</script>
+
+<%-- 댓글목록 처리 위한 handlebars 탬플릿 --%>
+<script id="template" type="text/x-handlebars-template">
+{{#each .}}
+<li class="replyLi" data-rno={{rno}}>
+	<div class="">
+		<span class="">{{prettifyDate regdate}}</span>
+		<h3 class=""><strong>{{rno}}</strong> - {{username}}</h3>
+		<div class="">{{replyText}}</div>
+		<div class="">
+			<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyModal">Modify</a>
+		</div>
+	</div>
+</li>
+{{/each}}
+</script>
+
+<script type="text/javascript">
+Handlebars.registerHelper("prettifyDate", function(timeValue){
+	var dateObj = new Date(timeValue);
+	var year = dateObj.getFullYear();
+	var month = dateObj.getMonth() + 1;
+	var date = dateObj.getDate();
+	return year + "/" + month + "/" + date;
+});
+
+var printData = function(replyArr, target, templateObject){
+	var template = Handlebars.compile(templateObject.html());
+	
+	var html = template(replyArr);
+	$(".replyLi").remove();
+	target.after(html);
+}
+
+var bno = ${boardVO.bno};
+var replyPage = 1;
+
+function getPage(pageInfo){
+	$.getJSON(pageInfo, function(data){
+		printData(data.list, $("#repliesDiv"), $("#template"));
+		printPaging(data.pm, $(".pagination"));
+		
+		$("#modifyModal").modal('hide');
+	});
+}
+
+var printPaging = function(pm, target){
+	var str = "";
+	
+	if(pm.prev){
+		str +="<li><a href='" + (pm.startPage-1) + "'> << </a></li>";
+	}
+	
+	for(var i=pm.startPage, len=pm.endPage; i<=len; i++){
+		var strClass = pm.cri.page == i?'class=active':'';
+		str += "<li " + strClass + "><a href='" + i + "'>" + i + "</a></li>";
+	}
+	
+	if(pm.next){
+		str += "<li><a href='" + (pm.endPage+1)+"'> >> </a></li>";
+	}
+	
+	target.html(str);
+}
+
+$("#repliesDiv").on("click", function(){
+	if($(".timeline li").length > 1){
+		return;
+	}
+	getPage("/replies/" + bno + "/1");
+});
+
+$(".pagination").on("click", "li a", function(event){
+	event.preventDefault();
+	replyPage = $(this).attr("href");
+	getPage("/replies/" + bno + "/" + replyPage);
+});
+
+$("#replyAddBtn").on("click", function(){
+	var replyerObj = $("#writerIdx");
+	var replytextObj = $("#replyText");
+	var replyerIdx = replyerObj.val();
+	var replyText = replytextObj.val();
+	
+	$.ajax({
+		type:'post',
+		url:'/replies/',
+		headers:{
+			"Content-Type":"application/json",
+			"X-HTTP-Method-Override":"POST"
+		},
+		dataType:'text',
+		data:JSON.stringify({bno:bno, replyerIdx:replyerIdx, replyText:replyText}),
+		success:function(result){
+			console.log("result: " + result);
+			if(result == 'SUCCESS'){
+				alert("등록되었습니다");
+				replyPage = 1;
+				getPage("/replies/" + bno + "/" + replyPage);
+				replyerObj.val("");
+				replytextObj.val("");
+			}
+		}
+	});
+	
+});
 </script>
 
 <%--...이미 업로드된 첨부파일을 보여주기 위한 handlebars의 템플릿. --%>
