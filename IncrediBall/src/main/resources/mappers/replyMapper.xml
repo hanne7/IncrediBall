@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.hanne.mapper.ReplyMapper">
+ 
+ <select id="list" resultType="ReplyVO">
+ 	SELECT 
+ 		a.*,
+ 		b.userid,
+ 		b.username,	
+ 	FROM reply a JOIN user b ON a.replyer_idx = b.idx 
+ 	WHERE a.bno = #{bno}
+ 	ORDER BY a.rno DESC
+ </select>
+ 
+ <insert id="create">
+ 	INSERT INTO reply (bno, replyer_idx, reply_text)
+ 	VALUES (#{bno}, #{replyerIdx}, #{replyText})
+ </insert>
+ 
+ <update id="modify">
+ 	UPDATE reply 
+ 	SET
+ 		reply_text = #{replyText}
+ 	WHERE rno = #{rno} 
+ </update>
+ 
+ <delete id="delete">
+ 	DELETE FROM reply WHERE rno = #{rno}
+ </delete>
+ 
+ <select id="listPage" resultType="ReplyVO">
+ 	SELECT * FROM reply WHERE bno = #{bno} ORDER BY rno DESC
+ 	LIMIT #{cri.pageStart}, #{cri.perPageNum}
+ </select>
+ 
+ <select id="countPage" resultType="int">
+ 	SELECT count(bno) FROM reply WHERE bno = #{bno}
+ </select>
+ 
+</mapper>

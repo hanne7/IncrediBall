@@ -73,7 +73,7 @@
 		<div class="d-flex flex-wrap m-2">
 			<c:forEach items="${list}" var="productVO">
 				<div class="mr-auto">
-					<img src="D:\\development\\product\\ball.jpg"><a href="/shop/readProduct${pm.makeSearch(pm.cri.page)}&idx=${productVO.idx}" class="text-center">
+					<a href="/shop/readProduct${pm.makeSearch(pm.cri.page)}&idx=${productVO.idx}" class="text-center"><img src="D://development//product//ball.jpg" width="200" height="150">
 								<p><h5>${productVO.productName }</h5><b><fmt:formatNumber value="${productVO.cost }" pattern="#,###"/>원</b></p>
 					</a>
 				</div>
