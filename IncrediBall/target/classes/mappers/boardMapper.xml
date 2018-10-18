@@ -12,12 +12,7 @@
  
  <select id="read" resultType="BoardVO">
  	SELECT 
- 		a.bno,
- 		a.title,
- 		a.content,
- 		a.category,
- 		a.regdate,
- 		a.moddate,
+ 		a.*,
  		b.nickname,
  		b.userid
  	FROM board a
@@ -28,11 +23,7 @@
  <select id="listCategory" resultType="BoardVO">
  	<![CDATA[
  	SELECT 
- 		a.bno,
- 		a.title,
- 		a.category,
- 		a.regdate,
- 		a.moddate,
+ 		a.*,
  		b.nickname,
  		b.userid
  	FROM board a
@@ -46,11 +37,7 @@
  <select id="list" resultType="BoardVO">
  	<![CDATA[
  	SELECT 
- 		a.bno,
- 		a.title,
- 		a.category,
- 		a.regdate,
- 		a.moddate,
+ 		a.*,
  		b.nickname,
  		b.userid
  	FROM board a
@@ -84,12 +71,7 @@
  <select id="listSearch" resultType="BoardVO">
  	<![CDATA[
  	SELECT 
- 		a.bno,
- 		a.title,
- 		a.category,
- 		a.regdate,
- 		a.moddate,
- 		a.content,
+ 		a.*,
  		b.nickname,
  		b.userid
  	FROM board a
@@ -104,12 +86,7 @@
  <select id="categorySearch" resultType="BoardVO">
  	<![CDATA[
  	SELECT 
- 		a.bno,
- 		a.title,
- 		a.category,
- 		a.regdate,
- 		a.moddate,
- 		a.content,
+ 		a.*,
  		b.nickname,
  		b.userid
  	FROM board a
@@ -124,12 +101,7 @@
  <select id="categorySearchCount" resultType="int">
  	<![CDATA[
  	SELECT count(bno),
- 		a.bno,
- 		a.title,
- 		a.category,
- 		a.regdate,
- 		a.moddate,
- 		a.content,
+ 		a.*,
  		b.nickname,
  		b.userid
  	FROM board a
@@ -142,12 +114,7 @@
  <select id="searchCountPaging" resultType="int">
  	<![CDATA[
  	SELECT count(bno),
- 		a.bno,
- 		a.title,
- 		a.category,
- 		a.regdate,
- 		a.moddate,
- 		a.content,
+ 		a.*,
  		b.nickname,
  		b.userid
  	FROM board a
@@ -198,5 +165,13 @@
  <insert id="replaceAttach">
  	INSERT INTO attach(fullname, bno) VALUES (#{fullname}, #{bno})
  </insert>
+ 
+ <update id="updateReplyCnt">
+ 	UPDATE board SET replycnt = replycnt + #{amount} WHERE bno = #{bno}
+ </update>
+ 
+ <update id="updateViewCnt">
+ 	UPDATE board SET viewcnt = viewcnt + 1 WHERE bno = #{bno}
+ </update>
  
 </mapper>

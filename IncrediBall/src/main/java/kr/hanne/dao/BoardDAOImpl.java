@@ -104,4 +104,19 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		session.insert(namespace+".replaceAttach", paramMap);
 	}
+
+	@Override
+	public void updateReplyCnt(int bno, int amount) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		
+		paramMap.put("bno", bno);
+		paramMap.put("amount", amount);
+		
+		session.update(namespace+".updateReplyCnt", paramMap);
+	}
+
+	@Override
+	public void updateViewCnt(int bno) throws Exception {
+		session.update(namespace+".updateViewCnt", bno);
+	}
 }

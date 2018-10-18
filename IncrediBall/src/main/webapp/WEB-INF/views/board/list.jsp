@@ -35,15 +35,17 @@
 	      <th class="text-center" scope="col">제 목</th>
 	      <th class="text-center" scope="col">글쓴이</th>
 	      <th class="text-center" scope="col">작성시간</th>
+	      <th class="text-center" scope="col">조회수</th>
 	    </tr>
 	  </thead>
 	  <tbody>
 	  	<c:forEach items="${list }" var="boardVO">
 	    	<tr>
 	      		<th scope="row" class="text-center">${boardVO.bno }</th>
-	      		<td class="w-50 text-center"><a href="/board/readPage${pm.makeSearch(pm.cri.page)}&bno=${boardVO.bno}">${boardVO.title }</a></td>
+	      		<td class="w-50 text-center"><a href="/board/readPage${pm.makeSearch(pm.cri.page)}&bno=${boardVO.bno}">${boardVO.title }<b>[${boardVO.replycnt }]</b></a></td>
 	      		<td class="text-center">${boardVO.nickname }</td>
 	      		<td class="text-center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${boardVO.regdate }"/></td>
+	      		<td class="text-center">${boardVO.viewcnt }</td>
 	    	</tr>
 	    </c:forEach>
 	  </tbody>

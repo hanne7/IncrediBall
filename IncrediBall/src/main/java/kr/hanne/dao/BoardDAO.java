@@ -6,7 +6,7 @@ import kr.hanne.domain.BoardVO;
 import kr.hanne.domain.Criteria;
 
 public interface BoardDAO {
-
+	
 	public void create(BoardVO vo) throws Exception;
 	
 	public List<BoardVO> list(Criteria cri) throws Exception;
@@ -38,6 +38,10 @@ public interface BoardDAO {
 	public void deleteAttach(int bno) throws Exception;
 	
 	public void replaceAttach(String fullName, int bno) throws Exception;
+	
+	public void updateReplyCnt(int bno, int amount) throws Exception;
+	
+	public void updateViewCnt(int bno) throws Exception;
 }
 
 

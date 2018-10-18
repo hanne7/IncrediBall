@@ -87,7 +87,7 @@
 				</div>
 				<div class="box-body">
 					<label for="writer">Writer</label>
-					<input class="form-control" type="text" id="writer" value="${login.username }(${login.userid})" readonly />
+					<input class="form-control" type="text" id="writer" value="${login.nickname }(${login.userid})" readonly />
 					<label for="replyText">ReplyText</label>
 					<input class="form-control" type="text" placeholder="댓글을 남겨주세요" id="replyText" />
 					<input type="hidden" id="writerIdx" value="${login.idx }" />
@@ -102,13 +102,35 @@
 	
 	<!-- replyList-->
 	<div class="mt-3 timeline">
-		<div id="repliesDiv"><span class="badge badge-success">Replies List</span></div>
+		<span class="badge badge-success">Replies List<small id="replycntsmall">[${boardVO.replycnt }]</small></span>
+		<div id="reply-box">
+			<div id="repliesDiv">
+			</div>
+			<div class="text-center">
+				<ul id="reply-pagination" class="pagination pagination-sm">
+				</ul>
+			</div>
+		</div>
 	</div>
 	
-	<div class="text-center">
-		<ul id="pagination" class="pagination pagination-sm m-0">
-		
-		</ul>
+	<!-- 댓글 수정 Modal -->
+	<div id="modifyModal" class="modal modal-primary fade position-fixed" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"></h4>
+				</div>
+				<div class="modal-body" data-rno>
+					<p><input type="text" id="modReplyText" class="form-control"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="replyModBtn">Modify</button>
+					<button type="button" class="btn btn-danger" id="replyDelBtn">DELETE</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -174,16 +196,18 @@
 <%-- 댓글목록 처리 위한 handlebars 탬플릿 --%>
 <script id="template" type="text/x-handlebars-template">
 {{#each .}}
-<li class="replyLi" data-rno={{rno}}>
+<div class="replyLi my-4" data-rno={{rno}}>
 	<div class="">
-		<span class="">{{prettifyDate regdate}}</span>
-		<h3 class=""><strong>{{rno}}</strong> - {{username}}</h3>
-		<div class="">{{replyText}}</div>
+		<div class="d-flex justify-content-start">
+			<h5 class="">작성자 - {{nickname}}({{userid}})</h5>
+			<span class="ml-5">{{prettifyDate regdate}}</span>
+		</div>
+		<textarea class="form-control" rows="3" readonly>{{replyText}}</textarea>
 		<div class="">
 			<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyModal">Modify</a>
 		</div>
 	</div>
-</li>
+</div>
 {{/each}}
 </script>
 
@@ -193,7 +217,11 @@ Handlebars.registerHelper("prettifyDate", function(timeValue){
 	var year = dateObj.getFullYear();
 	var month = dateObj.getMonth() + 1;
 	var date = dateObj.getDate();
-	return year + "/" + month + "/" + date;
+	var hour = dateObj.getHours();
+	var min = dateObj.getMinutes();
+	var sec = dateObj.getSeconds();
+	
+	return year + "/" + month + "/" + date + " " + hour + ":" + min + ":" + sec;
 });
 
 var printData = function(replyArr, target, templateObject){
@@ -213,6 +241,7 @@ function getPage(pageInfo){
 		printPaging(data.pm, $(".pagination"));
 		
 		$("#modifyModal").modal('hide');
+		$("#replycntsmall").html("[ " + data.pm.totalCount + " ]");
 	});
 }
 
@@ -220,26 +249,31 @@ var printPaging = function(pm, target){
 	var str = "";
 	
 	if(pm.prev){
-		str +="<li><a href='" + (pm.startPage-1) + "'> << </a></li>";
+		str +="<li class='page-item'><a class='page-link' href='" + (pm.startPage-1) + "'> << </a></li>";
 	}
 	
 	for(var i=pm.startPage, len=pm.endPage; i<=len; i++){
-		var strClass = pm.cri.page == i?'class=active':'';
-		str += "<li " + strClass + "><a href='" + i + "'>" + i + "</a></li>";
+		var strClass = "class='page-item'";
+		if(pm.cri.page == i){
+			strClass = "class='page-item active'";
+		} 
+		str += "<li " + strClass + "><a class='page-link' href='" + i + "'>" + i + "</a></li>";
 	}
 	
 	if(pm.next){
-		str += "<li><a href='" + (pm.endPage+1)+"'> >> </a></li>";
+		str += "<li class='page=item'><a class='page-link' href='" + (pm.endPage+1)+"'> >> </a></li>";
 	}
 	
 	target.html(str);
 }
 
-$("#repliesDiv").on("click", function(){
-	if($(".timeline li").length > 1){
-		return;
-	}
-	getPage("/replies/" + bno + "/1");
+$(".badge-success").on("click", function(){
+	if($(".timeline .replyLi").length < 1){
+		getPage("/replies/" + bno + "/1");
+		$("#reply-box").toggle();
+	}	
+	
+	$("#reply-box").toggle();	
 });
 
 $(".pagination").on("click", "li a", function(event){
@@ -269,12 +303,70 @@ $("#replyAddBtn").on("click", function(){
 				alert("등록되었습니다");
 				replyPage = 1;
 				getPage("/replies/" + bno + "/" + replyPage);
-				replyerObj.val("");
+				//replyerObj.val("");
 				replytextObj.val("");
 			}
 		}
 	});
+});
+
+$("#replyText").on("keypress", function(event){
+	if(event.keyCode == 13){
+		$("#replyAddBtn").click();
+	}
+});
+
+$("#replyModBtn").on("click",function(){
+	var rno = $(".modal-title").html();
+	var replyText = $("#modReplyText").val();
 	
+	$.ajax({
+		type:'put',
+		url:"/replies/" + rno,
+		headers:{
+			"Content-Type":"application/json",
+			"X-HTTP-Method-Override":"PUT"
+		},
+		data:JSON.stringify({replyText:replyText}),
+		dataType:'text',
+		success:function(result){
+			console.log("result: " + result);
+			if(result == "SUCCESS"){
+				alert("수정 되었습니다.");
+				getPage("/replies/" + bno + "/" + replyPage);
+			}
+		}
+	});
+});
+
+$("#replyDelBtn").on("click", function(){
+	var rno = $(".modal-title").html();
+	var replyText = $("#modReplyText").val();
+	
+	$.ajax({
+		type:'delete',
+		url:'/replies/' + rno,
+		headers:{
+			"Content-Type":"application/json",
+			"X-HTTP-Method-Override":"DELETE"
+		},
+		dataType:'text',
+		success:function(result){
+			console.log("result: " + result);
+			if(result == 'SUCCESS'){
+				alert("삭제 되었습니다.");
+				getPage("/replies/" + bno + "/" + replyPage);
+			}
+		}
+	});
+});
+
+$(".timeline").on("click", ".replyLi", function(event){
+	
+	var reply = $(this);
+	
+	$("#modReplyText").val(reply.find('textarea').text());
+	$(".modal-title").html(reply.attr("data-rno"));
 });
 </script>
 

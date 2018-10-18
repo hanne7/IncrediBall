@@ -12,7 +12,14 @@ public class ReplyVO {
 	private Date moddate;
 	private String username;
 	private String userid;
+	private String nickname;
 	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public int getRno() {
 		return rno;
 	}
@@ -65,6 +72,6 @@ public class ReplyVO {
 	public String toString() {
 		return "ReplyVO [rno=" + rno + ", bno=" + bno + ", replyerIdx=" + replyerIdx + ", replyText=" + replyText
 				+ ", regdate=" + regdate + ", moddate=" + moddate + ", username=" + username + ", userid=" + userid
-				+ "]";
+				+ ", nickname=" + nickname + "]";
 	}
 }

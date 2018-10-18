@@ -9,7 +9,8 @@
  	SELECT 
  		a.*,
  		b.userid,
- 		b.username	
+ 		b.username,
+ 		b.nickname	
  	FROM reply a JOIN user b ON a.replyer_idx = b.idx 
  	WHERE a.bno = #{bno}
  	ORDER BY a.rno DESC
@@ -19,7 +20,8 @@
  	SELECT 
  		a.*,
  		b.userid,
- 		b.username	
+ 		b.username,
+ 		b.nickname	
  	FROM reply a JOIN user b ON a.replyer_idx = b.idx 
  	WHERE a.bno = #{bno}
  	ORDER BY a.rno DESC
@@ -45,5 +47,9 @@
  <delete id="delete">
  	DELETE FROM reply WHERE rno = #{rno}
  </delete>
+ 
+ <select id="getBno" resultType="int">
+ 	SELECT bno FROM reply WHERE rno = #{rno}
+ </select>
    
 </mapper>

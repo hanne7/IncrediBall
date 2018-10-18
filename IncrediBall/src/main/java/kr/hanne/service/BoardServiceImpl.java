@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.hanne.dao.BoardDAO;
@@ -41,8 +42,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.list(cri);
 	}
 
+	@Transactional(isolation=Isolation.READ_COMMITTED)
 	@Override
 	public BoardVO read(int bno) throws Exception {
+		boardDAO.updateViewCnt(bno);
 		return boardDAO.read(bno);
 	}
 
