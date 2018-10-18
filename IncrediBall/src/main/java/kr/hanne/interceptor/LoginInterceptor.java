@@ -1,5 +1,6 @@
 package kr.hanne.interceptor;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -43,8 +44,17 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			logger.info("new login success");
 			session.setAttribute(LOGIN, userVO);
 			
+			if(req.getParameter("useCookie") != null) {
+				logger.info("remember me......");
+				
+				Cookie loginCookie = new Cookie("loginCookie", session.getId());
+				loginCookie.setPath("/");
+				loginCookie.setMaxAge(60*60*24*7);
+				res.addCookie(loginCookie);
+			}
+			
 			Object dest = session.getAttribute("dest");
-			res.sendRedirect(dest != null ? (String)dest:"/");
+			res.sendRedirect(dest != null ? (String)dest:"/user/myPage");
 		} else {
 			int count = 0;
 			session.setAttribute("count", count);

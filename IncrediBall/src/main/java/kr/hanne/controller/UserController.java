@@ -1,6 +1,9 @@
 package kr.hanne.controller;
 
+import java.util.Date;
+
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.WebUtils;
 
 import kr.hanne.domain.UserVO;
 import kr.hanne.dto.LoginDTO;
@@ -47,6 +51,15 @@ public class UserController {
 		} else {
 			logger.info("vo : " + vo.toString());
 			model.addAttribute("userVO", vo);
+			
+			// 자동로그인위한 쿠키 처리
+			if(dto.isUseCookie()) {
+				int amount = 60*60*24*7;
+				
+				Date sessionLimit = new Date(System.currentTimeMillis()+(1000*amount));
+				
+				service.keepLogin(vo.getUserid(), session.getId(), sessionLimit);
+			}
 		}
 		
 	}
@@ -60,8 +73,17 @@ public class UserController {
 		Object obj = session.getAttribute("login");
 		
 		if (obj != null) {
+			UserVO vo = (UserVO) obj;
 			session.removeAttribute("login");
 			session.invalidate();
+			
+			Cookie loginCookie = WebUtils.getCookie(req, "loginCookie");
+			if(loginCookie != null) {
+				loginCookie.setPath("/");
+				loginCookie.setMaxAge(0);
+				res.addCookie(loginCookie);
+				service.keepLogin(vo.getUserid(), session.getId(), new Date());
+			}
 		}
 		
 		return "user/loginPage";

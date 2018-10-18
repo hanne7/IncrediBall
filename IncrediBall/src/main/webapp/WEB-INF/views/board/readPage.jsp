@@ -100,21 +100,13 @@
 	</div>
 	</c:if>
 	
-	<!-- replyList-->
-	<div class="mt-3 timeline">
-		<span class="badge badge-success">Replies List<small id="replycntsmall">[${boardVO.replycnt }]</small></span>
-		<div id="reply-box">
-			<div id="repliesDiv">
-			</div>
-			<div class="text-center">
-				<ul id="reply-pagination" class="pagination pagination-sm">
-				</ul>
-			</div>
-		</div>
-	</div>
+	<c:if test="${empty login }">
+		<h5>댓글을 남기시려면 로그인 하셔야 합니다.</h5>
+		<a href="/user/loginPage">로그인 하러가기</a>
+	</c:if>
 	
 	<!-- 댓글 수정 Modal -->
-	<div id="modifyModal" class="modal modal-primary fade position-fixed" role="dialog">
+	<div id="modifyModal" class="modal modal-primary fade position-fixed" role="dialog" tabindex="-2" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -132,6 +124,40 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- replyList-->
+	<div class="mt-3 timeline">
+		<span class="badge badge-success">Replies List<small id="replycntsmall">[${boardVO.replycnt }]</small></span>
+		<div id="reply-box">
+			<div id="repliesDiv">
+			</div>
+			<div class="text-center">
+				<ul id="reply-pagination" class="pagination pagination-sm">
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 댓글 수정 Modal -->
+	<div id="modifyModal" class="modal modal-primary fade position-relative" role="dialog" tabindex="-2" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"></h4>
+				</div>
+				<div class="modal-body" data-rno>
+					<p><input type="text" id="modReplyText" class="form-control"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="replyModBtn">Modify</button>
+					<button type="button" class="btn btn-danger" id="replyDelBtn">DELETE</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </div>
 
 <c:import url="/footer"/>
@@ -204,7 +230,9 @@
 		</div>
 		<textarea class="form-control" rows="3" readonly>{{replyText}}</textarea>
 		<div class="">
+			{{#eqReplyer replyerIdx}}
 			<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyModal">Modify</a>
+			{{/eqReplyer}}
 		</div>
 	</div>
 </div>
@@ -367,6 +395,14 @@ $(".timeline").on("click", ".replyLi", function(event){
 	
 	$("#modReplyText").val(reply.find('textarea').text());
 	$(".modal-title").html(reply.attr("data-rno"));
+});
+
+Handlebars.registerHelper("eqReplyer", function(replyer, block){
+	var accum = '';
+	if (replyer == '${login.idx}'){
+		accum += block.fn();
+	}
+	return accum;
 });
 </script>
 

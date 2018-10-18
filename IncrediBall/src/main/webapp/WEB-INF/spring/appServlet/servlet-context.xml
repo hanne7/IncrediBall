@@ -35,11 +35,16 @@
     
     <beans:bean id="loginInterceptor" class="kr.hanne.interceptor.LoginInterceptor"></beans:bean>
     <beans:bean id="authInterceptor" class="kr.hanne.interceptor.AuthInterceptor"></beans:bean>
+    <beans:bean id="cookieInterceptor" class="kr.hanne.interceptor.CookieInterceptor"></beans:bean>
     
     <interceptors>
     	<interceptor>
     		<mapping path="/user/login"/>
     		<beans:ref bean="loginInterceptor"/>
+    	</interceptor>
+    	<interceptor>
+    		<mapping path="/"/>
+    		<beans:ref bean="cookieInterceptor"/>
     	</interceptor>
     	<interceptor>
     		<mapping path="/user/myPage"/>

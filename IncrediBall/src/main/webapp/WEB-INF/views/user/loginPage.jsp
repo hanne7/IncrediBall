@@ -38,8 +38,12 @@
 				<input type="password" class="form-control form-control-sm" name="password"
 					placeholder="Password를 입력하세요">
     		</div>
+    		<div class="checkbox icheck float-right mr-3">
+	      		<input type="checkbox" name="useCookie"> Remember Me
+	      	</div>
       </div>
       <div class="modal-footer">
+      	
       	<button type="button" class="btn btn-success" onclick="location.href='/user/join'">Join Us</button>
         <button type="submit" class="btn btn-primary">Login</button>
       </div>

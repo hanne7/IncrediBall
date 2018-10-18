@@ -32,4 +32,12 @@
  		idx=#{idx}
  </update>
  
+ <update id="keepLogin">
+ 	UPDATE user SET session_key = #{sessionId}, session_limit = #{next} WHERE userid = #{userId}
+ </update>
+ 
+ <select id="checkUserWithSessionKey" resultType="UserVO">
+ 	SELECT * FROM user WHERE session_key = #{value} AND session_limit > now()
+ </select>
+ 
 </mapper>
