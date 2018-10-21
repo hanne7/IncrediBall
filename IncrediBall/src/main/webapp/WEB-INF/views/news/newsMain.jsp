@@ -6,7 +6,7 @@
 <html>
 
 <head>
-<meta charset=UTF-8">
+<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>IncrediBall</title>
@@ -40,8 +40,11 @@
 		</div>
 	</div>
 </div>
+<div id="abc">
+
+</div>
 <c:import url="/footer"/>
-<script type="text/javascript">
+<script type="text/javascript" charset="UTF-8">
 	var result = '${msg}';
 	if(result == 'SUCCESS'){
 		alert("처리가 완료되었습니다.");
@@ -52,16 +55,22 @@
 		
 		$.ajax({
 			type:"get",
-			url:"/news/getNews/",
-			headers:{
-				"Content-Type":"application/json"
-			},
-			data:JSON,
+			url:"/news/getNews",
 			dataType:'text',
-			success:function(data){ 
+			success:function(data){
+				//var a = decodeURIComponent(data);
 				
-			}
+				//var jsonObj = JSON.parse(data[0]);
+				//var dec = decodeURIComponent(jsonObj.title);
+				console.log(data);
+				//var str="";
+				//str += "<div>" + jsonObj.title + "</div>"; 				
+				
+				//$("#abc").html(str);
+			}			
 		});
+		
+		
 	});
 	
 	
