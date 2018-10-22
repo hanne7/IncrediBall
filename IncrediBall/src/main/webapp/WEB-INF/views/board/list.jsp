@@ -124,9 +124,17 @@
 		
 		$(".btnvo").on("click",function(event){
 			console.log("voice search");
-			setTimeout("self.location = 'list' + '${pm.makeQuery(1)}' + '&searchType=' + $('select option:selected').val() + '&keyword=' + encodeURIComponent($('.outputvo').text())", 7000);			
+			setTimeout("if($('.outputvo').text()!=''){voiceSearch();}" , 7000);			
 		});
 	});
+	
+	function voiceSearch() {
+		self.location = "list"
+			+ "${pm.makeQuery(1)}"
+			+ "&searchType="
+			+ $("select option:selected").val()
+			+ "&keyword=" + encodeURIComponent($('.outputvo').text());
+	}
 </script>
 </body>
 </html>
