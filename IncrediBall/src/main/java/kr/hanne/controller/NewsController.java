@@ -2,6 +2,7 @@ package kr.hanne.controller;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -42,8 +43,8 @@ public class NewsController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value="/getNews", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public ResponseEntity<Object> newsAjax(){
+	@RequestMapping(value="/getEuroNews", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
+	public ResponseEntity<Object> newsEuro() {
 		
 		ResponseEntity<Object> entity = null;
 		
@@ -64,9 +65,9 @@ public class NewsController {
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
 			if(responseCode == 200) {
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				br = new BufferedReader(new InputStreamReader(con.getInputStream(),"utf-8"));
 			} else {
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream(),"utf-8"));
 			}
 			
 			String inputLine;
@@ -76,25 +77,53 @@ public class NewsController {
 				res.append(inputLine);
 			}
 			br.close();
+				
+			entity = new ResponseEntity<>(res, HttpStatus.OK);
+			return entity;
+						
+		} catch (Exception e) {
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return entity;
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getKorNews", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
+	public ResponseEntity<Object> newsKor() {
+		
+		ResponseEntity<Object> entity = null;
+		
+		String clientID = "C0tMtzIbzO4GsZlpeSG9";
+		String clientSecret = "SjrCVtDqvv";
+		
+		int display = 10;
+		try {
+			String text = URLEncoder.encode("한국축구, 대표팀", "UTF-8");
+			String apiURL = "https://openapi.naver.com/v1/search/news.json?query="
+					+ text + "&display=" + display + "&";
 			
-			String str = res.toString();	
-			logger.info(str);
-			String[] arr = str.split(" \\[");
-			arr = arr[1].split("\\]}");
+			URL url = new URL(apiURL);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("X-Naver-Client-Id", clientID);
+			con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
+			int responseCode = con.getResponseCode();
+			BufferedReader br;
+			if(responseCode == 200) {
+				br = new BufferedReader(new InputStreamReader(con.getInputStream(),"utf-8"));
+			} else {
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream(),"utf-8"));
+			}
 			
-			String[] a = arr[0].split("},");
-			List<String> jsonArr = new ArrayList<>();
-			for(int i=0; i<a.length; i++) {
-				if(i<a.length-1) {
-					jsonArr.add(a[i]+"}");
-				}else {
-					jsonArr.add(a[i]);
-				}
-			}	
-//			HttpHeaders headers = new HttpHeaders();
-//			headers.add("Content-Type", "application/json;charset=utf-8");
-			logger.info(jsonArr.get(0));		
-			entity = new ResponseEntity<>(jsonArr.get(0), HttpStatus.OK);
+			String inputLine;
+			StringBuffer res = new StringBuffer();
+			
+			while((inputLine = br.readLine()) != null) {
+				res.append(inputLine);
+			}
+			br.close();
+				
+			entity = new ResponseEntity<>(res, HttpStatus.OK);
 			return entity;
 						
 		} catch (Exception e) {

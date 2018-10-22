@@ -21,21 +21,13 @@
 	<h4 class="my-3">> NEWS</h4>
 	<div class="d-flex justify-content-start">
 		<div class="flex-fill border mt-3">
-			<ul class="list-group">
-			  <li class="list-group-item bg-secondary text-white"><h3 class="text-center">국내축구</h3></li>
-			  <li class="list-group-item">Dapibus ac facilisis in</li>
-			  <li class="list-group-item">Morbi leo risus</li>
-			  <li class="list-group-item">Porta ac consectetur ac</li>
-			  <li class="list-group-item">Vestibulum at eros</li>
+			<div class="bg-secondary text-white mb-0 p-1"><h3 class="text-center">국내축구</h3></div>
+			<ul class="list-group" id="koreaFootball">
 			</ul>
 		</div>
 		<div class="flex-fill border mt-3">
-			<ul class="list-group">
-			  <li class="list-group-item bg-secondary text-white"><h3 class="text-center">유럽축구</h3></li>
-			  <li class="list-group-item">Dapibus ac facilisis in</li>
-			  <li class="list-group-item">Morbi leo risus</li>
-			  <li class="list-group-item">Porta ac consectetur ac</li>
-			  <li class="list-group-item">Vestibulum at eros</li>
+			<div class="bg-secondary text-white mb-0 p-1"><h3 class="text-center">유럽축구</h3></div>
+			<ul class="list-group mt-0" id="euroFootball">
 			</ul>
 		</div>
 	</div>
@@ -55,22 +47,39 @@
 		
 		$.ajax({
 			type:"get",
-			url:"/news/getNews",
-			dataType:'text',
+			url:"/news/getEuroNews",
+			dataType:'json',
 			success:function(data){
-				//var a = decodeURIComponent(data);
 				
-				//var jsonObj = JSON.parse(data[0]);
-				//var dec = decodeURIComponent(jsonObj.title);
-				console.log(data);
-				//var str="";
-				//str += "<div>" + jsonObj.title + "</div>"; 				
+				var euroNews = data.items;
+				console.log(euroNews)
+				var str="";
+				$(euroNews).each(function(i, e){
+					str += "<li class='list-group-item mt-0'><a href='" + euroNews[i].link + "' target='_blank'>" + euroNews[i].title + "</a></li>";	
+				});
+				 				
 				
-				//$("#abc").html(str);
+				$("#euroFootball").html(str);
 			}			
 		});
 		
-		
+		$.ajax({
+			type:"get",
+			url:"/news/getKorNews",
+			dataType:'json',
+			success:function(data){
+				
+				var korNews = data.items;
+				console.log(korNews)
+				var str="";
+				$(korNews).each(function(i, e){
+					str += "<li class='list-group-item mt-0'><a href='" + korNews[i].link + "' target='_blank'>" + korNews[i].title + "</a></li>";	
+				});
+				 				
+				
+				$("#koreaFootball").html(str);
+			}			
+		});
 	});
 	
 	
