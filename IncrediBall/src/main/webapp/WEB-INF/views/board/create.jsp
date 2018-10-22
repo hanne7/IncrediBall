@@ -29,7 +29,7 @@
 <c:import url="/header"/>
 <div class="container">
 	<p><h4>글쓰기</h4></p>
-	<form id="createForm" method="post" onsubmit="return confirm('작성하시겠습니까?')">
+	<form id="createForm" method="post">
 		<div class="form-group">
 			<label for="nickname">필명</label> 
 			<input type="text" class="form-control form-control-sm" name="nickname"
@@ -49,7 +49,7 @@
 		<div class="d-flex justify-content-start">
 			<div class="form-group" style="width: 60%;">
 				<label for="title">제목</label> 
-				<input type="text" class="form-control form-control-sm" name="title"
+				<input type="text" class="form-control form-control-sm" name="title" id="title"
 					placeholder="글 제목을 입력하세요">
 			</div>
 			<div class="form-group mx-auto">
@@ -61,7 +61,7 @@
 		</ul>
 		<div class="form-group">
 			<label for="content">내용</label> 
-			<textarea class="form-control" name="content" rows=13
+			<textarea class="form-control" name="content" rows=13 id="content"
 				placeholder="내용을 입력하세요."></textarea>
 		</div>
 		<input type="hidden" name="useridx" value="${userVO.idx }">
@@ -117,6 +117,9 @@ $(".fileDrop").on("drop", function(event){
 $("#createForm").submit(function(event){
 	event.preventDefault();
 	
+	if(validate()==false){
+		return false; 
+	}	
 	var that = $(this);
 	var str = "";
 	
@@ -125,7 +128,12 @@ $("#createForm").submit(function(event){
 	});
 	
 	that.append(str);
-	that.get(0).submit();
+	var cf = confirm('작성하시겠습니까?');
+	if(cf==true){
+		that.get(0).submit();	
+	}else{
+		false;	
+	}	
 });
 
 $(".uploadedList").on("click","button", function(event){
@@ -144,6 +152,21 @@ $(".uploadedList").on("click","button", function(event){
 		}
 	});
 });
+
+function validate(){
+	if($.trim($('#title').val())==''){
+		alert("제목을 입력해주세요.");
+		$('#title').focus();
+		return false;
+	}
+	if($.trim($('#content').val())==''){
+		alert("내용을 입력해주세요.");
+		$('#content').focus();
+		return false;
+	}
+	return true;
+}
+
 </script>
 
 

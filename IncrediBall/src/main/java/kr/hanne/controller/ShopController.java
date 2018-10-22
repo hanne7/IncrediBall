@@ -34,6 +34,7 @@ public class ShopController {
 	@RequestMapping("/shopMain")
 	public void shopMain(Model model, @ModelAttribute Criteria cri) throws Exception{
 		logger.info("shop main called............");
+		cri.setPerPageNum(21);
 		logger.info(cri.toString());
 				
 		if(cri.getSearchType()==null && cri.getKeyword()==null) {

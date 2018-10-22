@@ -34,6 +34,7 @@ public class BoardController {
 	@RequestMapping("/list")
 	public void list(Model model, @ModelAttribute Criteria cri) throws Exception{
 		logger.info("board list called............");
+		cri.setPerPageNum(15);
 		logger.info(cri.toString());
 		
 		if(cri.getSearchType()==null && cri.getKeyword()==null) {

@@ -29,10 +29,10 @@
 <c:import url="/header"/>
 <div class="container">
 	<p><h4>상품등록</h4></p>
-	<form id="createForm" method="post" onsubmit="return confirm('작성하시겠습니까?')">
+	<form id="createForm" method="post">
 		<div class="form-group">
 			<label for="productName">상품명</label> 
-			<input type="text" class="form-control form-control-sm" name="productName"
+			<input type="text" class="form-control form-control-sm" name="productName" id="productName"
 				placeholder="상품명을 입력하세요">
 		</div>
 		<div class="d-flex justify-content-start">
@@ -48,7 +48,7 @@
 			</div>
 			<div class="form-group w-25 mx-auto">
 				<label for="cost">가격</label>
-				<input type="number" class="form-control form-control-sm" name="cost">
+				<input type="number" class="form-control form-control-sm" name="cost" id="cost">
 			</div>
 		</div>
 		
@@ -61,7 +61,7 @@
 		</ul>
 		<div class="form-group">
 			<label for="status">상품설명</label> 
-			<textarea class="form-control" name="status" rows=5
+			<textarea class="form-control" name="status" rows=5 id="status"
 				placeholder="상품 설명을 입력하세요."></textarea>
 		</div>
 		
@@ -73,7 +73,7 @@
 <script type="text/javascript" src="/resources/js/uploadProduct.js"></script>
 
 <script id="template" type="text/x-handlebars-template">
-<li class="border ml-3" style="list-style-type: none;">
+<li class="pImg border ml-3" style="list-style-type: none;">
 	<span><img src="{{imgsrc}}" alt="Attachment"></span>
 	<br>
 	<a href="{{getLink}}">{{fileName}}</a>
@@ -117,6 +117,10 @@ $(".fileDrop").on("drop", function(event){
 $("#createForm").submit(function(event){
 	event.preventDefault();
 	
+	if(validate()==false){
+		return false;
+	}
+	
 	var that = $(this);
 	var str = "";
 	
@@ -125,7 +129,12 @@ $("#createForm").submit(function(event){
 	});
 	
 	that.append(str);
-	that.get(0).submit();
+	var cf = confirm('작성하시겠습니까?');
+	if(cf==true){
+		that.get(0).submit();
+	} else{
+		return false;
+	}
 });
 
 $(".uploadedList").on("click","button", function(event){
@@ -144,6 +153,29 @@ $(".uploadedList").on("click","button", function(event){
 		}
 	});
 });
+
+function validate(){
+	if($.trim($('#productName').val())==''){
+		alert("상품명을 입력해주세요.");
+		$('#productName').focus();
+		return false;
+	}
+	if($.trim($('#cost').val())==''){
+		alert("가격을 입력해주세요.");
+		$('#cost').focus();
+		return false;
+	}
+	if($.trim($('#status').val())==''){
+		alert("상품설명을 입력해주세요.");
+		$('#status').focus();
+		return false;
+	}
+	if($(".pImg").length == 0){
+		alert("상품이미지를 등록하세요")
+		return false;
+	}
+	return true;
+}
 </script>
 
 

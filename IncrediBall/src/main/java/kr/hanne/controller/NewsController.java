@@ -32,15 +32,9 @@ public class NewsController {
 	
 	@RequestMapping("/")
 	public String newsMain() throws Exception{
+		logger.info("news page called................");
 		return "news/newsMain";
 	}
-	
-	@ResponseBody
-	@RequestMapping(value="/testA", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public String test() throws Exception{
-		return "안녕";
-	}
-	
 	
 	@ResponseBody
 	@RequestMapping(value="/getEuroNews", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
@@ -98,7 +92,7 @@ public class NewsController {
 		
 		int display = 10;
 		try {
-			String text = URLEncoder.encode("한국축구, 대표팀", "UTF-8");
+			String text = URLEncoder.encode("한국국가대표 k리그", "UTF-8");
 			String apiURL = "https://openapi.naver.com/v1/search/news.json?query="
 					+ text + "&display=" + display + "&";
 			

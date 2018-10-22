@@ -42,6 +42,8 @@ public interface BoardDAO {
 	public void updateReplyCnt(int bno, int amount) throws Exception;
 	
 	public void updateViewCnt(int bno) throws Exception;
+	
+	public List<BoardVO> listPopular(Criteria cri) throws Exception;
 }
 
 

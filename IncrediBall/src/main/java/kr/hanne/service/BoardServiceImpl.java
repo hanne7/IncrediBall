@@ -114,4 +114,10 @@ public class BoardServiceImpl implements BoardService {
 	public List<String> getAttach(int bno) throws Exception {
 		return boardDAO.getAttach(bno);
 	}
+
+	@Override
+	public List<BoardVO> listPopular(Criteria cri) throws Exception {
+		return boardDAO.listPopular(cri);
+	}
+
 }

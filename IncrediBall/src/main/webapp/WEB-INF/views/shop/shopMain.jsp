@@ -48,7 +48,7 @@
 	      </li>	     
 	    </ul>
 	    <form class="form-inline my-2 my-lg-0">
-	      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="keywordInput">
+	      <input class="form-control mr-sm-2" type="text" placeholder="Search" id="keywordInput">
 	      <button class="btn btn-outline-light my-2 my-sm-0" type="button" id="search-btn">Search</button>
 	    </form>
 	  </div>

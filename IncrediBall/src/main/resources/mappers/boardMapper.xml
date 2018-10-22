@@ -20,6 +20,15 @@
  	WHERE a.bno = #{bno} 	
  </select>
  
+ <select id="listPopular" resultType="BoardVO">
+ 	<![CDATA[
+ 	SELECT * FROM board
+ 	WHERE bno > 0 AND category = #{cate}
+ 	ORDER BY viewcnt DESC
+ 	LIMIT #{pageStart}, #{perPageNum}
+ 	]]>
+ </select>
+ 
  <select id="listCategory" resultType="BoardVO">
  	<![CDATA[
  	SELECT 

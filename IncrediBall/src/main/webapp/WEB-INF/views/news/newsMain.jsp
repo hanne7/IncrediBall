@@ -20,14 +20,14 @@
 <div class="container">
 	<h4 class="my-3">> NEWS</h4>
 	<div class="d-flex justify-content-start">
-		<div class="flex-fill border mt-3">
-			<div class="bg-secondary text-white mb-0 p-1"><h3 class="text-center">국내축구</h3></div>
+		<div class="w-50 border mt-1">
+			<div class="bg-secondary text-white p-1"><h3 class="text-center">국내축구</h3></div>
 			<ul class="list-group" id="koreaFootball">
 			</ul>
 		</div>
-		<div class="flex-fill border mt-3">
-			<div class="bg-secondary text-white mb-0 p-1"><h3 class="text-center">유럽축구</h3></div>
-			<ul class="list-group mt-0" id="euroFootball">
+		<div class="w-50 border mt-1">
+			<div class="bg-secondary text-white p-1"><h3 class="text-center">유럽축구</h3></div>
+			<ul class="list-group" id="euroFootball">
 			</ul>
 		</div>
 	</div>
@@ -57,8 +57,7 @@
 				$(euroNews).each(function(i, e){
 					str += "<li class='list-group-item mt-0'><a href='" + euroNews[i].link + "' target='_blank'>" + euroNews[i].title + "</a></li>";	
 				});
-				 				
-				
+				 						
 				$("#euroFootball").html(str);
 			}			
 		});
@@ -75,7 +74,6 @@
 				$(korNews).each(function(i, e){
 					str += "<li class='list-group-item mt-0'><a href='" + korNews[i].link + "' target='_blank'>" + korNews[i].title + "</a></li>";	
 				});
-				 				
 				
 				$("#koreaFootball").html(str);
 			}			

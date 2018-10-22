@@ -66,13 +66,12 @@
 					class="sr-only">Next</span>
 				</a>
 			</div>
-			<div class="border flex-fill">
+			<div class="border w-25">
 			<div class="list-group">
-				<a href="#" class="list-group-item list-group-item-action bg-secondary text-white">공지사항</a>
-				<a href="#"	class="list-group-item list-group-item-action">Dapibus acfacilisis in</a> 
-				<a href="#"	class="list-group-item list-group-item-action">Morbi leo risus</a>
-				<a href="#" class="list-group-item list-group-item-action">Portaac consectetur ac</a> 
-				<a href="#"	class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+				<a href="/board/list?cate=1" class="list-group-item list-group-item-action bg-secondary text-white"><b>공지사항</b></a>
+				<c:forEach items="${noticeList }" var="boardVO">
+					<a href="/board/readPage?bno=${boardVO.bno}" class="list-group-item list-group-item-action"><b>${boardVO.title }</b></a> 
+				</c:forEach>
 			</div>
 		</div>
 	</div>
@@ -81,27 +80,25 @@
 		<div class="card" style="width: 18rem;">
   			<img class="card-img-top" src="http://placehold.it/200px150/?text=Image cap" alt="Card image cap">
   			<div class="card-body">
-    			<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    			<p class="card-text">축구용품몰</p>
   			</div>
-  			<a href="#" class="btn btn-primary">Go Shop</a>
+  			<a href="/shop/shopMain" class="btn btn-primary">Go Shop</a>
 		</div>
 	</div>
 	<div class="border flex-fill">
 		<div class="list-group">
-			<a href="#" class="list-group-item list-group-item-action bg-secondary text-white">뉴스리스트</a>
-			<a href="#"	class="list-group-item list-group-item-action">Dapibus acfacilisis in</a> 
-			<a href="#"	class="list-group-item list-group-item-action">Morbi leo risus</a>
-			<a href="#" class="list-group-item list-group-item-action">Portaac consectetur ac</a> 
-			<a href="#"	class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+			<a class="list-group-item list-group-item-action bg-secondary text-white">축구인기글</a>
+			<c:forEach items="${listFootball }" var="boardVO">
+				<a href="/board/readPage?bno=${boardVO.bno}" class="list-group-item list-group-item-action">${boardVO.title }<span class="float-right">views:${boardVO.viewcnt }</span></a> 
+			</c:forEach>
 		</div>
 	</div>
 	<div class="border flex-fill">
 		<div class="list-group">
-			<a href="#" class="list-group-item list-group-item-action bg-secondary text-white">인기글</a>
-			<a href="#"	class="list-group-item list-group-item-action">Dapibus acfacilisis in</a> 
-			<a href="#"	class="list-group-item list-group-item-action">Morbi leo risus</a>
-			<a href="#" class="list-group-item list-group-item-action">Portaac consectetur ac</a> 
-			<a href="#"	class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+			<a class="list-group-item list-group-item-action bg-secondary text-white">자유인기글</a>
+			<c:forEach items="${listFree }" var="boardVO">
+				<a href="/board/readPage?bno=${boardVO.bno}" class="list-group-item list-group-item-action">${boardVO.title }<span class="float-right">views:${boardVO.viewcnt }</span></a> 
+			</c:forEach>
 		</div>	
 	</div>
 </div>

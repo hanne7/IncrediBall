@@ -29,7 +29,7 @@
 <c:import url="/header"/>
 <div class="container">
 	<p><h4>글수정</h4></p>
-	<form method="post" action="/board/modify" id="modify-form" onsubmit="return confirm('수정하시겠습니까?')">
+	<form method="post" action="/board/modify" id="modify-form">
 		<div class="form-group">
 			<label for="nickname">필명</label> 
 			<input type="text" class="form-control form-control-sm" name="nickname"
@@ -49,7 +49,7 @@
 		<div class="d-flex justify-content-start">
 			<div class="form-group" style="width: 60%;">
 				<label for="title">제목</label> 
-				<input type="text" class="form-control form-control-sm" name="title"
+				<input type="text" class="form-control form-control-sm" name="title" id="title"
 					value="${boardVO.title }">
 			</div>
 			<div class="form-group mx-auto">
@@ -62,7 +62,7 @@
 		
 		<div class="form-group">
 			<label for="content">내용</label> 
-			<textarea class="form-control" name="content" rows=14>${boardVO.content }</textarea>
+			<textarea class="form-control" name="content" id="content" rows=14>${boardVO.content }</textarea>
 		</div>
 		<input type="hidden" name="bno" value="${boardVO.bno }">
 		<input type="hidden" name="page" value="${cri.page }">
@@ -122,6 +122,10 @@ $(".fileDrop").on("drop", function(event){
 $("#modify-form").submit(function(event){
 	event.preventDefault();
 	
+	if(validate()==false){
+		return false; 
+	}
+	
 	var that = $(this);
 	var str = "";
 	
@@ -130,7 +134,13 @@ $("#modify-form").submit(function(event){
 	});
 	
 	that.append(str);
-	that.get(0).submit();
+	
+	var cf = confirm('수정하시겠습니까?');
+	if(cf==true){
+		that.get(0).submit();	
+	}else{
+		return false;
+	}	
 });
 
 $(".uploadedList").on("click","button", function(event){
@@ -149,6 +159,20 @@ $(".uploadedList").on("click","button", function(event){
 		}
 	});
 });
+
+function validate(){
+	if($.trim($('#title').val())==''){
+		alert("제목을 입력해주세요.");
+		$('#title').focus();
+		return false;
+	}
+	if($.trim($('#content').val())==''){
+		alert("내용을 입력해주세요.");
+		$('#content').focus();
+		return false;
+	}
+	return true;
+}
 </script>
 
 <script id="templateAttach" type="text/x-handlebars-template">

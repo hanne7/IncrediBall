@@ -119,4 +119,9 @@ public class BoardDAOImpl implements BoardDAO {
 	public void updateViewCnt(int bno) throws Exception {
 		session.update(namespace+".updateViewCnt", bno);
 	}
+
+	@Override
+	public List<BoardVO> listPopular(Criteria cri) throws Exception {
+		return session.selectList(namespace+".listPopular", cri);
+	}
 }

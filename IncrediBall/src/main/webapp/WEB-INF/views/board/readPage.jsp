@@ -127,7 +127,7 @@
 	
 	<!-- replyList-->
 	<div class="mt-3 timeline">
-		<span class="badge badge-success">Replies List<small id="replycntsmall">[${boardVO.replycnt }]</small></span>
+		<span class="badge badge-success">Replies List<small id="replycntsmall">[${boardVO.replycnt }]</small></span><< click!
 		<div id="reply-box">
 			<div id="repliesDiv">
 			</div>
