@@ -8,7 +8,7 @@
 
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>게시판</title>
 <link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -83,6 +83,10 @@
 	  </ul>
 	  <button id="create-post" type="button" class="btn btn-secondary h-75 mr-4">글쓰기</button>
 	</ul>
+	<div class="wrap ml-2">
+		<button class="btnvo">음성인식</button><span class="outputvo ml-2"></span>
+	</div>
+	<script src="/resources/speech/script.js"></script>
 </div>
 <c:import url="/footer"/>
 <form role="form" method="post">
@@ -109,14 +113,18 @@
 				+ "${pm.makeQuery(1)}"
 				+ "&searchType="
 				+ $("select option:selected").val()
-				+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
-				
+				+ "&keyword=" + encodeURIComponent($('#keywordInput').val());		
 		});
 		
 		$("#keywordInput").on("keypress", function(event){
 			if(event.keyCode == 13){
 				$("#search-btn").click();
 			}
+		});
+		
+		$(".btnvo").on("click",function(event){
+			console.log("voice search");
+			setTimeout("self.location = 'list' + '${pm.makeQuery(1)}' + '&searchType=' + $('select option:selected').val() + '&keyword=' + encodeURIComponent($('.outputvo').text())", 7000);			
 		});
 	});
 </script>

@@ -92,7 +92,7 @@ public class NewsController {
 		
 		int display = 10;
 		try {
-			String text = URLEncoder.encode("한국국가대표 k리그", "UTF-8");
+			String text = URLEncoder.encode("한국축구  대표팀", "UTF-8");
 			String apiURL = "https://openapi.naver.com/v1/search/news.json?query="
 					+ text + "&display=" + display + "&";
 			
