@@ -18,19 +18,18 @@
 </head>
 <body class="bg-light">
 <c:import url="/header"/>
-<div class="container mt-2"><h4 class="ml-3">>BOARD</h4></div>
-	<div class="row">
-		<div class="container mt-2 col">
-			<div class="col float-right"> 
-			<div class="row"><a class="nav-item nav-link <c:if test="${pm.cri.getCate()==1 }">text-light bg-secondary</c:if>" href="/board/list?cate=1">공지사항</a></div>
-			<div class="row"><a class="nav-item nav-link <c:if test="${pm.cri.getCate()==0 }">text-light bg-secondary</c:if>" href="/board/list?cate=0">전체보기</a></div>
-			<div class="row"><a class="nav-item nav-link <c:if test="${pm.cri.getCate()==2 }">text-light bg-secondary</c:if>" href="/board/list?cate=2">축구게시판</a></div>
-			<div class="row"><a class="nav-item nav-link <c:if test="${pm.cri.getCate()==3 }">text-light bg-secondary</c:if>" href="/board/list?cate=3">자유게시판</a></div>
-			<div class="row"><a class="nav-item nav-link <c:if test="${pm.cri.getCate()==4 }">text-light bg-secondary</c:if>" href="/board/list?cate=4">프로토분석</a></div>
-			<div class="row"><a class="nav-item nav-link <c:if test="${pm.cri.getCate()==5 }">text-light bg-secondary</c:if>" href="/board/list?cate=5">QnA</a></div>
-			</div>
+<div class="container mt-3">
+	<h4 class="ml-3">>BOARD</h4>
+	<div class="d-flex justify-content-start">
+		<div class="nav flex-column w-25">
+			<a class="nav-item nav-link border <c:if test="${pm.cri.getCate()==1 }">text-light bg-secondary</c:if>" href="/board/list?cate=1">공지사항</a>
+			<a class="nav-item nav-link border <c:if test="${pm.cri.getCate()==0 }">text-light bg-secondary</c:if>" href="/board/list?cate=0">전체보기</a>
+			<a class="nav-item nav-link border <c:if test="${pm.cri.getCate()==2 }">text-light bg-secondary</c:if>" href="/board/list?cate=2">축구게시판</a>
+			<a class="nav-item nav-link border <c:if test="${pm.cri.getCate()==3 }">text-light bg-secondary</c:if>" href="/board/list?cate=3">자유게시판</a>
+			<a class="nav-item nav-link border <c:if test="${pm.cri.getCate()==4 }">text-light bg-secondary</c:if>" href="/board/list?cate=4">프로토분석</a>
+			<a class="nav-item nav-link border <c:if test="${pm.cri.getCate()==5 }">text-light bg-secondary</c:if>" href="/board/list?cate=5">QnA</a>	
 		</div>
-		<div class="col">
+		<div class="w-75 ml-3">
 			<table class="table table-hover table-sm">
 			  <thead class="thead-light">
 			    <tr>
@@ -86,11 +85,8 @@
 			  </ul>
 			  <button id="create-post" type="button" class="btn btn-secondary h-75 mr-4">글쓰기</button>
 			</ul>
-			<div class="wrap ml-2">
-				<button class="btnvo">음성검색</button><span class="outputvo ml-2"></span>
-			</div>
+		</div>
 	</div>
-	<script src="/resources/speech/script.js"></script>
 </div>
 <c:import url="/footer"/>
 <form role="form" method="post">
@@ -126,19 +122,15 @@
 			}
 		});
 		
-		$(".btnvo").on("click",function(event){
-			console.log("voice search");
-			setTimeout("if($('.outputvo').text()!=''){voiceSearch();}" , 7000);			
-		});
 	});
 	
-	function voiceSearch() {
+/* 	function voiceSearch() {
 		self.location = "list"
 			+ "${pm.makeQuery(1)}"
 			+ "&searchType="
 			+ $("select option:selected").val()
 			+ "&keyword=" + encodeURIComponent($('.outputvo').text());
-	}
+	} */
 </script>
 </body>
 </html>

@@ -8,8 +8,10 @@
 <div class="container mt-3 d-flex justify-content-between">
 	<div class="row mt-2">
 		<div class="col-sm"><a href="/"><h3>IncrediBall</h3></a></div>
-		<div class="col-sm"><button id="voConBtn" class="btn btnvo btn-danger mt-1 font-italic" style="font-size: 11px; height: 28px;">Voice Control</button></div>
-		<div class="col-5"><span class="outputvo my-2" style="font-size: 11px;"></span></div>
+		<div class="col-sm">
+			<button id="voConBtn" class="btn btnvo btn-danger mt-1 font-italic" style="font-size: 11px; height: 28px;">Voice Control</button>
+			<div class="outputvo my-2 text-center" style="font-size: 11px;"></div>
+		</div>
 	</div>
 	<script src="/resources/speech/script.js"></script>
 	<ul class="nav justify-content-end mt-3">
@@ -70,17 +72,46 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".btnvo").on("click",function(event){
-		console.log("voice search");
-		setTimeout("if($('.outputvo').text()!=''){voiceSearch();}" , 7000);			
+		console.log("voice control...");
+		setTimeout("if($('.outputvo').text()!=''){voiceControl();}" , 5500);
 	});
 });
 
-function voiceSearch() {
-	/* self.location = "list"
-		+ "${pm.makeQuery(1)}"
-		+ "&searchType="
-		+ $("select option:selected").val()
-		+ "&keyword=" + encodeURIComponent($('.outputvo').text()); */
+function voiceControl() {
+
+		if(($('.outputvo').text().indexOf('메인')!=-1||$('.outputvo').text().indexOf('홈')!=-1) && ($('.outputvo').text().indexOf('가자')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1||$('.outputvo').text().indexOf('보여')!=-1)){
+			self.location = '/';
+		}
+		if($('.outputvo').text().indexOf('게시판')!=-1 && ($('.outputvo').text().indexOf('가자')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1||$('.outputvo').text().indexOf('보여')!=-1)){
+			self.location = '/board/list?cate=0';
+		}
+		if($('.outputvo').text().indexOf('자유게시판')!=-1 && ($('.outputvo').text().indexOf('가자')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1||$('.outputvo').text().indexOf('보여')!=-1)){
+			self.location = '/board/list?cate=3';
+		}
+		if($('.outputvo').text().indexOf('축구 게시판')!=-1 && ($('.outputvo').text().indexOf('가자')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1||$('.outputvo').text().indexOf('보여')!=-1)){
+			self.location = '/board/list?cate=2';
+		}		
+		if($('.outputvo').text().indexOf('프로토')!=-1 && ($('.outputvo').text().indexOf('가자')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1||$('.outputvo').text().indexOf('보여')!=-1)){
+			self.location = '/board/list?cate=4';
+		}
+		if($('.outputvo').text().indexOf('공지')!=-1 && ($('.outputvo').text().indexOf('가자')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1||$('.outputvo').text().indexOf('보여')!=-1)){
+			self.location = '/board/list?cate=1';
+		}
+		if($('.outputvo').text().indexOf('뉴스')!=-1 && ($('.outputvo').text().indexOf('가자')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1||$('.outputvo').text().indexOf('보여')!=-1)){
+			self.location = '/news/';
+		}
+		if($('.outputvo').text().indexOf('쇼핑몰')!=-1 && ($('.outputvo').text().indexOf('가자')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1||$('.outputvo').text().indexOf('보여')!=-1)){
+			self.location = '/shop/shopMain';
+		}
+		if($('.outputvo').text().indexOf('축구화')!=-1 && ($('.outputvo').text().indexOf('보여')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1)){
+			self.location = '/shop/shopMain?cate=1';
+		}
+		if($('.outputvo').text().indexOf('유니폼')!=-1 && ($('.outputvo').text().indexOf('보여')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1)){
+			self.location = '/shop/shopMain?cate=2';
+		}
+		if($('.outputvo').text().indexOf('축구공')!=-1 && ($('.outputvo').text().indexOf('보여')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1)){
+			self.location = '/shop/shopMain?cate=3';
+		}		
 }
 </script>
 </header>

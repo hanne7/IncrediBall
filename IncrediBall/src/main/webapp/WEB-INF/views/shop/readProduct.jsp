@@ -62,11 +62,11 @@
 	
 	<div class="btn-group d-flex justify-content-end" role="group" aria-label="boardbtn">
 	  <button id="go-list" type="button" class="btn btn-secondary">목록</button>
-	  <%-- <c:if test="${login.userid == 'admin' }"> --%>	
+	  <c:if test="${login.userid == 'admin' }">	
 	  	<button id="create-post" type="button" class="btn btn-secondary">상품등록</button>
 		<button id="modify-post" type="button" class="btn btn-secondary">상품수정</button>
 	  	<button id="delete-post" type="button" class="btn btn-secondary">상품삭제</button>
-	  <%-- </c:if> --%>
+	  </c:if>
 	</div>
 </div>
 

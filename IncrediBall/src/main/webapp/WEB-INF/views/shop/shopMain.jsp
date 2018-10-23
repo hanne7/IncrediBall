@@ -94,11 +94,11 @@
 		    	<li class="page-item"><a class="page-link" href="shopMain${pm.makeSearch(pm.endPage+1) }">&raquo;</a></li>
 		    </c:if>	    
 		</ul>
-		<%-- <c:if test="${login.userid == 'admin' }"> --%>
+		<c:if test="${login.userid == 'admin' }">
 			<div class="d-flex justify-content-end">
 				<button id="product-create" type="button" class="btn btn-secondary h-75 mr-5">상품등록</button>
 			</div>
-		<%-- </c:if> --%>
+		</c:if>
 	</div>
 	<div class="mr-3" style="width: 25%; min-width: 20%">
 		<div class="position-fixed">
