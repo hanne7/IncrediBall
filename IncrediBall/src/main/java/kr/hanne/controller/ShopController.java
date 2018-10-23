@@ -1,8 +1,11 @@
 package kr.hanne.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +43,7 @@ public class ShopController {
 		if(cri.getSearchType()==null && cri.getKeyword()==null) {
 			if(cri.getCate() == 0) {
 				model.addAttribute("list", service.list(cri));
+				logger.info(service.list(cri).toString());
 				// 상품 전체리스트 표시
 				PageMaker pm = new PageMaker();
 				pm.setCri(cri);
@@ -48,6 +52,7 @@ public class ShopController {
 				model.addAttribute("pm", pm);
 			} else {
 				model.addAttribute("list", service.listCategory(cri));
+				logger.info(service.listCategory(cri).toString());
 				// 상품 카테고리별 분류 표시
 				PageMaker pm = new PageMaker();
 				pm.setCri(cri);
@@ -58,6 +63,7 @@ public class ShopController {
 		} else {
 			if(cri.getCate() == 0) {
 				model.addAttribute("list", service.listSearch(cri));
+				logger.info(service.listSearch(cri).toString());
 				// 전체 보기에서 검색
 				PageMaker pm = new PageMaker();
 				pm.setCri(cri);
@@ -66,6 +72,7 @@ public class ShopController {
 				model.addAttribute("pm", pm);
 			} else {
 				model.addAttribute("list", service.categorySearch(cri));
+				logger.info(service.categorySearch(cri).toString());
 				// 카테고리별 검색
 				PageMaker pm = new PageMaker();
 				pm.setCri(cri);
@@ -78,8 +85,32 @@ public class ShopController {
 	}
 	
 	@RequestMapping("/cart")
-	public void cart() throws Exception{
+	public void cart(Model model, HttpSession session) throws Exception{
+		@SuppressWarnings("unchecked")
+		List<ProductVO> carts = (List<ProductVO>) session.getAttribute("carts");
 		
+		model.addAttribute("carts", carts);
+	}
+	
+	@RequestMapping(value="/addCart", method=RequestMethod.POST)
+	public String addCart(@ModelAttribute ProductVO vo, HttpSession session) throws Exception{
+		vo = service.read(vo.getIdx());
+		logger.info(vo.toString());
+
+		@SuppressWarnings("unchecked")
+		List<ProductVO> carts = (List<ProductVO>) session.getAttribute("carts");
+		
+		if(carts == null) {
+			carts = new ArrayList<>();
+		}		
+		carts.add(vo);
+		
+		for(ProductVO p : carts) {
+			System.out.println(p.toString());
+		}
+		session.setAttribute("carts", carts);
+		
+		return "redirect:/shop/cart";
 	}
 	
 	@RequestMapping("/order")

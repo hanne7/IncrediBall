@@ -34,38 +34,32 @@
 <body class="bg-light">
 <c:import url="/header"/>
 <div class="container">
-	<table class="table table-sm mt-2 mb-0 text-center border">
-		<div class="mt-3 ml-3"> 
-			<c:if test="${productVO.productCategory==1 }"><h3>> 축구화</h3></c:if>
-			<c:if test="${productVO.productCategory==2 }"><h3>> 유니폼</h3></c:if>
-			<c:if test="${productVO.productCategory==3 }"><h3>> 축구공</h3></c:if>
-			<c:if test="${productVO.productCategory==4 }"><h3>> GK장비</h3></c:if>
-			<c:if test="${productVO.productCategory==5 }"><h3>> 기타용품</h3></c:if>
-		</div>
-		<tr>
-			<td class="bg-dark text-white w-25">상품명</td>
-			<td colspan="3"><h5><b>${productVO.productName }</b></h5></td>
-		</tr>
-		<tr>
-			<td class="bg-dark text-white w-25">가격</td>
-			<td colspan="3"><b><fmt:formatNumber value="${productVO.cost }" pattern="#,###"/>원</b></td>
-		</tr>
-		<tr>
-			<td class="bg-dark text-white w-25">등록시간</td>
-			<td><fmt:formatDate value="${productVO.regdate }" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-		</tr>
-		<tr>
-			<td class="bg-dark text-white w-25" colspan="4">상품 설명</td>
-		</tr>
-	</table>
-	<% pageContext.setAttribute("newLineChar", "\r\n"); %>
-	<div class="container-fluid pt-4 border" style="min-height:300px; max-height:500px; overflow: scroll">
-		<div class="popup back" style="display:none;"></div>
-		<div id="popup_front" class="popup front" style="display:none;"><img id="popup-img"></div>
-		<div class="uploadedList clearfix d-flex justify-content-start">
-		</div>		
-		${fn:replace(productVO.status, newLineChar, "<br/>")}
+	<div class="mt-3 ml-3"> 
+		<c:if test="${productVO.productCategory==1 }"><h3>> 축구화</h3></c:if>
+		<c:if test="${productVO.productCategory==2 }"><h3>> 유니폼</h3></c:if>
+		<c:if test="${productVO.productCategory==3 }"><h3>> 축구공</h3></c:if>
+		<c:if test="${productVO.productCategory==4 }"><h3>> GK장비</h3></c:if>
+		<c:if test="${productVO.productCategory==5 }"><h3>> 기타용품</h3></c:if>
 	</div>
+	<ul class="nav justify-content-start mt-2">
+		<li class="w-50 mr-0">
+			<div class="popup back" style="display:none;"></div>
+			<div id="popup_front" class="popup front" style="display:none;"><img id="popup-img"></div>
+			<div class="uploadedList clearfix">
+			</div>
+		</li>
+		<li class="w-50 ml-0 mt-5">
+			<div class="h3">상품명 : <b>${productVO.productName }</b></div>
+			<div class="h3">가격 : <b><fmt:formatNumber value="${productVO.cost }" pattern="#,###"/>원</b></div>
+			<div>등록시간 : <fmt:formatDate value="${productVO.regdate }" pattern="yyyy-MM-dd HH:mm:ss"/></div>
+			<span class="mr-5">상품 설명 :</span><button id="putCart" class="btn btn-sm btn-success">장바구니 담기</button>
+			<% pageContext.setAttribute("newLineChar", "\r\n"); %>
+			<div class="container-fluid pt-4 border" style="min-height:200px; max-height:300px;">		
+				${fn:replace(productVO.status, newLineChar, "<br/>")}
+			</div>
+		</li>
+	</ul>	
+	
 	<div class="btn-group d-flex justify-content-end" role="group" aria-label="boardbtn">
 	  <button id="go-list" type="button" class="btn btn-secondary">목록</button>
 	  <%-- <c:if test="${login.userid == 'admin' }"> --%>	
@@ -98,6 +92,11 @@
 		
 		var formObj = $("form[role='form']");
 		console.log(formObj);
+		
+		$("#putCart").on("click", function(){
+			formObj.attr("action", "/shop/addCart");
+			formObj.submit();
+		});
 		
 		$("#delete-post").on("click", function(){
 			
@@ -140,10 +139,10 @@
 
 <%--...이미 업로드된 첨부파일을 보여주기 위한 handlebars의 템플릿. --%>
 <script id="templateAttach" type="text/x-handlebars-template">
-<div data-src='{{fullName}}' class="mt-5">
-	<div class="w-50">
+<div data-src='{{fullName}}' class='mt-5'>
+	<div class='w-75 ml-5'>
 		<span><img src="{{imgsrc}}" alt="Attachment" width=100%;></span>
-		<p class="imglink text-center"><a href="{{getLink}}" class="">{{fileName}}</a></p>
+		<p class="imglink text-center"><a href="{{imgsrc}}" class="">{{fileName}}</a></p>
 	</div>
 </div>
 </script>

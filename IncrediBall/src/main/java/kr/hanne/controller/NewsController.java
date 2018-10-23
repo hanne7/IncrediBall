@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class NewsController {
 
-	private static Logger logger = LoggerFactory.getLogger(NewsController.class);
+	private static final Logger logger = LoggerFactory.getLogger(NewsController.class);
 	
 	@RequestMapping("/")
 	public String newsMain() throws Exception{

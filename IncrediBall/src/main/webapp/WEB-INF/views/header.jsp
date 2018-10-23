@@ -6,9 +6,12 @@
 </style>
 <header>
 <div class="container mt-3 d-flex justify-content-between">
-	<div>
-		<h2><a href="/">IncrediBall</a></h2>
+	<div class="row mt-2">
+		<div class="col-sm"><a href="/"><h3>IncrediBall</h3></a></div>
+		<div class="col-sm"><button id="voConBtn" class="btn btnvo btn-danger mt-1 font-italic" style="font-size: 11px; height: 28px;">Voice Control</button></div>
+		<div class="col-5"><span class="outputvo my-2" style="font-size: 11px;"></span></div>
 	</div>
+	<script src="/resources/speech/script.js"></script>
 	<ul class="nav justify-content-end mt-3">
 		<c:if test="${empty login }">
 			<li class="nav-item ml-5"><a href="/user/join">회원가입</a></li>
@@ -63,4 +66,21 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".btnvo").on("click",function(event){
+		console.log("voice search");
+		setTimeout("if($('.outputvo').text()!=''){voiceSearch();}" , 7000);			
+	});
+});
+
+function voiceSearch() {
+	/* self.location = "list"
+		+ "${pm.makeQuery(1)}"
+		+ "&searchType="
+		+ $("select option:selected").val()
+		+ "&keyword=" + encodeURIComponent($('.outputvo').text()); */
+}
+</script>
 </header>

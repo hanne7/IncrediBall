@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -21,23 +22,25 @@
 	<div class="ml-3">
 		<h4>>장바구니</h4>
 	</div>
-	<div class="d-flex justify-content mt-3 mr-3">
-		<div class="ml-3">
-			<img src="http://placehold.it/200x150">
+	<c:forEach items="${carts }" var="productVO">
+		<div class="d-flex justify-content mt-3 mr-3">
+			<div class="ml-3">
+				<img src="/displayProduct?fileName=${productVO.fullname }" width="200" height="100">
+			</div>
+			<div class="m-auto">
+				<h5>${productVO.productName }</h5>
+			</div>
+			<div class="m-auto">
+				<h5><fmt:formatNumber value="${productVO.cost }" pattern="#,###"/>원</h5>
+			</div>
+			<div class="m-auto">
+				<h5>${productVO.quantity }</h5>
+			</div>
+			<div class="m-auto">
+				<a href="/shop/order"><h5>주문하기</h5></a>
+			</div>
 		</div>
-		<div class="m-auto">
-			<h5>축구화1</h5>
-		</div>
-		<div class="m-auto">
-			<h5>10000원</h5>
-		</div>
-		<div class="m-auto">
-			<h5>1개</h5>
-		</div>
-		<div class="m-auto">
-			<a href="/shop/order"><h5>주문하기</h5></a>
-		</div>
-	</div>
+	</c:forEach>
 </div>
 <c:import url="/footer"/>
 </body>

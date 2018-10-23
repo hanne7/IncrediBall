@@ -10,13 +10,9 @@ function getFileInfo(fullName){
 	var fileLink;
 	
 	if(checkImageType(fullName)){
-		imgsrc = "/displayProduct?fileName="+fullName;
-		fileLink = fullName.substr(14);
-		
-		var front = fullName.substr(0,12);
-		var end = fullName.substr(14);
-		
-		getLink = "/displayProduct?fileName=" + front + end;
+		imgsrc = "/displayProduct?fileName=" + fullName;
+//		getLink = "/displayProduct?fileName=" + fullName;
+		fileLink = fullName.substr(12);
 	} else {
 		imgsrc = "/resources/dist/img/file.png";
 		fileLink = fullName.substr(12);

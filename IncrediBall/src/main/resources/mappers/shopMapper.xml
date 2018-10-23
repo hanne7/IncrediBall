@@ -11,7 +11,13 @@
  </insert>
  
  <select id="readProduct" resultType="ProductVO">
- 	SELECT * FROM product WHERE idx = #{idx} 	
+ 	SELECT 
+ 		a.*,
+ 		b.fullname 
+ 	FROM product a
+ 	JOIN product_attach b ON a.idx = b.idx
+ 	WHERE a.idx = #{idx}
+ 	GROUP BY a.idx  	
  </select>
  
  <select id="list" resultType="ProductVO">
@@ -26,9 +32,9 @@
  	FROM product a
  	JOIN product_attach b ON a.idx = b.idx
  	WHERE a.idx > 0
- 	ORDER BY a.idx DESC
+ 	GROUP BY a.idx DESC
  	LIMIT #{pageStart}, #{perPageNum}
- 	]]>
+ 	]]>	
  </select>
  
  <select id="listCategory" resultType="ProductVO">
@@ -44,9 +50,9 @@
  	FROM product a
  	JOIN product_attach b ON a.idx = b.idx
  	WHERE a.idx > 0 AND a.product_category = #{cate}
- 	ORDER BY a.idx DESC
+ 	GROUP BY a.idx DESC
  	LIMIT #{pageStart}, #{perPageNum}
- 	]]>
+ 	]]>	
  </select>
  
  <sql id="search">
@@ -72,7 +78,7 @@
  	WHERE a.idx > 0
  	]]>
  	<include refid="search"></include>
- 	ORDER BY a.idx DESC
+ 	GROUP BY a.idx DESC
  	LIMIT #{pageStart}, #{perPageNum}	
  </select>
  
@@ -91,7 +97,7 @@
  	WHERE a.idx > 0 AND a.product_category = #{cate}
  	]]>
  	<include refid="search"></include>
- 	ORDER BY a.idx DESC
+ 	GROUP BY a.idx DESC
  	LIMIT #{pageStart}, #{perPageNum}
  </select>
  

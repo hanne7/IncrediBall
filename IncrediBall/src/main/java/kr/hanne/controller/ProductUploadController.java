@@ -4,12 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import javax.annotation.Resource;
-import javax.servlet.ServletContext;
-
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.hanne.util.MediaUtils;
 import kr.hanne.util.UploadFileUtils;
+import kr.hanne.util.UploadProductUtils;
 
 @Controller
 public class ProductUploadController {
@@ -37,7 +35,7 @@ public class ProductUploadController {
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception{
 		logger.info("originalName: " + file.getOriginalFilename());
 		
-		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
+		return new ResponseEntity<>(UploadProductUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
 	}
 	
 	/*
@@ -57,7 +55,7 @@ public class ProductUploadController {
 		
 		ResponseEntity<byte[]> entity = null;
 		
-		logger.info("FILE NAME: " + fileName);
+//		logger.info("FILE NAME: " + fileName);
 		
 		try {
 			String formatName = fileName.substring(fileName.lastIndexOf(".")+1);

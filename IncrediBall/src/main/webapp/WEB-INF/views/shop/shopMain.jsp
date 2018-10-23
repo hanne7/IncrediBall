@@ -47,10 +47,9 @@
 	        <a class="nav-link mx-3" href="/shop/shopMain?cate=5">기타용품</a>
 	      </li>	     
 	    </ul>
-	    <form class="form-inline my-2 my-lg-0">
-	      <input class="form-control mr-sm-2" type="text" placeholder="Search" id="keywordInput">
-	      <button class="btn btn-outline-light my-2 my-sm-0" type="button" id="search-btn">Search</button>
-	    </form>
+ 
+	     <input class="mr-sm-2" type="text" placeholder="Search" id="keywordInput" value="${pm.cri.keyword }">
+	     <button class="btn btn-outline-light my-2 my-sm-0" id="search-btn">Search</button>	   
 	  </div>
 	</nav>
 </div>
@@ -72,9 +71,9 @@
 		</ul>
 		<div class="d-flex flex-wrap m-2">
 			<c:forEach items="${list}" var="productVO">
-				<div class="mr-auto">
-					<a href="/shop/readProduct${pm.makeSearch(pm.cri.page)}&idx=${productVO.idx}" class="text-center"><img src="D://development//product//ball.jpg" width="200" height="150">
-								<p><h5>${productVO.productName }</h5><b><fmt:formatNumber value="${productVO.cost }" pattern="#,###"/>원</b></p>
+				<div class="mr-auto mb-5">
+					<a href="/shop/readProduct${pm.makeSearch(pm.cri.page)}&idx=${productVO.idx}" class="text-center"><img src="/displayProduct?fileName=${productVO.fullname }" width="200" height="150">
+								<p class="h5 mb-0">${productVO.productName }</p><p class="mt-0"><b><fmt:formatNumber value="${productVO.cost }" pattern="#,###"/>원</b></p>
 					</a>
 				</div>
 			</c:forEach>
