@@ -155,7 +155,7 @@ $(".uploadedList").on("click","button", function(event){
 
 <script id="templateAttach" type="text/x-handlebars-template">
 <li class="border ml-3" style="list-style-type: none;">
-	<span><img src="{{imgsrc}}" alt="Attachment"></span>
+	<span><img src="{{imgsrc}}" width="100" height="100" alt="Attachment"></span>
 	<br>
 	<a href="{{getLink}}">{{fileName}}</a>
 	<button type="button" class="btn close" href="{{fullName}}"><span aria-hidden="true">&times;</span></button>

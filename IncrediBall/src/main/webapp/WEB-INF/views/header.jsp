@@ -111,7 +111,10 @@ function voiceControl() {
 		}
 		if($('.outputvo').text().indexOf('축구공')!=-1 && ($('.outputvo').text().indexOf('보여')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1)){
 			self.location = '/shop/shopMain?cate=3';
-		}		
+		}
+		if($('.outputvo').text().indexOf('장바구니')!=-1 && ($('.outputvo').text().indexOf('보여')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1)){
+			self.location = '/shop/cart';
+		}
 }
 </script>
 </header>
