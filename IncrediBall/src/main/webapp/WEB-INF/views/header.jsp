@@ -3,6 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style type="text/css">
 	a,a:link{text-decoration:none; color: black;}
+	.toolong{
+		display: inline; overflow: hidden; text-overflow: ellipsis;
+	}
 </style>
 <header>
 <div class="container mt-3 d-flex justify-content-between">

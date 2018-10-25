@@ -23,16 +23,19 @@
 			<label for="userid">ID</label> 
 			<input type="text" class="form-control form-control-sm" name="userid" id="userid"
 				placeholder="ID를 입력하세요">
+			<span id="useridSpan"></span>
 		</div>
 		<div class="form-group">
 			<label for="password">Password</label> 
 			<input type="password" class="form-control form-control-sm" name="password" id="password"
 				placeholder="Password를 입력하세요">
+			<span id="passwordSpan"></span>
 		</div>
 		<div class="form-group">
 			<label for="username">이름</label> 
 			<input type="text" class="form-control form-control-sm" name="username" id="username"
 				placeholder="이름을 입력하세요">
+			<span id="usernameSpan"></span>
 		</div>
 		<div class="form-group">
 			<label for="email">Email address</label>
@@ -45,16 +48,19 @@
 			<label for="nickname">필명</label> 
 			<input type="text" class="form-control form-control-sm" name="nickname" id="nickname"
 				placeholder="사용하실 필명을 입력하세요">
+			<span id="nicknameSpan"></span>
 		</div>
 		<div class="form-group">
 			<label for="phone">연락처</label> 
 			<input type="text" class="form-control form-control-sm" name="phone" id="phone"
 				placeholder="연락가능한 번호를 입력하세요">
+			<span id="phoneSpan"></span>
 		</div>
 		<div class="form-group">
 			<label for="address">주소</label> 
 			<input type="text" class="form-control form-control-sm" name="address" id="address"
 				placeholder="주소를 입력하세요">
+			<span id="addressSpan"></span>
 		</div>
 		<button type="submit" class="btn btn-primary" onclick="javascript:joinSubmit();">가입하기</button>
 	</form>
@@ -62,6 +68,67 @@
 <c:import url="/footer"/>
 
 <script type="text/javascript">
+
+$(document).ready(function(){
+	showValidSpan($('#useridSpan'), $('#userid'));
+	showValidSpan($('#passwordSpan'), $('#password'));
+	showValidSpan($('#usernameSpan'), $('#username'));
+	showValidSpan($('#nicknameSpan'), $('#nickname'));
+	showValidSpan($('#phoneSpan'), $('#phone'));
+	showValidSpan($('#addressSpan'), $('#address'));
+});
+
+function showValidSpan(spanId, inputId){
+	spanId.hide();
+	var msg = ''
+	
+	if((spanId.get(0)==$('#useridSpan').get(0)) || (spanId.get(0)==$('#usernameSpan').get(0)) || (spanId.get(0)==$('#nicknameSpan').get(0))){
+		msg = '2자 이상 20자 이하로 입력해주세요.'
+		inputId.keyup(function(){
+			if((inputId.val().length>20) || (inputId.val().length<2)){
+				spanId.addClass('text-danger h5');
+				spanId.text(msg);
+				spanId.show();
+			}
+			if((inputId.val().length<=20) && (inputId.val().length>=2)){
+				spanId.hide();
+			}			
+		});
+	}
+	if(spanId.get(0) == $('#passwordSpan').get(0)){
+		msg = 'password는 8자 이상 20자 이하로 입력해주세요.'
+		inputId.keyup(function(){
+			if((inputId.val().length>20) || (inputId.val().length<8)){
+				spanId.addClass('text-danger h5');
+				spanId.text(msg);
+				spanId.show();
+			}
+			if((inputId.val().length<=20) && (inputId.val().length>=8)){
+				spanId.hide();
+			}
+		});
+	}
+	if((spanId.get(0)==$('#phoneSpan').get(0)) || (spanId.get(0)==$('#addressSpan').get(0))){
+		msg = '45자 이내로 작성해주세요!';
+		inputId.keyup(function(){
+			if(inputId.val().length>45){
+				spanId.addClass('text-danger h5');
+				spanId.text(msg);
+				spanId.show();
+			}
+			if(inputId.val().length<=45){
+				spanId.hide();
+			}
+		});
+	}
+	inputId.keyup(function(){
+		if(inputId.val().indexOf(' ')!=-1){
+			alert('공백은 입력할 수 없습니다.');
+		} 
+	});
+}
+
+
 function joinSubmit(){
 	event.preventDefault();
 	
@@ -83,13 +150,28 @@ function validate(){
 		$('#userid').focus();
 		return false;
 	}
+	if($('#userid').val().indexOf(' ')!=-1){
+		alert("ID에 공백이 들어가면 안됩니다.")
+		$('#userid').focus();
+		return false;
+	}
 	if($.trim($('#password').val())==''){
 		alert("패스워드를 입력해주세요.");
 		$('#password').focus();
 		return false;
 	}
+	if($('#password').val().indexOf(' ')!=-1){
+		alert('password에 공백(spacebar)이 들어가면 안됩니다.')
+		$('#password').focus();
+		return false;
+	}
 	if($.trim($('#username').val())==''){
 		alert("이름을 입력해주세요.");
+		$('#username').focus();
+		return false;
+	}
+	if($('#username').val().indexOf(' ')!=-1){
+		alert("이름에 공백이 들어가면 안됩니다.")
 		$('#username').focus();
 		return false;
 	}

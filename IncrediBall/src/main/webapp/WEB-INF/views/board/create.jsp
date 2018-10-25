@@ -51,6 +51,7 @@
 				<label for="title">제목</label> 
 				<input type="text" class="form-control form-control-sm" name="title" id="title"
 					placeholder="글 제목을 입력하세요">
+				<span class="validSpan"></span>
 			</div>
 			<div class="form-group mx-auto">
 				<label for="attach">첨부파일을 이곳에 drop 해주세요.</label>
@@ -82,6 +83,22 @@
 </script>
 
 <script type="text/javascript">
+
+$(document).ready(function(){
+	$('.validSpan').hide();
+	
+	$('#title').keyup(function(){
+		if($(this).val().length>45){
+			$('.validSpan').addClass('text-danger h5');
+			$('.validSpan').text('제목은 45자를 넘을수 없습니다!');
+			$('.validSpan').show();	
+		}
+		if($(this).val().length<=45){
+			$('.validSpan').hide();
+		}
+	});	
+});
+
 var template = Handlebars.compile($("#template").html());
 
 $(".fileDrop").on("dragenter dragover", function(event){
@@ -162,6 +179,11 @@ function validate(){
 	if($.trim($('#content').val())==''){
 		alert("내용을 입력해주세요.");
 		$('#content').focus();
+		return false;
+	}
+	if($('#title').val().length>45){
+		alert("제목은 45자를 넘을수 없습니다!")
+		$('#title').focus();
 		return false;
 	}
 	return true;

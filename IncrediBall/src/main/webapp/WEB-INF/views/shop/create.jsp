@@ -34,6 +34,7 @@
 			<label for="productName">상품명</label> 
 			<input type="text" class="form-control form-control-sm" name="productName" id="productName"
 				placeholder="상품명을 입력하세요">
+			<span class="validSpan"></span>
 		</div>
 		<div class="d-flex justify-content-start">
 			<div class="form-group w-25">
@@ -48,7 +49,7 @@
 			</div>
 			<div class="form-group w-25 mx-auto">
 				<label for="cost">가격</label>
-				<input type="number" class="form-control form-control-sm" name="cost" id="cost">
+				<input type="number" max="2000000000" class="form-control form-control-sm" name="cost" id="cost">
 			</div>
 		</div>
 		
@@ -82,6 +83,23 @@
 </script>
 
 <script type="text/javascript">
+
+$(document).ready(function(){
+	$('.validSpan').hide();
+	
+	$('#productName').keyup(function(){
+		if($(this).val().length>45){
+			$('.validSpan').addClass('text-danger h5');
+			$('.validSpan').text('상품명은 45자를 넘을수 없습니다!');
+			$('.validSpan').show();	
+		}
+		if($(this).val().length<=45){
+			$('.validSpan').hide();
+		}
+	});
+	
+});
+
 var template = Handlebars.compile($("#template").html());
 
 $(".fileDrop").on("dragenter dragover", function(event){
@@ -172,6 +190,11 @@ function validate(){
 	}
 	if($(".pImg").length == 0){
 		alert("상품이미지를 등록하세요")
+		return false;
+	}
+	if($("#productName").val().length >= 10){
+		alert("상품명이 너무깁니다.")
+		$("#productName").focus();
 		return false;
 	}
 	return true;
