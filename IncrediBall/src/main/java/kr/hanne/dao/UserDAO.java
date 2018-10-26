@@ -18,4 +18,8 @@ public interface UserDAO {
 	public void keepLogin(String userId, String sessionId, Date next);
 	
 	public UserVO checkUserWithSessionKey(String value);
+	
+	public void deleteUser(int idx) throws Exception;
+
+	public void updateImg(UserVO vo) throws Exception;
 }

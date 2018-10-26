@@ -82,22 +82,12 @@ function voiceControl(text) {
 // 음성 인식 종료
 recognition.onspeechend = function () {
 //    recognition.stop();
-//	recognition.start();
-//    console.log('Ready to receive a text command.');
 }
 
 // 오류 및 인식 할 수없는 연설 처리
 recognition.onnomatch = function (event) {
     output.textContent = 'I didnt recognise that text.';
-    recognition.stop();
-    recognition.start();
-    console.log('Ready to receive a text command.');
-    console.log('명령하십시오.');
 }
 recognition.onerror = function (event) {
     output.textContent = 'Error occurred in recognition: ' + event.error;
-    recognition.stop();
-    recognition.start();
-    console.log('Ready to receive a text command.');
-    console.log('명령하십시오.');
 }

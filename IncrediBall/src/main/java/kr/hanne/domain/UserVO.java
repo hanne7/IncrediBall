@@ -2,6 +2,8 @@ package kr.hanne.domain;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class UserVO {
 
 	private int idx;
@@ -12,30 +14,31 @@ public class UserVO {
 	private String email;
 	private String phone;
 	private String address;
-	private Date birthday;
-	private String gender;
-	private String job;
 	private String userpoint;
-	private int usergrade;
-	private String favleague;
-	private String favclubf;
-	private String favclubd;
+	private int usergrade;	
 	private Date regdate;
+	private MultipartFile imgFile;
+	private String imgName;
 	
+	public String getImgName() {
+		return imgName;
+	}
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
+	}
+	public MultipartFile getImgFile() {
+		return imgFile;
+	}
+	public void setImgFile(MultipartFile imgFile) {
+		this.imgFile = imgFile;
+	}
 	@Override
 	public String toString() {
 		return "UserVO [idx=" + idx + ", userid=" + userid + ", password=" + password + ", username=" + username
 				+ ", nickname=" + nickname + ", email=" + email + ", phone=" + phone + ", address=" + address
-				+ ", birthday=" + birthday + ", gender=" + gender + ", job=" + job + ", userpoint=" + userpoint
-				+ ", usergrade=" + usergrade + ", favleague=" + favleague + ", favclubf=" + favclubf + ", favclubd="
-				+ favclubd + ", regdate=" + regdate + "]";
+				+ ", userpoint=" + userpoint + ", usergrade=" + usergrade + ", regdate=" + regdate + ", imgFile="
+				+ imgFile + ", imgName=" + imgName + "]";
 	}
-	public Date getRegdate() {
-		return regdate;
-	}
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
-	}	
 	public int getIdx() {
 		return idx;
 	}
@@ -84,24 +87,6 @@ public class UserVO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public Date getBirthday() {
-		return birthday;
-	}
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-	public String getGender() {
-		return gender;
-	}
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-	public String getJob() {
-		return job;
-	}
-	public void setJob(String job) {
-		this.job = job;
-	}
 	public String getUserpoint() {
 		return userpoint;
 	}
@@ -114,22 +99,10 @@ public class UserVO {
 	public void setUsergrade(int usergrade) {
 		this.usergrade = usergrade;
 	}
-	public String getFavleague() {
-		return favleague;
+	public Date getRegdate() {
+		return regdate;
 	}
-	public void setFavleague(String favleague) {
-		this.favleague = favleague;
-	}
-	public String getFavclubf() {
-		return favclubf;
-	}
-	public void setFavclubf(String favclubf) {
-		this.favclubf = favclubf;
-	}
-	public String getFavclubd() {
-		return favclubd;
-	}
-	public void setFavclubd(String favclubd) {
-		this.favclubd = favclubd;
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
 	}
 }

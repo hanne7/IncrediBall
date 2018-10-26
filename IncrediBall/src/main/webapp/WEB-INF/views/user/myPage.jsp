@@ -37,13 +37,22 @@
 	  </li>
 	</ul>
 	<div class="d-flex justify-content-around border">
-		<div class="card flex-fill">
-		  <img class="card-img-top" src="http://placehold.it/500x420" alt="Card image cap">
+		<div class="card">
+		<c:if test="${userVO.imgName == null }">
+			<img class="card-img-top" src="http://placehold.it/500x360" alt="Card image cap">
+		</c:if>
+		<c:if test="${userVO.imgName != null }">
+			<img width="500" class="card-img-top" src="/user/displayImg?imgName=${userVO.imgName }" alt="Card image cap">
+		</c:if>  
 		  <div class="card-body">
 		    <p class="card-text">
-		    	<button type="button" class="btn btn-success">이미지 등록</button>
+		    	<form action="/user/addImg" method="post" enctype="multipart/form-data">
+		    		<input type="file" name="imgFile" accept="image/*">
+		    		<input type="hidden" name="idx" value="${userVO.idx }">
+		    		<button id="imgBtn" type="submit" class="btn btn-success">이미지 등록</button>
+		    	</form>
 		    	<br>
-		    	<button type="button" class="btn btn-danger mt-2">회원탈퇴</button>
+		    	<button id="deleteBtn" type="button" class="btn btn-danger mt-2">회원탈퇴</button>
 		    </p>
 		  </div>
 		</div>
@@ -75,12 +84,26 @@
 		</table>	
 	</div>
 </div>
+<form role="form1" method="post">
+	<input type="hidden" name="idx" value="${userVO.idx }">
+</form>
 <c:import url="/footer"/>
 <script type="text/javascript">
 	var result = '${msg}';
 	if(result == 'SUCCESS'){
 		alert("처리가 완료되었습니다.");
 	}
+	
+	var formObj = $("form[role='form1']");
+	
+	$('#deleteBtn').on("click", function(){
+		var del = confirm('탈퇴하시겠습니까?');
+		if(del == true){
+			formObj.attr("action", "/user/delete");
+			formObj.submit();
+		}
+	});
+	
 </script>
 
 </body>

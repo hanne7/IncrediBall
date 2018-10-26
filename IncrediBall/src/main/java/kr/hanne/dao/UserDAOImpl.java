@@ -55,4 +55,13 @@ public class UserDAOImpl implements UserDAO {
 		return session.selectOne(namespace+".checkUserWithSessionKey", value);
 	}
 
+	@Override
+	public void deleteUser(int idx) throws Exception {
+		session.delete(namespace+".deleteUser", idx);
+	}
+
+	@Override
+	public void updateImg(UserVO vo) throws Exception {
+		session.update(namespace+".updateImg", vo);
+	}
 }

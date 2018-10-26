@@ -46,4 +46,14 @@ public class UserServiceImpl implements UserService {
 		return userDAO.checkUserWithSessionKey(value);
 	}
 
+	@Override
+	public void deleteUser(int idx) throws Exception {
+		userDAO.deleteUser(idx);
+	}
+
+	@Override
+	public void updateImg(UserVO vo) throws Exception {
+		userDAO.updateImg(vo);
+	}
+
 }

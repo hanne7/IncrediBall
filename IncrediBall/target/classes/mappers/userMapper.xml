@@ -40,4 +40,12 @@
  	SELECT * FROM user WHERE session_key = #{value} AND session_limit > now()
  </select>
  
+ <delete id="deleteUser">
+ 	DELETE FROM user WHERE idx = #{idx}
+ </delete>
+ 
+ <update id="updateImg">
+ 	UPDATE user SET img_name = #{imgName} WHERE idx = #{idx}	
+ </update>
+  
 </mapper>

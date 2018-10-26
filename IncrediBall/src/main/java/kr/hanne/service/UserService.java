@@ -18,4 +18,8 @@ public interface UserService {
 	public void keepLogin(String userId, String sessionId, Date next) throws Exception;
 	
 	public UserVO checkUserWithSessionKey(String value);
+	
+	public void deleteUser(int idx) throws Exception;
+	
+	public void updateImg(UserVO vo) throws Exception;
 }
