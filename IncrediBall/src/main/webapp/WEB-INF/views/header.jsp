@@ -73,51 +73,42 @@
 </div>
 
 <script type="text/javascript">
-$(document).ready(function(){
-	$(".btnvo").on("click",function(event){
-		console.log("voice control...");
-		setTimeout("if($('.outputvo').text()!=''){voiceControl();}" , 5500);
+	var power = "${power}";
+	console.log('1:'+power);	
+	
+	$('#voConBtn').on('click', function(){
+		
+		$.ajax({
+			type:'post',
+			url:'/voiceControl',
+			dataType:'text',
+			data:power,
+			contentType:'text/plain',
+			success:function(result){
+				console.log('2:' + result);
+			}
+		});
 	});
-});
-
-function voiceControl() {
-
-		if(($('.outputvo').text().indexOf('메인')!=-1||$('.outputvo').text().indexOf('홈')!=-1) && ($('.outputvo').text().indexOf('가자')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1||$('.outputvo').text().indexOf('보여')!=-1)){
-			self.location = '/';
+	
+	$(document).ready(function(){
+		if(power == 1){
+			recognition.start();
+			console.log('Ready to receive a text command.');
+			console.log('명령하십시오.');
 		}
-		if($('.outputvo').text().indexOf('게시판')!=-1 && ($('.outputvo').text().indexOf('가자')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1||$('.outputvo').text().indexOf('보여')!=-1)){
-			self.location = '/board/list?cate=0';
+		
+		if($(".outputvo").text().indexOf('아')!=-1){
+			$.ajax({
+				type:'post',
+				url:'/voiceControl',
+				dataType:'text',
+				data:power,
+				contentType:'text/plain',
+				success:function(result){
+					console.log('2:' + result);
+				}
+			});
 		}
-		if($('.outputvo').text().indexOf('자유게시판')!=-1 && ($('.outputvo').text().indexOf('가자')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1||$('.outputvo').text().indexOf('보여')!=-1)){
-			self.location = '/board/list?cate=3';
-		}
-		if($('.outputvo').text().indexOf('축구 게시판')!=-1 && ($('.outputvo').text().indexOf('가자')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1||$('.outputvo').text().indexOf('보여')!=-1)){
-			self.location = '/board/list?cate=2';
-		}		
-		if($('.outputvo').text().indexOf('프로토')!=-1 && ($('.outputvo').text().indexOf('가자')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1||$('.outputvo').text().indexOf('보여')!=-1)){
-			self.location = '/board/list?cate=4';
-		}
-		if($('.outputvo').text().indexOf('공지')!=-1 && ($('.outputvo').text().indexOf('가자')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1||$('.outputvo').text().indexOf('보여')!=-1)){
-			self.location = '/board/list?cate=1';
-		}
-		if($('.outputvo').text().indexOf('뉴스')!=-1 && ($('.outputvo').text().indexOf('가자')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1||$('.outputvo').text().indexOf('보여')!=-1)){
-			self.location = '/news/';
-		}
-		if($('.outputvo').text().indexOf('쇼핑몰')!=-1 && ($('.outputvo').text().indexOf('가자')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1||$('.outputvo').text().indexOf('보여')!=-1)){
-			self.location = '/shop/shopMain';
-		}
-		if($('.outputvo').text().indexOf('축구화')!=-1 && ($('.outputvo').text().indexOf('보여')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1)){
-			self.location = '/shop/shopMain?cate=1';
-		}
-		if($('.outputvo').text().indexOf('유니폼')!=-1 && ($('.outputvo').text().indexOf('보여')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1)){
-			self.location = '/shop/shopMain?cate=2';
-		}
-		if($('.outputvo').text().indexOf('축구공')!=-1 && ($('.outputvo').text().indexOf('보여')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1)){
-			self.location = '/shop/shopMain?cate=3';
-		}
-		if($('.outputvo').text().indexOf('장바구니')!=-1 && ($('.outputvo').text().indexOf('보여')!=-1||$('.outputvo').text().indexOf('열어')!=-1||$('.outputvo').text().indexOf('가줘')!=-1||$('.outputvo').text().indexOf('가 줘')!=-1)){
-			self.location = '/shop/cart';
-		}
-}
+	});
 </script>
 </header>
