@@ -179,6 +179,7 @@
     		setTimeout(restart(), 2000);
     	}
 		recognition.stop();
+		location.reload();
 	}
 
 	recognition.onerror = function (event) {
@@ -275,6 +276,7 @@
 	    		setTimeout(restart(), 2000);
 	    	}
 			recognition.stop();
+			location.reload();
 		}
 
 		recognition.onerror = function (event) {

@@ -23,7 +23,7 @@
 			<label for="userid">ID</label> 
 			<input type="text" class="form-control form-control-sm" name="userid" id="userid"
 				placeholder="ID를 입력하세요">
-			<span id="useridSpan"></span>
+			<span id="useridSpan"></span><span id="validId"></span>
 		</div>
 		<div class="form-group">
 			<label for="password">Password</label> 
@@ -43,6 +43,7 @@
 				aria-describedby="emailHelp" placeholder="Email을 입력하세요"> <small
 				id="emailHelp" class="form-text text-muted">We'll never
 				share your email with anyone else.</small>
+			<span id="emailSpan"></span>
 		</div>
 		<div class="form-group">
 			<label for="nickname">필명</label> 
@@ -74,55 +75,126 @@ $(document).ready(function(){
 	showValidSpan($('#passwordSpan'), $('#password'));
 	showValidSpan($('#usernameSpan'), $('#username'));
 	showValidSpan($('#nicknameSpan'), $('#nickname'));
+	showValidSpan($('#emailSpan'), $('#email'));
 	showValidSpan($('#phoneSpan'), $('#phone'));
 	showValidSpan($('#addressSpan'), $('#address'));
 });
 
 function showValidSpan(spanId, inputId){
 	spanId.hide();
-	var msg = ''
-	
-	if((spanId.get(0)==$('#useridSpan').get(0)) || (spanId.get(0)==$('#usernameSpan').get(0)) || (spanId.get(0)==$('#nicknameSpan').get(0))){
-		msg = '2자 이상 20자 이하로 입력해주세요.'
+		
+	if(spanId.get(0)==$('#useridSpan').get(0)){
 		inputId.keyup(function(){
-			if((inputId.val().length>20) || (inputId.val().length<2)){
-				spanId.addClass('text-danger h5');
-				spanId.text(msg);
+			var reg = /^[a-zA-Z0-9]{4,20}$/g;
+			var regResult = inputId.val().match(reg);
+			console.log(regResult);
+			if(regResult==null){
+				spanId.removeClass('text-success font-weight-bold');
+				spanId.addClass('text-danger h5 font-italic');
+				spanId.text('4자 이상 20자 이하의 영문과 숫자로만 입력해주세요.');
 				spanId.show();
+			} else{
+				spanId.text('v');
+				spanId.removeClass('text-danger');
+				spanId.addClass('text-success font-weight-bold');
+				spanId.show();				
 			}
-			if((inputId.val().length<=20) && (inputId.val().length>=2)){
-				spanId.hide();
+		});
+	}	
+	if((spanId.get(0)==$('#usernameSpan').get(0)) || (spanId.get(0)==$('#nicknameSpan').get(0))){
+		inputId.keyup(function(){
+			var reg = /^[\d\D]{2,20}$/g;
+			var regResult = inputId.val().match(reg);
+			console.log(regResult);
+			if(regResult==null){
+				spanId.removeClass('text-success font-weight-bold');
+				spanId.addClass('text-danger h5 font-italic');
+				spanId.text('2자 이상 20자 이하로 입력해주세요.');
+				spanId.show();
+			} else {
+				spanId.text('v');
+				spanId.removeClass('text-danger');
+				spanId.addClass('text-success font-weight-bold');
+				spanId.show();
 			}			
 		});
 	}
 	if(spanId.get(0) == $('#passwordSpan').get(0)){
-		msg = 'password는 8자 이상 20자 이하로 입력해주세요.'
 		inputId.keyup(function(){
-			if((inputId.val().length>20) || (inputId.val().length<8)){
-				spanId.addClass('text-danger h5');
-				spanId.text(msg);
+			var reg = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*?_-]).{8,20}$/g;
+			var regResult = inputId.val().match(reg);
+			console.log(regResult);
+			if(regResult==null){
+				spanId.removeClass('text-success font-weight-bold');
+				spanId.addClass('text-danger h5 font-italic');
+				spanId.text('8~20자의 영문+숫자+특수문자 조합으로 입력해주세요.(특수문자는!@#$%^&*?_-만 사용가능)');
 				spanId.show();
-			}
-			if((inputId.val().length<=20) && (inputId.val().length>=8)){
-				spanId.hide();
+			} else {
+				spanId.text('v');
+				spanId.removeClass('text-danger');
+				spanId.addClass('text-success font-weight-bold');
+				spanId.show();
 			}
 		});
 	}
-	if((spanId.get(0)==$('#phoneSpan').get(0)) || (spanId.get(0)==$('#addressSpan').get(0))){
-		msg = '45자 이내로 작성해주세요!';
+	if(spanId.get(0)==$('#emailSpan').get(0)){
 		inputId.keyup(function(){
-			if(inputId.val().length>45){
-				spanId.addClass('text-danger h5');
-				spanId.text(msg);
+			var reg = /^[\d\D]{2,45}$/g;
+			var regResult = inputId.val().match(reg);
+			console.log(regResult);
+			if(regResult==null){
+				spanId.removeClass('text-success font-weight-bold');
+				spanId.addClass('text-danger h5 font-italic');
+				spanId.text('email형식이 올바르지 않습니다!');
+				spanId.show();
+			} else {
+				spanId.text('v');
+				spanId.removeClass('text-danger');
+				spanId.addClass('text-success font-weight-bold');
 				spanId.show();
 			}
-			if(inputId.val().length<=45){
-				spanId.hide();
+		});
+	}
+	if(spanId.get(0)==$('#phoneSpan').get(0)){
+		inputId.keyup(function(){
+			var reg = /^[0-9]{10,12}$/g;
+			var regResult = inputId.val().match(reg);
+			console.log(regResult);
+			if(regResult==null){
+				spanId.removeClass('text-success font-weight-bold');
+				spanId.addClass('text-danger h5 font-italic');
+				spanId.text('10~12자 사이의 숫자로만 작성해주세요!');
+				spanId.show();
+			} else {
+				spanId.text('v');
+				spanId.removeClass('text-danger');
+				spanId.addClass('text-success font-weight-bold');
+				spanId.show();
+			}
+		});
+	}
+	if(spanId.get(0)==$('#addressSpan').get(0)){
+		inputId.keyup(function(){
+			var reg = /^[\d\D]{2,45}$/g;
+			var regResult = inputId.val().match(reg);
+			console.log(regResult);
+			if(regResult==null){
+				spanId.removeClass('text-success font-weight-bold');
+				spanId.addClass('text-danger h5 font-italic');
+				spanId.text('2자 이상 45자 이내로 작성해주세요!');
+				spanId.show();
+			} else {
+				spanId.text('v');
+				spanId.removeClass('text-danger');
+				spanId.addClass('text-success font-weight-bold');
+				spanId.show();
 			}
 		});
 	}
 	inputId.keyup(function(){
-		if(inputId.val().indexOf(' ')!=-1){
+		var reg = /\s/g;
+		var regResult = inputId.val().match(reg);
+		if(regResult!=null){
 			alert('공백은 입력할 수 없습니다.');
 		} 
 	});
