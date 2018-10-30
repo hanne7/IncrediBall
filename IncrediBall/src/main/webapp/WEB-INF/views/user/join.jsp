@@ -82,7 +82,7 @@ $(document).ready(function(){
 
 function showValidSpan(spanId, inputId){
 	spanId.hide();
-		
+	spanId.addClass('h5 font-italic');
 	if(spanId.get(0)==$('#useridSpan').get(0)){
 		inputId.keyup(function(){
 			var reg = /^[a-zA-Z0-9]{4,20}$/g;
@@ -90,7 +90,7 @@ function showValidSpan(spanId, inputId){
 			console.log(regResult);
 			if(regResult==null){
 				spanId.removeClass('text-success font-weight-bold');
-				spanId.addClass('text-danger h5 font-italic');
+				spanId.addClass('text-danger');
 				spanId.text('4자 이상 20자 이하의 영문과 숫자로만 입력해주세요.');
 				spanId.show();
 			} else{
@@ -101,15 +101,33 @@ function showValidSpan(spanId, inputId){
 			}
 		});
 	}	
-	if((spanId.get(0)==$('#usernameSpan').get(0)) || (spanId.get(0)==$('#nicknameSpan').get(0))){
+	if(spanId.get(0)==$('#usernameSpan').get(0)){
 		inputId.keyup(function(){
-			var reg = /^[\d\D]{2,20}$/g;
+			var reg = /^[가-힣]{2,20}$/g;
 			var regResult = inputId.val().match(reg);
 			console.log(regResult);
 			if(regResult==null){
 				spanId.removeClass('text-success font-weight-bold');
-				spanId.addClass('text-danger h5 font-italic');
-				spanId.text('2자 이상 20자 이하로 입력해주세요.');
+				spanId.addClass('text-danger');
+				spanId.text('2자 이상 20자 이하의 한글로 입력해주세요.(공백/특수문자 입력불가)');
+				spanId.show();
+			} else {
+				spanId.text('v');
+				spanId.removeClass('text-danger');
+				spanId.addClass('text-success font-weight-bold');
+				spanId.show();
+			}			
+		});
+	}
+	if(spanId.get(0)==$('#nicknameSpan').get(0)){
+		inputId.keyup(function(){
+			var reg = /^[\S]{2,20}$/g;
+			var regResult = inputId.val().match(reg);
+			console.log(regResult);
+			if(regResult==null){
+				spanId.removeClass('text-success font-weight-bold');
+				spanId.addClass('text-danger');
+				spanId.text('2자 이상 20자 이하로 입력해주세요.(공백 입력불가)');
 				spanId.show();
 			} else {
 				spanId.text('v');
@@ -126,7 +144,7 @@ function showValidSpan(spanId, inputId){
 			console.log(regResult);
 			if(regResult==null){
 				spanId.removeClass('text-success font-weight-bold');
-				spanId.addClass('text-danger h5 font-italic');
+				spanId.addClass('text-danger');
 				spanId.text('8~20자의 영문+숫자+특수문자 조합으로 입력해주세요.(특수문자는!@#$%^&*?_-만 사용가능)');
 				spanId.show();
 			} else {
@@ -139,13 +157,13 @@ function showValidSpan(spanId, inputId){
 	}
 	if(spanId.get(0)==$('#emailSpan').get(0)){
 		inputId.keyup(function(){
-			var reg = /^[\d\D]{2,45}$/g;
+			var reg = /^[\w.-]+@[a-zA-Z.]+\.[a-zA-Z]{2,3}$/gi;
 			var regResult = inputId.val().match(reg);
 			console.log(regResult);
 			if(regResult==null){
 				spanId.removeClass('text-success font-weight-bold');
-				spanId.addClass('text-danger h5 font-italic');
-				spanId.text('email형식이 올바르지 않습니다!');
+				spanId.addClass('text-danger');
+				spanId.text('email형식에 맞게 작성해주세요! (예시> xxx@xxx.xxx )');
 				spanId.show();
 			} else {
 				spanId.text('v');
@@ -162,26 +180,26 @@ function showValidSpan(spanId, inputId){
 			console.log(regResult);
 			if(regResult==null){
 				spanId.removeClass('text-success font-weight-bold');
-				spanId.addClass('text-danger h5 font-italic');
+				spanId.addClass('text-danger');
 				spanId.text('10~12자 사이의 숫자로만 작성해주세요!');
 				spanId.show();
 			} else {
 				spanId.text('v');
 				spanId.removeClass('text-danger');
-				spanId.addClass('text-success font-weight-bold');
+				spanId.addClass('text-success font-italic font-weight-bold');
 				spanId.show();
 			}
 		});
 	}
 	if(spanId.get(0)==$('#addressSpan').get(0)){
 		inputId.keyup(function(){
-			var reg = /^[\d\D]{2,45}$/g;
+			var reg = /^[\S].{1,44}$/g;
 			var regResult = inputId.val().match(reg);
 			console.log(regResult);
 			if(regResult==null){
 				spanId.removeClass('text-success font-weight-bold');
-				spanId.addClass('text-danger h5 font-italic');
-				spanId.text('2자 이상 45자 이내로 작성해주세요!');
+				spanId.addClass('text-danger');
+				spanId.text('공백 포함 2자 이상 45자 이내로 작성해주세요!');
 				spanId.show();
 			} else {
 				spanId.text('v');
@@ -191,13 +209,6 @@ function showValidSpan(spanId, inputId){
 			}
 		});
 	}
-	inputId.keyup(function(){
-		var reg = /\s/g;
-		var regResult = inputId.val().match(reg);
-		if(regResult!=null){
-			alert('공백은 입력할 수 없습니다.');
-		} 
-	});
 }
 
 
@@ -217,56 +228,62 @@ function joinSubmit(){
 }
 
 function validate(){
-	if($.trim($('#userid').val())==''){
-		alert("ID를 입력해주세요.");
+	var reg = /^[a-zA-Z0-9]{4,20}$/g;
+	var regResult = $('#userid').val().match(reg);
+	if(regResult==null){
+		alert("올바른 ID를 입력해주세요");
 		$('#userid').focus();
 		return false;
 	}
-	if($('#userid').val().indexOf(' ')!=-1){
-		alert("ID에 공백이 들어가면 안됩니다.")
-		$('#userid').focus();
-		return false;
-	}
-	if($.trim($('#password').val())==''){
-		alert("패스워드를 입력해주세요.");
+	
+	reg = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*?_-]).{8,20}$/g;
+	regResult = $('#password').val().match(reg);
+	if(regResult==null){
+		alert("올바른 패스워드를 입력해주세요");
 		$('#password').focus();
 		return false;
 	}
-	if($('#password').val().indexOf(' ')!=-1){
-		alert('password에 공백(spacebar)이 들어가면 안됩니다.')
-		$('#password').focus();
-		return false;
-	}
-	if($.trim($('#username').val())==''){
-		alert("이름을 입력해주세요.");
+	
+	reg = /^[가-힣]{2,20}$/g;
+	regResult = $('#username').val().match(reg);
+	if(regResult==null){
+		alert("올바른 이름을 입력해주세요");
 		$('#username').focus();
 		return false;
 	}
-	if($('#username').val().indexOf(' ')!=-1){
-		alert("이름에 공백이 들어가면 안됩니다.")
-		$('#username').focus();
+	
+	reg = /^[\S]{2,20}$/g;
+	regResult = $('#nickname').val().match(reg);
+	if(regResult==null){
+		alert("올바른 필명을 입력해주세요");
+		$('#nickname').focus();
 		return false;
-	}
-	if($.trim($('#email').val())==''){
-		alert("이메일을 입력해주세요.");
+	}	
+	
+	reg = /^[\w.-]+@[a-zA-Z.]+\.[a-zA-Z]{2,3}$/gi;
+	regResult = $('#email').val().match(reg);
+	if(regResult==null){
+		alert("올바른 email을 입력해주세요");
 		$('#email').focus();
 		return false;
 	}
-	if($.trim($('#nickname').val())==''){
-		alert("필명을 입력해주세요.");
-		$('#nickname').focus();
-		return false;
-	}
-	if($.trim($('#phone').val())==''){
-		alert("연락처를 입력해주세요.");
+	
+	reg = /^[0-9]{10,12}$/g;
+	regResult = $('#phone').val().match(reg);
+	if(regResult==null){
+		alert("올바른 연락처를 입력해주세요");
 		$('#phone').focus();
 		return false;
 	}
-	if($.trim($('#address').val())==''){
-		alert("주소를 입력해주세요.");
+	
+	reg = /^[\S].{1,44}$/g;
+	regResult = $('#address').val().match(reg);
+	if(regResult==null){
+		alert("올바른 주소를 입력해주세요");
 		$('#address').focus();
 		return false;
 	}
+	
 	return true;
 }
 
