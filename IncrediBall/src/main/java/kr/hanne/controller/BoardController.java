@@ -118,7 +118,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modify(@ModelAttribute BoardVO vo, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) throws Exception{
+	public String modify(@ModelAttribute("vo") BoardVO vo, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) throws Exception{
 		logger.info(vo.toString());
 		logger.info(cri.toString());
 		logger.info("board modify success!.....");

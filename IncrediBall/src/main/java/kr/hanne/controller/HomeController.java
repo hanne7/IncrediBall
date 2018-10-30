@@ -57,7 +57,8 @@ public class HomeController {
 	
 	@RequestMapping(value="/voiceControl", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	public ResponseEntity<String> voiceControl(@RequestBody String power, HttpSession session) {
-		System.out.println(power);
+		logger.info("power: " + power);
+		
 		try{
 			session.removeAttribute("power");
 		
@@ -65,11 +66,34 @@ public class HomeController {
 				power = "1";
 			} else if(power.equals("1")) {
 				power = "0";
+				session.removeAttribute("mode");
+				session.setAttribute("mode", "0");
 			}
 			
 			session.setAttribute("power", power);
-		
+			logger.info("after power: " + power);
 			return new ResponseEntity<>(power, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@RequestMapping(value="/modeControl", method=RequestMethod.POST)
+	public ResponseEntity<String> modeControl(@RequestBody String mode, HttpSession session){
+		logger.info("mode: " + mode);
+		
+		try {
+			session.removeAttribute("mode");
+			if(mode.equals("1")) {
+				mode = "0";
+			} else if(mode.equals("0")) {
+				mode = "1";
+			}
+			session.setAttribute("mode", mode);
+			logger.info("after mode: " + mode);
+			return new ResponseEntity<>(mode, HttpStatus.OK);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -80,6 +104,7 @@ public class HomeController {
 	public void header(HttpSession session, Model model) throws Exception{
 		
 		Object power =  session.getAttribute("power");
+		Object mode = session.getAttribute("mode");
 		
 		if(power!=null) {
 			model.addAttribute("power", power);
@@ -87,6 +112,14 @@ public class HomeController {
 			power = "0";
 			model.addAttribute("power", power);
 			session.setAttribute("power", power);
+		}
+		
+		if(mode!=null) {
+			model.addAttribute("mode", mode);
+		} else {
+			mode = "0";
+			model.addAttribute("mode", mode);
+			session.setAttribute("mode", mode);
 		}
 		
 	}
