@@ -13,34 +13,14 @@ public class ProductVO {
 	private int cost;
 	private String status;
 	private Date regdate;
-	private UserVO userVO;
 	private String[] files;
 	private String fullname;
-
+	
 	@Override
 	public String toString() {
 		return "ProductVO [idx=" + idx + ", productName=" + productName + ", productCategory=" + productCategory
 				+ ", categoryName=" + categoryName + ", quantity=" + quantity + ", cost=" + cost + ", status=" + status
-				+ ", regdate=" + regdate + ", userVO=" + userVO + ", files=" + Arrays.toString(files) + ", fullname="
-				+ fullname + "]";
-	}
-	public String getFullname() {
-		return fullname;
-	}
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
-	}
-	public String[] getFiles() {
-		return files;
-	}
-	public void setFiles(String[] files) {
-		this.files = files;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
+				+ ", regdate=" + regdate + ", files=" + Arrays.toString(files) + ", fullname=" + fullname + "]";
 	}
 	public int getIdx() {
 		return idx;
@@ -78,16 +58,28 @@ public class ProductVO {
 	public void setCost(int cost) {
 		this.cost = cost;
 	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public Date getRegdate() {
 		return regdate;
 	}
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	public UserVO getUserVO() {
-		return userVO;
+	public String[] getFiles() {
+		return files;
 	}
-	public void setUserVO(UserVO userVO) {
-		this.userVO = userVO;
+	public void setFiles(String[] files) {
+		this.files = files;
+	}
+	public String getFullname() {
+		return fullname;
+	}
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 }
