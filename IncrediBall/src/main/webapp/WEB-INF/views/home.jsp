@@ -30,7 +30,7 @@
 			<div class="carousel-inner">
 				<div class="carousel-item active">
 					<img class="d-block w-100"
-						src="http://placehold.it/1000x350?auto=yes&bg=777&fg=555&text=First slide"
+						src="https://i.imgur.com/PQQ6CRB.jpg/1000x350?auto=yes&bg=777&fg=555&text=First slide"
 						alt="First slide">
 					<div class="carousel-caption d-none d-md-block">
 						<h3>1st</h3>
@@ -39,7 +39,7 @@
 				</div>
 				<div class="carousel-item">
 					<img class="d-block w-100"
-						src="http://placehold.it/1000x350?auto=yes&bg=666&fg=444&text=Second slide"
+						src="https://i.imgur.com/PQQ6CRB.jpg/1000x350?auto=yes&bg=666&fg=444&text=Second slide"
 						alt="Second slide">
 					<div class="carousel-caption d-none d-md-block">
 						<h3>2nd</h3>
@@ -48,7 +48,7 @@
 				</div>
 				<div class="carousel-item">
 					<img class="d-block w-100"
-						src="http://placehold.it/1000x350?auto=yes&bg=555&fg=333&text=Third slide"
+						src="https://i.imgur.com/PQQ6CRB.jpg/1000x350?auto=yes&bg=555&fg=333&text=Third slide"
 						alt="Third slide">
 					<div class="carousel-caption d-none d-md-block">
 						<h3>3rd</h3>
