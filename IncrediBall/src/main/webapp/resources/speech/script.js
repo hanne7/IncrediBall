@@ -23,7 +23,6 @@ var btn = document.querySelector('.btnvo');
 btn.onclick = function () {
     recognition.start();
     console.log('Ready to receive a text command.');
-    console.log('명령하십시오.');
 }
 
 // 결과 받기 및 처리

@@ -32,9 +32,7 @@
 		</div>
 	</div>
 </div>
-<div id="abc">
 
-</div>
 <c:import url="/footer"/>
 <script type="text/javascript" charset="UTF-8">
 	var result = '${msg}';

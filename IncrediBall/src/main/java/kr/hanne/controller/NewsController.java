@@ -36,7 +36,6 @@ public class NewsController {
 		return "news/newsMain";
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="/getEuroNews", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
 	public ResponseEntity<Object> newsEuro() {
 		
@@ -81,7 +80,6 @@ public class NewsController {
 		}
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="/getKorNews", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
 	public ResponseEntity<Object> newsKor() {
 		

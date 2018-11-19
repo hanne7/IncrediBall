@@ -175,9 +175,9 @@
 	
 	// 음성 인식 종료
 	recognition.onspeechend = function () {
-		if(power==1){
+		/* if(power==1){
     		setTimeout(restart(), 2000);
-    	}
+    	} */
 		recognition.stop();
 		location.reload();
 	}
@@ -188,6 +188,54 @@
 	    	output.textContent = 'Error occurred in recognition: ' + event.error;
     		setTimeout(restart(), 2000);
     	}
+	}
+	
+	
+	function modeCheck(text){
+		if(mode==1){
+			setTimeout(voiceControl(text) , 4000);
+		} else {
+			setTimeout("output.textContent = '명령모드가 아닙니다.'", 2000);
+		}
+	}
+
+	function voiceControl(text) {
+		if((text.indexOf('메인')!=-1||text.indexOf('홈')!=-1) && (text.indexOf('가자')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1||text.indexOf('보여')!=-1)){
+			self.location = '/';
+		}
+		if(text.indexOf('게시판')!=-1 && (text.indexOf('가자')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1||text.indexOf('보여')!=-1)){
+			self.location = '/board/list?cate=0';
+		}
+		if(text.indexOf('자유게시판')!=-1 && (text.indexOf('가자')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1||text.indexOf('보여')!=-1)){
+			self.location = '/board/list?cate=3';
+		}
+		if(text.indexOf('축구 게시판')!=-1 && (text.indexOf('가자')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1||text.indexOf('보여')!=-1)){
+			self.location = '/board/list?cate=2';
+		}		
+		if(text.indexOf('프로토')!=-1 && (text.indexOf('가자')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1||text.indexOf('보여')!=-1)){
+			self.location = '/board/list?cate=4';
+		}
+		if(text.indexOf('공지')!=-1 && (text.indexOf('가자')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1||text.indexOf('보여')!=-1)){
+			self.location = '/board/list?cate=1';
+		}
+		if(text.indexOf('뉴스')!=-1 && (text.indexOf('가자')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1||text.indexOf('보여')!=-1)){
+			self.location = '/news/';
+		}
+		if(text.indexOf('쇼핑몰')!=-1 && (text.indexOf('가자')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1||text.indexOf('보여')!=-1)){
+			self.location = '/shop/shopMain';
+		}
+		if(text.indexOf('축구화')!=-1 && (text.indexOf('보여')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1)){
+			self.location = '/shop/shopMain?cate=1';
+		}
+		if(text.indexOf('유니폼')!=-1 && (text.indexOf('보여')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1)){
+			self.location = '/shop/shopMain?cate=2';
+		}
+		if(text.indexOf('축구공')!=-1 && (text.indexOf('보여')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1)){
+			self.location = '/shop/shopMain?cate=3';
+		}
+		if(text.indexOf('장바구니')!=-1 && (text.indexOf('보여')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1)){
+			self.location = '/shop/cart';
+		}
 	}
 	
 	function restart(){
@@ -272,9 +320,9 @@
 		}
 		// 음성 인식 종료
 		recognition.onspeechend = function () {
-			if(power==1){
+			/* if(power==1){
 	    		setTimeout(restart(), 2000);
-	    	}
+	    	} */
 			recognition.stop();
 			location.reload();
 		}
@@ -285,53 +333,6 @@
 		    	output.textContent = 'Error occurred in recognition: ' + event.error;
 	    		setTimeout(restart(), 2000);
 	    	}
-		}
-	}
-	
-	function modeCheck(text){
-		if(mode==1){
-			setTimeout(voiceControl(text) , 4000);
-		} else {
-			setTimeout("output.textContent = '명령모드가 아닙니다.'", 2000);
-		}
-	}
-
-	function voiceControl(text) {
-		if((text.indexOf('메인')!=-1||text.indexOf('홈')!=-1) && (text.indexOf('가자')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1||text.indexOf('보여')!=-1)){
-			self.location = '/';
-		}
-		if(text.indexOf('게시판')!=-1 && (text.indexOf('가자')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1||text.indexOf('보여')!=-1)){
-			self.location = '/board/list?cate=0';
-		}
-		if(text.indexOf('자유게시판')!=-1 && (text.indexOf('가자')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1||text.indexOf('보여')!=-1)){
-			self.location = '/board/list?cate=3';
-		}
-		if(text.indexOf('축구 게시판')!=-1 && (text.indexOf('가자')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1||text.indexOf('보여')!=-1)){
-			self.location = '/board/list?cate=2';
-		}		
-		if(text.indexOf('프로토')!=-1 && (text.indexOf('가자')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1||text.indexOf('보여')!=-1)){
-			self.location = '/board/list?cate=4';
-		}
-		if(text.indexOf('공지')!=-1 && (text.indexOf('가자')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1||text.indexOf('보여')!=-1)){
-			self.location = '/board/list?cate=1';
-		}
-		if(text.indexOf('뉴스')!=-1 && (text.indexOf('가자')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1||text.indexOf('보여')!=-1)){
-			self.location = '/news/';
-		}
-		if(text.indexOf('쇼핑몰')!=-1 && (text.indexOf('가자')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1||text.indexOf('보여')!=-1)){
-			self.location = '/shop/shopMain';
-		}
-		if(text.indexOf('축구화')!=-1 && (text.indexOf('보여')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1)){
-			self.location = '/shop/shopMain?cate=1';
-		}
-		if(text.indexOf('유니폼')!=-1 && (text.indexOf('보여')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1)){
-			self.location = '/shop/shopMain?cate=2';
-		}
-		if(text.indexOf('축구공')!=-1 && (text.indexOf('보여')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1)){
-			self.location = '/shop/shopMain?cate=3';
-		}
-		if(text.indexOf('장바구니')!=-1 && (text.indexOf('보여')!=-1||text.indexOf('열어')!=-1||text.indexOf('가줘')!=-1||text.indexOf('가 줘')!=-1)){
-			self.location = '/shop/cart';
 		}
 	}
 </script>
