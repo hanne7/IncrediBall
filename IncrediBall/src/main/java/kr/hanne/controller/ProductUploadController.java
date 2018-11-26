@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.hanne.util.MediaUtils;
-import kr.hanne.util.UploadFileUtils;
 import kr.hanne.util.UploadProductUtils;
 
 @Controller
