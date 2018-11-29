@@ -139,13 +139,13 @@ function showValidSpan(spanId, inputId){
 	}
 	if(spanId.get(0) == $('#passwordSpan').get(0)){
 		inputId.keyup(function(){
-			var reg = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*?_-]).{8,20}$/g;
+			var reg = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*?_]).{8,20}$/g;
 			var regResult = inputId.val().match(reg);
 			console.log(regResult);
 			if(regResult==null){
 				spanId.removeClass('text-success font-weight-bold');
 				spanId.addClass('text-danger');
-				spanId.text('8~20자의 영문+숫자+특수문자 조합으로 입력해주세요.(특수문자는!@#$%^&*?_-만 사용가능)');
+				spanId.text('8~20자의 영문+숫자+특수문자 조합으로 입력해주세요.(특수문자는!@#$%^&*?_만 사용가능)');
 				spanId.show();
 			} else {
 				spanId.text('v');
